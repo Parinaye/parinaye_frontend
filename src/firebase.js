@@ -7,12 +7,14 @@ import 'firebase/storage';
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: "real-estate-c8aa4.firebaseapp.com",
-  projectId: "real-estate-c8aa4",
-  storageBucket: "real-estate-c8aa4.appspot.com",
-  messagingSenderId: "940584063355",
-  appId: "1:940584063355:web:35b46d959e0ac3cc53adde"
+  authDomain: "parinaye-firebase.firebaseapp.com",
+  projectId: "parinaye-firebase",
+  storageBucket: "parinaye-firebase.appspot.com",
+  messagingSenderId: "864232050248",
+  appId: "1:864232050248:web:1362885205f81ee5ed527d",
+  measurementId: "G-SGS3CVF8L2"
 };
 
 // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
