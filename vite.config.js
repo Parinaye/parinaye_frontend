@@ -14,7 +14,7 @@ export default ({mode}) =>{
     server: {
       proxy: {
         '/api': {
-          target: process.env.MY_BACKEND_URL,
+          target: "https://parinaye-backend.vercel.app/",
           secure: false,
         },
     }},
