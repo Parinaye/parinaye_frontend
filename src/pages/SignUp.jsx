@@ -55,14 +55,18 @@ export default function SignUp() {
         return;
       }
 
-      const res = await fetch("https://parinaye-backend.vercel.app/" +"api/auth/signup", {
-        method: "POST",
-        headers: {
-          "access-control-allow-origin" : "*",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        "https://parinaye-backend.vercel.app/" + "api/auth/signup",
+        {
+          method: "POST",
+          headers: {
+            "access-control-allow-origin": "*",
+            "Content-Type": "application/json",
+            credentials: "include",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await res.json();
 
       if (data.success === false) {

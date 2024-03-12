@@ -15,6 +15,7 @@ export default function UsersSettings() {
         headers: {
           "access-control-allow-origin" : "*",
           "Content-Type": "application/json",
+          credentials: "include",
         },
         body: JSON.stringify(formData),
       });
@@ -34,6 +35,7 @@ export default function UsersSettings() {
         headers: {
           "access-control-allow-origin" : "*",
           "Content-Type": "application/json",
+          credentials: "include",
         },
       });
       const data = await res.json();
@@ -52,7 +54,8 @@ export default function UsersSettings() {
           method: "GET",
           headers: {
           "access-control-allow-origin" : "*",
-            "Content-Type": "application/json",
+          "Content-Type": "application/json",
+          credentials: "include",
           },
         });
         const data = await res.json();

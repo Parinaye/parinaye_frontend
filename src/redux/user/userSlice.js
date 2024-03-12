@@ -87,13 +87,17 @@ export const {
 export const validateToken = () => async (dispatch) => {
   dispatch(signInStart());
   try {
-    const res = await fetch("https://parinaye-backend.vercel.app/" +"api/auth/check_token", {
-      method: "GET",
-      headers: {
-          "access-control-allow-origin" : "*",
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      "https://parinaye-backend.vercel.app/" + "api/auth/check_token",
+      {
+        method: "GET",
+        headers: {
+          "access-control-allow-origin": "*",
+          "Content-Type": "application/json",
+          credentials: "include",
+        },
+      }
+    );
     const data = await res.json();
     if (data.success === false) {
       dispatch(signInFailure(data.message));

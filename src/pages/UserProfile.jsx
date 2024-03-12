@@ -23,11 +23,7 @@ import {
 import { Card } from "../components/shadcn/components/ui/card.jsx";
 import { Input } from "../components/shadcn/components/ui/input.jsx";
 import { Button } from "../components/shadcn/components/ui/button.jsx";
-import { FaEdit , FaTimes} from "react-icons/fa";
-
-
-
-
+import { FaEdit, FaTimes } from "react-icons/fa";
 
 export default function UserProfile() {
   const fileRef = useRef(null);
@@ -85,14 +81,19 @@ export default function UserProfile() {
     e.preventDefault();
     try {
       dispatch(updateUserAtStart());
-      const res = await fetch("https://parinaye-backend.vercel.app/" +`api/user/update/${currentUser._id}`, {
-        method: "PUT",
-        headers: {
-          "access-control-allow-origin" : "*",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        "https://parinaye-backend.vercel.app/" +
+          `api/user/update/${currentUser._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "access-control-allow-origin": "*",
+            "Content-Type": "application/json",
+            credentials: "include",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await res.json();
 
       if (data.success === false) {
@@ -112,13 +113,18 @@ export default function UserProfile() {
     e.preventDefault();
     dispatch(deleteUserAtStart());
     try {
-      const res = await fetch("https://parinaye-backend.vercel.app/" +`api/user/delete/${currentUser._id}`, {
-        method: "DELETE",
-        headers: {
-          "access-control-allow-origin" : "*",
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await fetch(
+        "https://parinaye-backend.vercel.app/" +
+          `api/user/delete/${currentUser._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "access-control-allow-origin": "*",
+            "Content-Type": "application/json",
+            credentials: "include",
+          },
+        }
+      );
       const data = await res.json();
       if (data.success === false) {
         dispatch(deleteUserFailure(data.message));
@@ -143,21 +149,28 @@ export default function UserProfile() {
       {currentUser && currentUser._id ? (
         <Card className="w-lg m-4 flex-grow">
           <h1 className="text-center text-4xl font-bold m-10">My Account</h1>
-          <form className="flex flex-col items-center gap-5 p-4" onSubmit={handleSubmit}>
+          <form
+            className="flex flex-col items-center gap-5 p-4"
+            onSubmit={handleSubmit}
+          >
             <div className="flex flex-row justify-center items-start">
               <img
                 src={formData.avatar || currentUser.avatar}
                 alt="profile_pic"
                 className="rounded-full h-24 w-24 object-cover cursor-pointer self-center m-2"
               />
-              <div className="flex flex-col items-start" >
-                {editPic ? 
-                  (<FaTimes className="text-2xl cursor-pointer" onClick={() => setEditPic(!editPic)}/>):
-                (<FaEdit
-                  className="text-2xl cursor-pointer"
-                  
-                  onClick={() => setEditPic(!editPic)}
-                />)}
+              <div className="flex flex-col items-start">
+                {editPic ? (
+                  <FaTimes
+                    className="text-2xl cursor-pointer"
+                    onClick={() => setEditPic(!editPic)}
+                  />
+                ) : (
+                  <FaEdit
+                    className="text-2xl cursor-pointer"
+                    onClick={() => setEditPic(!editPic)}
+                  />
+                )}
               </div>
             </div>
             <input

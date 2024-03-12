@@ -190,7 +190,8 @@ export default function CreateEditProfile({
           method: "PUT",
           headers: {
           "access-control-allow-origin" : "*",
-            "Content-Type": "application/json",
+          "Content-Type": "application/json",
+          credentials: "include",
           },
           body: JSON.stringify(formData),
         });
@@ -202,6 +203,7 @@ export default function CreateEditProfile({
           headers: {
           "access-control-allow-origin" : "*",
             "Content-Type": "application/json",
+            credentials: "include",
           },
           body: JSON.stringify(formData),
         });

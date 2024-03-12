@@ -36,7 +36,7 @@ export default function PorfilesList() {
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const currentRecords = profiles.slice(indexOfFirstRecord, indexOfLastRecord);
-  const {currentUser} =useSelector((state) => state.user);
+  const { currentUser } = useSelector((state) => state.user);
 
   const [filters, setFilters] = useState({
     profession: [],
@@ -44,8 +44,8 @@ export default function PorfilesList() {
     education: [],
     maritalStatus: [],
     income: [],
-    caste:[],
-    religion:[],
+    caste: [],
+    religion: [],
   });
   const navigate = useNavigate();
 
@@ -60,13 +60,18 @@ export default function PorfilesList() {
       });
 
       console.log(queryString);
-      const res = await fetch("https://parinaye-backend.vercel.app/" +`api/profile/get_profiles?${queryString}`, {
-        method: "GET",
-        headers: {
-          "access-control-allow-origin" : "*",
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await fetch(
+        "https://parinaye-backend.vercel.app/" +
+          `api/profile/get_profiles?${queryString}`,
+        {
+          method: "GET",
+          headers: {
+            "access-control-allow-origin": "*",
+            "Content-Type": "application/json",
+            credentials: "include",
+          },
+        }
+      );
       const data = await res.json();
       if (data.success === false && data.statusCode === 403) {
         setError(data.message);
@@ -83,13 +88,18 @@ export default function PorfilesList() {
 
   const handleSearch = async (e) => {
     try {
-      const res = await fetch("https://parinaye-backend.vercel.app/" +`api/profile/search/?searchParam=${e.target.value}`, {
-        method: "GET",
-        headers: {
-          "access-control-allow-origin" : "*",
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await fetch(
+        "https://parinaye-backend.vercel.app/" +
+          `api/profile/search/?searchParam=${e.target.value}`,
+        {
+          method: "GET",
+          headers: {
+            "access-control-allow-origin": "*",
+            "Content-Type": "application/json",
+            credentials: "include",
+          },
+        }
+      );
       const data = await res.json();
       if (data.success === false && data.statusCode === 403) {
         setError(data.message);
@@ -102,19 +112,23 @@ export default function PorfilesList() {
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   useEffect(() => {
     const fetchProfiles = async () => {
       setProfilesLoading(true);
       try {
-        const res = await fetch("https://parinaye-backend.vercel.app/" +"api/profile/get_profiles", {
-          method: "GET",
-          headers: {
-          "access-control-allow-origin" : "*",
-            "Content-Type": "application/json",
-          },
-        });
+        const res = await fetch(
+          "https://parinaye-backend.vercel.app/" + "api/profile/get_profiles",
+          {
+            method: "GET",
+            headers: {
+              "access-control-allow-origin": "*",
+              "Content-Type": "application/json",
+              credentials: "include",
+            },
+          }
+        );
         const data = await res.json();
         if (data.success === false && data.statusCode === 403) {
           setError(data.message);
@@ -156,27 +170,26 @@ export default function PorfilesList() {
                 placeholder={`Search profiles by name, email, phone number ...`}
                 className="rounded-md max-w-sm border-primary mx-2 bg-background dark:bg-zinc-800 dark:text-white"
                 onChange={handleSearch}
-                
               />
               {currentUser.role == "admin" && (
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button variant="default">Create Profile</Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-4xl max-h-screen">
-                  <DialogHeader>
-                    <DialogTitle>Create profile</DialogTitle>
-                    <DialogDescription>
-                      Create your profile here. Click save when you're done.
-                    </DialogDescription>
-                  </DialogHeader>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="default">Create Profile</Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-4xl max-h-screen">
+                    <DialogHeader>
+                      <DialogTitle>Create profile</DialogTitle>
+                      <DialogDescription>
+                        Create your profile here. Click save when you're done.
+                      </DialogDescription>
+                    </DialogHeader>
 
-                  <ScrollArea className="rounded-md border max-h-lvh overflow-scroll">
-                    <CreateProfile />
-                    <ScrollBar orientation="horizontal" />
-                  </ScrollArea>
-                </DialogContent>
-              </Dialog>
+                    <ScrollArea className="rounded-md border max-h-lvh overflow-scroll">
+                      <CreateProfile />
+                      <ScrollBar orientation="horizontal" />
+                    </ScrollArea>
+                  </DialogContent>
+                </Dialog>
               )}
             </div>
             <Separator />
@@ -201,31 +214,31 @@ export default function PorfilesList() {
                         ))}
                       </div>
                     )}
-                    {currentRecords.length > 0 && currentRecords.map((profile) => (
-                      <ProfileListCard profile={profile} />
-                    ))}
-                    
+                    {currentRecords.length > 0 &&
+                      currentRecords.map((profile) => (
+                        <ProfileListCard profile={profile} />
+                      ))}
                   </div>
                 </ScrollArea>
                 {currentRecords.length < 1 && !profilesLoading && (
-                      <Card className="w-full m-4 p-4">
-                        <span className="text-center text-3xl">
-                          No profiles found <FaSadTear className="text-center text-9xl text-primary inline" /> !!
-                        </span>
-
-                      </Card>
-                    )}
-                { profiles.length > 0 &&
-                   <section className="w-full flex felx-row justify-end">
-                   <MyPagination
-                     setCurrentPage={setCurrentPage}
-                     currentPage={currentPage}
-                     profiles={profiles}
-                     recordsPerPage={recordsPerPage}
-                   />
-                 </section>
-                }
-               
+                  <Card className="w-full m-4 p-4">
+                    <span className="text-center text-3xl">
+                      No profiles found{" "}
+                      <FaSadTear className="text-center text-9xl text-primary inline" />{" "}
+                      !!
+                    </span>
+                  </Card>
+                )}
+                {profiles.length > 0 && (
+                  <section className="w-full flex felx-row justify-end">
+                    <MyPagination
+                      setCurrentPage={setCurrentPage}
+                      currentPage={currentPage}
+                      profiles={profiles}
+                      recordsPerPage={recordsPerPage}
+                    />
+                  </section>
+                )}
               </section>
             </div>
           </div>

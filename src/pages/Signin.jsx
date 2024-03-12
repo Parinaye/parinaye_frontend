@@ -26,7 +26,7 @@ export default function Signin() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     console.log(formData);
     dispatch(signInStart());
 
@@ -40,14 +40,18 @@ export default function Signin() {
         return;
       }
 
-      const res = await fetch("https://parinaye-backend.vercel.app/" +"api/auth/signin", {
-        method: "POST",
-        headers: {
-          "access-control-allow-origin" : "*",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        "https://parinaye-backend.vercel.app/" + "api/auth/signin",
+        {
+          method: "POST",
+          headers: {
+            "access-control-allow-origin": "*",
+            "Content-Type": "application/json",
+            credentials: "include",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await res.json();
 
       if (data.success === false) {
@@ -92,9 +96,9 @@ export default function Signin() {
             {isSubmitting ? "Logging..." : "Sign In"}
           </Button>
           <div className="flex justify-center">
-          <Link to={"/forgot-password"} className="m-1 justify-center">
-            <span className="text-md text-blue-500">Forgot Password?</span>
-          </Link>
+            <Link to={"/forgot-password"} className="m-1 justify-center">
+              <span className="text-md text-blue-500">Forgot Password?</span>
+            </Link>
           </div>
         </form>
         <div className="relative">

@@ -53,14 +53,18 @@ export default function ForgotPassword() {
         setIsSubmitting(false);
         return;
       }
-      const res = await fetch("https://parinaye-backend.vercel.app/" +"api/auth/sendOtp", {
-        method: "post",
-        headers: {
-          "access-control-allow-origin" : "*",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username: formData.username }),
-      });
+      const res = await fetch(
+        "https://parinaye-backend.vercel.app/" + "api/auth/sendOtp",
+        {
+          method: "post",
+          headers: {
+            "access-control-allow-origin": "*",
+            "Content-Type": "application/json",
+            credentials: "include",
+          },
+          body: JSON.stringify({ username: formData.username }),
+        }
+      );
       const data = await res.json();
       if (data.success === false) {
         setError(data.message);
@@ -87,14 +91,18 @@ export default function ForgotPassword() {
         setIsSubmitting(false);
         return;
       }
-      const res = await fetch("https://parinaye-backend.vercel.app/" +"api/auth/verifyOtp", {
-        method: "post",
-        headers: {
-          "access-control-allow-origin" : "*",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ otp: formData.otp }),
-      });
+      const res = await fetch(
+        "https://parinaye-backend.vercel.app/" + "api/auth/verifyOtp",
+        {
+          method: "post",
+          headers: {
+            "access-control-allow-origin": "*",
+            "Content-Type": "application/json",
+            credentials: "include",
+          },
+          body: JSON.stringify({ otp: formData.otp }),
+        }
+      );
       const data = await res.json();
       if (data.success === false) {
         setError(data.message);
@@ -128,14 +136,18 @@ export default function ForgotPassword() {
         setIsSubmitting(false);
         return;
       }
-      const res = await fetch("https://parinaye-backend.vercel.app/" +"api/auth/resetPassword", {
-        method: "post",
-        headers: {
-          "access-control-allow-origin" : "*",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ password: formData.password }),
-      });
+      const res = await fetch(
+        "https://parinaye-backend.vercel.app/" + "api/auth/resetPassword",
+        {
+          method: "post",
+          headers: {
+            "access-control-allow-origin": "*",
+            "Content-Type": "application/json",
+            credentials: "include",
+          },
+          body: JSON.stringify({ password: formData.password }),
+        }
+      );
       const data = await res.json();
       if (data.success === false) {
         setError(data.message);
@@ -190,7 +202,8 @@ export default function ForgotPassword() {
 
           <div className="flex justify-center items-center gap-6 flex-grow">
             <p className="text-md ">
-              Last sent OTP expires in {minutes}m : {seconds < 10 ? `0${seconds}` : seconds}s
+              Last sent OTP expires in {minutes}m :{" "}
+              {seconds < 10 ? `0${seconds}` : seconds}s
             </p>
             <Button
               onClick={() => {

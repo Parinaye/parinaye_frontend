@@ -55,6 +55,7 @@ export default function EditViewProfile({ props }) {
           headers: {
           "access-control-allow-origin" : "*",
             "Content-Type": "application/json",
+  credentials: "include",
           },
         });
         const data = await res.json();
