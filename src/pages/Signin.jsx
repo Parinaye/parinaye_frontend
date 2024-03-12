@@ -43,6 +43,7 @@ export default function Signin() {
       const res = await fetch("https://parinaye-backend.vercel.app/" +"api/auth/signin", {
         method: "POST",
         headers: {
+          "access-control-allow-origin" : "*",
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),

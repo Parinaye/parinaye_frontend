@@ -13,6 +13,7 @@ export default function UsersSettings() {
       const res = await fetch("https://parinaye-backend.vercel.app/" +`api/user/update_user/${formData.id}`, {
         method: "PUT",
         headers: {
+          "access-control-allow-origin" : "*",
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
@@ -31,6 +32,7 @@ export default function UsersSettings() {
       const res = await fetch("https://parinaye-backend.vercel.app/" +`api/user/delete_user/${id}`, {
         method: "DELETE",
         headers: {
+          "access-control-allow-origin" : "*",
           "Content-Type": "application/json",
         },
       });
@@ -49,6 +51,7 @@ export default function UsersSettings() {
         const res = await fetch("https://parinaye-backend.vercel.app/" +"api/user/all_users", {
           method: "GET",
           headers: {
+          "access-control-allow-origin" : "*",
             "Content-Type": "application/json",
           },
         });

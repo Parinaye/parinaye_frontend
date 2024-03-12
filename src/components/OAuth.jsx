@@ -22,6 +22,7 @@ export default function OAuth({className}) {
       const res = await fetch("https://parinaye-backend.vercel.app/" +"api/auth/signin_google", {
         method: "POST",
         headers: {
+          "access-control-allow-origin" : "*",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({

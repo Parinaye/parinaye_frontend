@@ -88,6 +88,7 @@ export default function UserProfile() {
       const res = await fetch("https://parinaye-backend.vercel.app/" +`api/user/update/${currentUser._id}`, {
         method: "PUT",
         headers: {
+          "access-control-allow-origin" : "*",
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
@@ -114,6 +115,7 @@ export default function UserProfile() {
       const res = await fetch("https://parinaye-backend.vercel.app/" +`api/user/delete/${currentUser._id}`, {
         method: "DELETE",
         headers: {
+          "access-control-allow-origin" : "*",
           "Content-Type": "application/json",
         },
       });
