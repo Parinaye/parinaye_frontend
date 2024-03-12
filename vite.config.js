@@ -9,7 +9,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: process.env.BACKEND_URL,
+        target: process.env.MY_BACKEND_URL,
         secure: false,
       },
   }},
