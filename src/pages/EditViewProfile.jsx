@@ -11,51 +11,11 @@ import {
 } from "firebase/storage";
 import { app } from "../firebase";
 import moment from "moment";
-import {
-  ASSETS_ENUM,
-  EDUCATION_ENUM,
-  PROFESSION_ENUM,
-  INCOME_ENUM,
-  MARITAL_STATUS_ENUM,
-  GENDER_ENUM,
-} from "../../frontend/config/enums.config";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../components/shadcn/components/ui/form";
+import { Form } from "../components/shadcn/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Input } from "../components/shadcn/components/ui/input";
-import {
-  RadioGroup,
-  RadioGroupItem,
-} from "../components/shadcn/components/ui/radio-group";
 import { Label } from "../components/shadcn/components/ui/label";
-import { Slider } from "../components/shadcn/components/ui/slider";
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from "../components/shadcn/components/ui/popover";
-import { FaCalendar } from "react-icons/fa";
-import { Calendar } from "../components/shadcn/components/ui/calendar";
-import { Button } from "../components/shadcn/components/ui/button";
-import { cn } from "../components/shadcn/lib/utils";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../components/shadcn/components/ui/select";
-import { Textarea } from "../components/shadcn/components/ui/textarea";
 import { Separator } from "../components/shadcn/components/ui/separator";
 import { Switch } from "../components/shadcn/components/ui/switch";
 import { Card } from "flowbite-react";
@@ -77,10 +37,7 @@ export default function EditViewProfile({ props }) {
   const { id } = useParams();
   const [formData, setFormData] = useState({});
   const [enableEdit, setEnableEdit] = useState(false);
-  const [imageFiles, setImageFiles] = useState();
-  const [profileUploading, setProfileUploading] = useState(false);
   const [profileUploadError, setProfileUploadError] = useState("");
-  const navigate = useNavigate();
   const nullString = "N/A";
 
   const { currentUser } = useSelector((state) => state.user);
@@ -111,141 +68,6 @@ export default function EditViewProfile({ props }) {
     };
     fetchProfile();
   }, [enableEdit]);
-
-  const handleImageUpload = (e) => {
-    let images = [];
-    for (let i = 0; i < e.target.files.length; i++) {
-      images.push(e.target.files[i]);
-    }
-    setImageFiles(images);
-  };
-
-  console.log(formData);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      if (imageFiles.length == 0) {
-        setProfileUploadError("Please upload atleast one image");
-        return;
-      } else if (imageFiles.length > 6) {
-        setProfileUploadError("You can only upload 6 images at a time.");
-        return;
-      } else {
-        setProfileUploading(true);
-        const promises = [];
-        for (let i = 0; i < imageFiles.length; i++) {
-          const file = imageFiles[i];
-
-          promises.push(uploadImage(file));
-        }
-        Promise.all(promises)
-          .then(async (urls) => {
-            formData.profilePictures = urls;
-            const res = await fetch(`/api/profile/update/${id}`, {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(formData),
-            });
-            const data = await res.json();
-
-            setProfileUploading(false);
-            if (data.success === false) {
-              setProfileUploadError(data.message);
-              return;
-            }
-
-            navigate(`/profile/${data._id}`);
-            return;
-          })
-          .catch((error) => {
-            setProfileUploadError(error.message);
-            setProfileUploading(false);
-          });
-      }
-    } catch (error) {
-      setProfileUploadError(error);
-      setProfileUploading(false);
-      return;
-    }
-  };
-
-  const uploadImage = async (file) => {
-    return new Promise((resolve, reject) => {
-      const storage = getStorage(app);
-      const fileName =
-        moment(new Date().getDate()).format("YYYYMMDDHHmmss") + file.name;
-      const storageRef = ref(storage, `profile_images/${fileName}`);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {},
-        (error) => {
-          reject(error);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            resolve(downloadURL);
-          });
-        }
-      );
-    });
-  };
-
-  const handleChange = (e) => {
-    console.log(e.target);
-    setFormData({ ...formData, [e.target.id]: e.target.value });
-  };
-
-  const handleAssetsChnage = (e) => {
-    let assets = formData.assets;
-    if (!assets.includes(e.target.value)) {
-      assets.push(e.target.value);
-    } else {
-      assets = assets.filter((asset) => asset != e.target.value);
-    }
-    setFormData({ ...formData, assets });
-  };
-
-  const handleEducationChange = (education) => {
-    setFormData({ ...formData, education });
-  };
-
-  const handleProfessionChange = (profession) => {
-    setFormData({ ...formData, profession });
-  };
-
-  const handleIncomeChange = (income) => {
-    setFormData({ ...formData, income });
-  };
-
-  const handleMaritalStatusChange = (maritalStatus) => {
-    setFormData({ ...formData, maritalStatus });
-  };
-
-  const handleFeetChange = (value) => {
-    setFormData({
-      ...formData,
-      height: { ...formData.height, feet: value[0] },
-    });
-  };
-
-  const handleInchesChange = (value) => {
-    setFormData({
-      ...formData,
-      height: { ...formData.height, inches: value[0] },
-    });
-  };
-
-  const handleDobChange = (dob) => {
-    setFormData({ ...formData, dob });
-  };
-
-  const handlePhoneChange = (value) => {
-    setFormData({ ...formData, phoneNumber: value });
-  };
 
   return (
     <div className="flex justify-center mx-auto items-center">
