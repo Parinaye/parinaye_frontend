@@ -55,7 +55,7 @@ export default function SignUp() {
         return;
       }
 
-      const res = await fetch("/api/auth/signup", {
+      const res = await fetch("https://parinaye-backend.vercel.app/" +"api/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

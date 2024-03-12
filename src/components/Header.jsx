@@ -35,7 +35,7 @@ export default function Header() {
     // sign out logic
     dispatch(signOutAtStart());
     try {
-      const res = await fetch(`/api/auth/signout/${currentUser._id}`, {
+      const res = await fetch("https://parinaye-backend.vercel.app/" +`api/auth/signout/${currentUser._id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

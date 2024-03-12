@@ -60,7 +60,7 @@ export default function PorfilesList() {
       });
 
       console.log(queryString);
-      const res = await fetch(`/api/profile/get_profiles?${queryString}`, {
+      const res = await fetch("https://parinaye-backend.vercel.app/" +`api/profile/get_profiles?${queryString}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +82,7 @@ export default function PorfilesList() {
 
   const handleSearch = async (e) => {
     try {
-      const res = await fetch(`/api/profile/search/?searchParam=${e.target.value}`, {
+      const res = await fetch("https://parinaye-backend.vercel.app/" +`api/profile/search/?searchParam=${e.target.value}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -106,7 +106,7 @@ export default function PorfilesList() {
     const fetchProfiles = async () => {
       setProfilesLoading(true);
       try {
-        const res = await fetch("/api/profile/get_profiles", {
+        const res = await fetch("https://parinaye-backend.vercel.app/" +"api/profile/get_profiles", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

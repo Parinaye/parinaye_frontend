@@ -53,7 +53,7 @@ export default function ForgotPassword() {
         setIsSubmitting(false);
         return;
       }
-      const res = await fetch("/api/auth/sendOtp", {
+      const res = await fetch("https://parinaye-backend.vercel.app/" +"api/auth/sendOtp", {
         method: "post",
         headers: {
           "Content-Type": "application/json",
@@ -86,7 +86,7 @@ export default function ForgotPassword() {
         setIsSubmitting(false);
         return;
       }
-      const res = await fetch("/api/auth/verifyOtp", {
+      const res = await fetch("https://parinaye-backend.vercel.app/" +"api/auth/verifyOtp", {
         method: "post",
         headers: {
           "Content-Type": "application/json",
@@ -126,7 +126,7 @@ export default function ForgotPassword() {
         setIsSubmitting(false);
         return;
       }
-      const res = await fetch("/api/auth/resetPassword", {
+      const res = await fetch("https://parinaye-backend.vercel.app/" +"api/auth/resetPassword", {
         method: "post",
         headers: {
           "Content-Type": "application/json",

@@ -19,7 +19,7 @@ export default function OAuth({className}) {
       const googleRes = await signInWithPopup(auth, provider);
       console.log(googleRes);
 
-      const res = await fetch("/api/auth/signin_google", {
+      const res = await fetch("https://parinaye-backend.vercel.app/" +"api/auth/signin_google", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

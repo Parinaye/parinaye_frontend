@@ -186,7 +186,7 @@ export default function CreateEditProfile({
             });
         }
 
-        res = await fetch(`/api/profile/update/${profile._id}`, {
+        res = await fetch("https://parinaye-backend.vercel.app/" +`api/profile/update/${profile._id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -196,7 +196,7 @@ export default function CreateEditProfile({
 
         setEnableEdit(false);
       } else {
-        res = await fetch(`/api/profile/create`, {
+        res = await fetch("https://parinaye-backend.vercel.app/" +`api/profile/create`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

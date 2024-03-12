@@ -85,7 +85,7 @@ export default function UserProfile() {
     e.preventDefault();
     try {
       dispatch(updateUserAtStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+      const res = await fetch("https://parinaye-backend.vercel.app/" +`api/user/update/${currentUser._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -111,7 +111,7 @@ export default function UserProfile() {
     e.preventDefault();
     dispatch(deleteUserAtStart());
     try {
-      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+      const res = await fetch("https://parinaye-backend.vercel.app/" +`api/user/delete/${currentUser._id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
