@@ -10,7 +10,6 @@ const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "parinaye-firebase.firebaseapp.com",
   projectId: "parinaye-firebase",
-  signInFlow: "redirect",
   storageBucket: "parinaye-firebase.appspot.com",
   messagingSenderId: "864232050248",
   appId: "1:864232050248:web:1362885205f81ee5ed527d",
