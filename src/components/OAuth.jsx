@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { signInSuccess, signInFailure } from "../redux/user/userSlice.js";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./shadcn/components/ui/button.jsx";
-import { FaGoogle , FaSpinner} from "react-icons/fa";
+import { FaGoogle, FaSpinner } from "react-icons/fa";
 
-export default function OAuth({className}) {
+export default function OAuth({ className }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { error, isSubmitting } = useSelector((state) => state.user);
@@ -19,18 +19,22 @@ export default function OAuth({className}) {
       const googleRes = await signInWithPopup(auth, provider);
       console.log(googleRes);
 
-      const res = await fetch("https://parinaye-backend.vercel.app/" +"api/auth/signin_google", {
-        method: "POST",
-        headers: {
-          "access-control-allow-origin" : "*",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: googleRes.user.displayName,
-          email: googleRes.user.email,
-          photo: googleRes.user.photoURL,
-        }),
-      });
+      const res = await fetch(
+        "https://parinaye-backend.vercel.app/" + "api/auth/signin_google",
+        {
+          method: "POST",
+          headers: {
+            "access-control-allow-origin": "*",
+            "Content-Type": "application/json",
+            credentials: "include",
+          },
+          body: JSON.stringify({
+            username: googleRes.user.displayName,
+            email: googleRes.user.email,
+            photo: googleRes.user.photoURL,
+          }),
+        }
+      );
       const data = await res.json();
       console.log(data);
       if (data.success === false) {
