@@ -1,8 +1,6 @@
 import React from "react";
-import { TypewriterEffectSmooth } from "../components/animations/components/ui/typewriter-effect.js";
-import { Card } from "../components/shadcn/components/ui/card.jsx";
+import { TypewriterEffectSmooth } from "../components/animations/components/ui/typewriter-effect.tsx";
 import { Label } from "flowbite-react";
-import { ScrollArea } from "../components/shadcn/components/ui/scroll-area.jsx";
 import video from "../assets/videos/wedding_background.mp4";
 
 export default function Home() {

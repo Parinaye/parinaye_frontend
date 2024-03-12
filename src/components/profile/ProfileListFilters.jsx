@@ -13,7 +13,7 @@ import {
   MARITAL_STATUS_ENUM,
   PROFESSION_ENUM,
   RELIGION_ENUM,
-} from "../../../frontend/config/enums.config";
+} from "../../../config/enums.config";
 import { Button } from "../shadcn/components/ui/button";
 import moment from "moment";
 

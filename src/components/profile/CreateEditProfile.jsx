@@ -21,7 +21,7 @@ import {
   GENDER_ENUM,
   RELIGION_ENUM,
   CASTE_ENUM,
-} from "../../../frontend/config/enums.config";
+} from "../../../config/enums.config";
 import {
   Form,
   FormControl,
