@@ -95,6 +95,7 @@ export const validateToken = () => async (dispatch) => {
         headers: {
           "access-control-allow-origin": "*",
           "Content-Type": "application/json",
+          "access-control-allow-credentials": "true",
         },
       }
     );
