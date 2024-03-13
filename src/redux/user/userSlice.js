@@ -91,10 +91,11 @@ export const validateToken = () => async (dispatch) => {
       "https://parinaye-backend.vercel.app/" + "api/auth/check_token",
       {
         method: "GET",
+        credentials: 'include',
+        mode: 'cors',
         headers: {
           "access-control-allow-origin": "*",
           "Content-Type": "application/json",
-          credentials: "include",
         },
       }
     );
