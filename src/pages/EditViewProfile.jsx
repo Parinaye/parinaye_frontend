@@ -53,9 +53,8 @@ export default function EditViewProfile({ props }) {
         const res = await fetch("https://parinaye-backend.vercel.app/" +`api/profile/get/${id}`, {
           method: "GET",
           headers: {
-          "access-control-allow-origin" : "*",
-            "Content-Type": "application/json",
-  credentials: "include",
+                      "Content-Type": "application/json",
+          credentials: "include",
           },
         });
         const data = await res.json();

@@ -189,8 +189,7 @@ export default function CreateEditProfile({
         res = await fetch("https://parinaye-backend.vercel.app/" +`api/profile/update/${profile._id}`, {
           method: "PUT",
           headers: {
-          "access-control-allow-origin" : "*",
-          "Content-Type": "application/json",
+                    "Content-Type": "application/json",
           credentials: "include",
           },
           body: JSON.stringify(formData),
@@ -201,8 +200,7 @@ export default function CreateEditProfile({
         res = await fetch("https://parinaye-backend.vercel.app/" +`api/profile/create`, {
           method: "POST",
           headers: {
-          "access-control-allow-origin" : "*",
-            "Content-Type": "application/json",
+                      "Content-Type": "application/json",
             credentials: "include",
           },
           body: JSON.stringify(formData),

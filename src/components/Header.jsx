@@ -38,8 +38,7 @@ export default function Header() {
       const res = await fetch("https://parinaye-backend.vercel.app/" +`api/auth/signout/${currentUser._id}`, {
         method: "GET",
         headers: {
-          "access-control-allow-origin" : "*",
-          "Content-Type": "application/json",
+                    "Content-Type": "application/json",
           credentials: "include",
         },
       });
