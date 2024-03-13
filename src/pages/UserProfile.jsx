@@ -87,7 +87,7 @@ export default function UserProfile() {
         {
           method: "PUT",
           headers: {
-            "access-control-allow-origin": "*",
+            
             "Content-Type": "application/json",
             credentials: "include",
           },
@@ -119,7 +119,7 @@ export default function UserProfile() {
         {
           method: "DELETE",
           headers: {
-            "access-control-allow-origin": "*",
+            
             "Content-Type": "application/json",
             credentials: "include",
           },

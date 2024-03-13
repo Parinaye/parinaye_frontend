@@ -45,7 +45,7 @@ export default function Signin() {
         {
           method: "POST",
           headers: {
-            "access-control-allow-origin": "*",
+            
             "Content-Type": "application/json",
             credentials: "include",
           },

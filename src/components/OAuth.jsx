@@ -24,7 +24,7 @@ export default function OAuth({ className }) {
         {
           method: "POST",
           headers: {
-            "access-control-allow-origin": "*",
+            
             "Content-Type": "application/json",
             credentials: "include",
           },

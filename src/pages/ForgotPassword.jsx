@@ -58,7 +58,7 @@ export default function ForgotPassword() {
         {
           method: "post",
           headers: {
-            "access-control-allow-origin": "*",
+            
             "Content-Type": "application/json",
             credentials: "include",
           },
@@ -96,7 +96,7 @@ export default function ForgotPassword() {
         {
           method: "post",
           headers: {
-            "access-control-allow-origin": "*",
+            
             "Content-Type": "application/json",
             credentials: "include",
           },
@@ -141,7 +141,7 @@ export default function ForgotPassword() {
         {
           method: "post",
           headers: {
-            "access-control-allow-origin": "*",
+            
             "Content-Type": "application/json",
             credentials: "include",
           },

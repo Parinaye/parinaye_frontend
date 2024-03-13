@@ -66,7 +66,7 @@ export default function PorfilesList() {
         {
           method: "GET",
           headers: {
-            "access-control-allow-origin": "*",
+            
             "Content-Type": "application/json",
             credentials: "include",
           },
@@ -94,7 +94,7 @@ export default function PorfilesList() {
         {
           method: "GET",
           headers: {
-            "access-control-allow-origin": "*",
+            
             "Content-Type": "application/json",
             credentials: "include",
           },
@@ -123,7 +123,7 @@ export default function PorfilesList() {
           {
             method: "GET",
             headers: {
-              "access-control-allow-origin": "*",
+              
               "Content-Type": "application/json",
               credentials: "include",
             },
