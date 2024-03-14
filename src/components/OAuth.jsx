@@ -23,10 +23,9 @@ export default function OAuth({ className }) {
         "https://parinaye-backend.vercel.app/" + "api/auth/signin_google",
         {
           method: "POST",
+          credentials: "include",
           headers: {
-            
             "Content-Type": "application/json",
-            credentials: "include",
           },
           body: JSON.stringify({
             username: googleRes.user.displayName,
