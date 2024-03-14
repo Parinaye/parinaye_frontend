@@ -44,6 +44,7 @@ export default function Signin() {
         "https://parinaye-backend.vercel.app/" + "api/auth/signin",
         {
           method: "POST",
+          "credentials": "include",
           headers: {
             "Content-Type": "application/json",
           },
