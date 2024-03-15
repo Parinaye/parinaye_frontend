@@ -42,7 +42,7 @@ export default function ProfileListCard({ profile }) {
               <p className="text-2sm text-muted-foreground">{"Age"}</p>
               <p className="text-sm font-medium leading-none">
                 {profile.dob
-                  ? " Age : " +
+                  ?
                     moment().diff(profile.dob, "years") +
                     "y " +
                     (moment().diff(profile.dob, "months") % 12) +
