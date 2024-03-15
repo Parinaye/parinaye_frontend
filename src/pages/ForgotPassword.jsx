@@ -54,7 +54,7 @@ export default function ForgotPassword() {
         return;
       }
       const res = await fetch(
-        "https://parinaye-backend.vercel.app/" + "api/auth/sendOtp",
+        "https://parinaye-backend.onrender.com/" + "api/auth/sendOtp",
         {
           method: "post",
           headers: {
@@ -92,7 +92,7 @@ export default function ForgotPassword() {
         return;
       }
       const res = await fetch(
-        "https://parinaye-backend.vercel.app/" + "api/auth/verifyOtp",
+        "https://parinaye-backend.onrender.com/" + "api/auth/verifyOtp",
         {
           method: "post",
           headers: {
@@ -137,7 +137,7 @@ export default function ForgotPassword() {
         return;
       }
       const res = await fetch(
-        "https://parinaye-backend.vercel.app/" + "api/auth/resetPassword",
+        "https://parinaye-backend.onrender.com/" + "api/auth/resetPassword",
         {
           method: "post",
           headers: {

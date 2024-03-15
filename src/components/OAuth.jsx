@@ -20,7 +20,7 @@ export default function OAuth({ className }) {
       console.log(googleRes);
 
       const res = await fetch(
-        "https://parinaye-backend.vercel.app/" + "api/auth/signin_google",
+        "https://parinaye-backend.onrender.com/" + "api/auth/signin_google",
         {
           method: "POST",
           credentials: "include",
