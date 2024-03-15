@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "../shadcn/components/ui/data-table";
 import { UserTableColumns } from "./components/UserTableColumns";
-import { ScrollArea } from "../shadcn/components/ui/scroll-area";
 
 export default function UsersSettings() {
   const [users, setUsers] = useState([]);
@@ -10,7 +9,7 @@ export default function UsersSettings() {
 
   const handleEdit = async (formData) => {
     try {
-      const res = await fetch("https://parinaye-backend.vercel.app/" +`api/user/update_user/${formData.id}`, {
+      const res = await fetch("https://parinaye-backend.onrender.com/" +`api/user/update_user/${formData.id}`, {
         method: "PUT",
         headers: {
                     "Content-Type": "application/json",
@@ -29,7 +28,7 @@ export default function UsersSettings() {
 
   const handleDelete = async (id) => {
     try {
-      const res = await fetch("https://parinaye-backend.vercel.app/" +`api/user/delete_user/${id}`, {
+      const res = await fetch("https://parinaye-backend.onrender.com/" +`api/user/delete_user/${id}`, {
         method: "DELETE",
         headers: {
                     "Content-Type": "application/json",
@@ -48,7 +47,7 @@ export default function UsersSettings() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch("https://parinaye-backend.vercel.app/" +"api/user/all_users", {
+        const res = await fetch("https://parinaye-backend.onrender.com/" +"api/user/all_users", {
           method: "GET",
           headers: {
                     "Content-Type": "application/json",

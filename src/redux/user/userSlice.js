@@ -88,7 +88,7 @@ export const validateToken = () => async (dispatch) => {
   dispatch(signInStart());
   try {
     const res = await fetch(
-      "https://parinaye-backend.vercel.app/" + "api/auth/check_token",
+      "https://parinaye-backend.onrender.com/" + "api/auth/check_token",
       {
         method: "GET",
         credentials: "include",
