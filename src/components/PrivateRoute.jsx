@@ -4,6 +4,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { validateToken } from "../redux/user/userSlice";
 import { FaSpinner } from "react-icons/fa";
 import CardPlaceHolder from "./core/placeholders/card.placeholder";
+import { Skeleton } from "./shadcn/components/ui/skeleton";
 
 export default function PrivateRoute() {
   const { currentUser, isSubmitting, isAuthenticated } = useSelector(
@@ -17,9 +18,15 @@ export default function PrivateRoute() {
 
   if (isSubmitting)
     return (
-      <div className="flex mx-auto flex-row justify-center m-10 p-10 w-[50vw] h-[50vh]">
-        <CardPlaceHolder />
+      <section className="flex-grow z-30 m-4 min-h-screen w-full">
+
+      <div className="flex mx-auto flex-col justify-center  w-full">
+
+      <Skeleton className="h-[10vh] w-full rounded-xl m-10 p-10" />
+      <Skeleton className="h-[10vh] w-full rounded-xl m-10 p-10" />
+      
       </div>
+      </section>
     );
 
   return currentUser && isAuthenticated ? (

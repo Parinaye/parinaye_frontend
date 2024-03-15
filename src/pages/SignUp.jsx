@@ -59,10 +59,9 @@ export default function SignUp() {
         "https://parinaye-backend.vercel.app/" + "api/auth/signup",
         {
           method: "POST",
+          credentials: "include",
           headers: {
-            
             "Content-Type": "application/json",
-            credentials: "include",
           },
           body: JSON.stringify(formData),
         }

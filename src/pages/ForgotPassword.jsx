@@ -57,10 +57,9 @@ export default function ForgotPassword() {
         "https://parinaye-backend.vercel.app/" + "api/auth/sendOtp",
         {
           method: "post",
+          credentials: "include",
           headers: {
-            
             "Content-Type": "application/json",
-            credentials: "include",
           },
           body: JSON.stringify({ username: formData.username }),
         }
@@ -95,10 +94,9 @@ export default function ForgotPassword() {
         "https://parinaye-backend.vercel.app/" + "api/auth/verifyOtp",
         {
           method: "post",
+          credentials: "include",
           headers: {
-            
             "Content-Type": "application/json",
-            credentials: "include",
           },
           body: JSON.stringify({ otp: formData.otp }),
         }
@@ -140,10 +138,9 @@ export default function ForgotPassword() {
         "https://parinaye-backend.vercel.app/" + "api/auth/resetPassword",
         {
           method: "post",
+          credentials: "include",
           headers: {
-            
             "Content-Type": "application/json",
-            credentials: "include",
           },
           body: JSON.stringify({ password: formData.password }),
         }

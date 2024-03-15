@@ -86,10 +86,9 @@ export default function UserProfile() {
           `api/user/update/${currentUser._id}`,
         {
           method: "PUT",
+          credentials: "include",
           headers: {
-            
             "Content-Type": "application/json",
-            credentials: "include",
           },
           body: JSON.stringify(formData),
         }
@@ -118,10 +117,9 @@ export default function UserProfile() {
           `api/user/delete/${currentUser._id}`,
         {
           method: "DELETE",
+          credentials: "include",
           headers: {
-            
             "Content-Type": "application/json",
-            credentials: "include",
           },
         }
       );
@@ -146,81 +144,82 @@ export default function UserProfile() {
 
   return (
     <div className="flex flex-row max-w-lg mx-auto justify-center">
-      {currentUser && currentUser._id ? (
-        <Card className="w-lg m-4 flex-grow">
-          <h1 className="text-center text-4xl font-bold m-10">My Account</h1>
-          <form
-            className="flex flex-col items-center gap-5 p-4"
-            onSubmit={handleSubmit}
-          >
-            <div className="flex flex-row justify-center items-start">
-              <img
-                src={formData.avatar || currentUser.avatar}
-                alt="profile_pic"
-                className="rounded-full h-24 w-24 object-cover cursor-pointer self-center m-2"
-              />
-              <div className="flex flex-col items-start">
-                {editPic ? (
-                  <FaTimes
-                    className="text-2xl cursor-pointer"
-                    onClick={() => setEditPic(!editPic)}
-                  />
-                ) : (
-                  <FaEdit
-                    className="text-2xl cursor-pointer"
-                    onClick={() => setEditPic(!editPic)}
-                  />
-                )}
+      <section className="flex-grow z-30 m-4 min-h-screen w-full">
+        {currentUser && currentUser._id ? (
+          <Card className="w-lg m-4 flex-grow">
+            <h1 className="text-center text-4xl font-bold m-10">My Account</h1>
+            <form
+              className="flex flex-col items-center gap-5 p-4"
+              onSubmit={handleSubmit}
+            >
+              <div className="flex flex-row justify-center items-start">
+                <img
+                  src={formData.avatar || currentUser.avatar}
+                  alt="profile_pic"
+                  className="rounded-full h-24 w-24 object-cover cursor-pointer self-center m-2"
+                />
+                <div className="flex flex-col items-start">
+                  {editPic ? (
+                    <FaTimes
+                      className="text-2xl cursor-pointer"
+                      onClick={() => setEditPic(!editPic)}
+                    />
+                  ) : (
+                    <FaEdit
+                      className="text-2xl cursor-pointer"
+                      onClick={() => setEditPic(!editPic)}
+                    />
+                  )}
+                </div>
               </div>
-            </div>
-            <input
-              type="file"
-              className="p-2"
-              hidden={!editPic}
-              accept="image/*"
-              onChange={handleFile}
-            />
-            {fileUploadError ? (
-              <span className="text-center block text-red-400">
-                {"Upload failed, please try again"}
-              </span>
-            ) : progress > 0 && progress < 100 ? (
-              <span className="text-center block text-blue-400">
-                {"Upload is " + progress + "% done"}
-              </span>
-            ) : progress === 100 ? (
-              <span className="text-center block text-green-400">
-                {"Upload is complete"}
-              </span>
-            ) : null}
-            <Input
-              type="text"
-              placeholder="username"
-              defaultValue={currentUser.username}
-              className="p-2"
-              id="username"
-              disabled
-            />
-            <Input
-              type="email"
-              placeholder="email"
-              defaultValue={currentUser.email}
-              className="p-2"
-              id="email"
-              onChange={handleChange}
-            />
-            <Input
-              type="password"
-              placeholder={"change password"}
-              className="p-2"
-              id="password"
-              onChange={handleChange}
-            />
-            <Button disabled={isSubmitting} className="m-4 w-full">
-              {isSubmitting ? "Updating" : "Update"}
-            </Button>
-          </form>
-          {/* <div className="flex justify-center mt-5">
+              <input
+                type="file"
+                className="p-2"
+                hidden={!editPic}
+                accept="image/*"
+                onChange={handleFile}
+              />
+              {fileUploadError ? (
+                <span className="text-center block text-red-400">
+                  {"Upload failed, please try again"}
+                </span>
+              ) : progress > 0 && progress < 100 ? (
+                <span className="text-center block text-blue-400">
+                  {"Upload is " + progress + "% done"}
+                </span>
+              ) : progress === 100 ? (
+                <span className="text-center block text-green-400">
+                  {"Upload is complete"}
+                </span>
+              ) : null}
+              <Input
+                type="text"
+                placeholder="username"
+                defaultValue={currentUser.username}
+                className="p-2"
+                id="username"
+                disabled
+              />
+              <Input
+                type="email"
+                placeholder="email"
+                defaultValue={currentUser.email}
+                className="p-2"
+                id="email"
+                onChange={handleChange}
+              />
+              <Input
+                type="password"
+                placeholder={"change password"}
+                className="p-2"
+                id="password"
+                onChange={handleChange}
+              />
+              <Button disabled={isSubmitting} className="m-4 w-full">
+                {isSubmitting ? "Updating" : "Update"}
+              </Button>
+            </form>
+            {/* <div className="flex justify-center mt-5">
             <span
               className="text-center block text-blue-400 cursor-pointer hover:underline"
               onClick={handleDeleteUser}
@@ -228,18 +227,19 @@ export default function UserProfile() {
               Delete Account
             </span>
           </div> */}
-          {error && (
-            <span className="text-red-500 text-center block">
-              Error: {error}
-            </span>
-          )}
-          {updateSuccess && (
-            <span className="text-green-500 text-center block">
-              Profile updated successfully
-            </span>
-          )}
-        </Card>
-      ) : null}
+            {error && (
+              <span className="text-red-500 text-center block">
+                Error: {error}
+              </span>
+            )}
+            {updateSuccess && (
+              <span className="text-green-500 text-center block">
+                Profile updated successfully
+              </span>
+            )}
+          </Card>
+        ) : null}
+      </section>
     </div>
   );
 }

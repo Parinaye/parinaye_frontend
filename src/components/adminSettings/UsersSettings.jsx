@@ -9,14 +9,18 @@ export default function UsersSettings() {
 
   const handleEdit = async (formData) => {
     try {
-      const res = await fetch("https://parinaye-backend.vercel.app/" +`api/user/update_user/${formData.id}`, {
-        method: "PUT",
-        headers: {
-                    "Content-Type": "application/json",
+      const res = await fetch(
+        "https://parinaye-backend.vercel.app/" +
+          `api/user/update_user/${formData.id}`,
+        {
+          method: "PUT",
           credentials: "include",
-        },
-        body: JSON.stringify(formData),
-      });
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await res.json();
       if (data.success === false) {
         setError(data.message);
@@ -28,13 +32,16 @@ export default function UsersSettings() {
 
   const handleDelete = async (id) => {
     try {
-      const res = await fetch("https://parinaye-backend.vercel.app/" +`api/user/delete_user/${id}`, {
-        method: "DELETE",
-        headers: {
-                    "Content-Type": "application/json",
+      const res = await fetch(
+        "https://parinaye-backend.vercel.app/" + `api/user/delete_user/${id}`,
+        {
+          method: "DELETE",
           credentials: "include",
-        },
-      });
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await res.json();
       if (data.success === false) {
         setError(data.message);
@@ -47,13 +54,16 @@ export default function UsersSettings() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch("https://parinaye-backend.vercel.app/" +"api/user/all_users", {
-          method: "GET",
-          headers: {
-                    "Content-Type": "application/json",
-          credentials: "include",
-          },
-        });
+        const res = await fetch(
+          "https://parinaye-backend.vercel.app/" + "api/user/all_users",
+          {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         const data = await res.json();
         if (data.success === false && data.statusCode === 403) {
           setError(data.message);

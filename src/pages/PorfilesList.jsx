@@ -65,10 +65,9 @@ export default function PorfilesList() {
           `api/profile/get_profiles?${queryString}`,
         {
           method: "GET",
+          credentials: "include",
           headers: {
-            
             "Content-Type": "application/json",
-            credentials: "include",
           },
         }
       );
@@ -93,10 +92,9 @@ export default function PorfilesList() {
           `api/profile/search/?searchParam=${e.target.value}`,
         {
           method: "GET",
+          credentials: "include",
           headers: {
-            
             "Content-Type": "application/json",
-            credentials: "include",
           },
         }
       );
@@ -122,10 +120,9 @@ export default function PorfilesList() {
           "https://parinaye-backend.vercel.app/" + "api/profile/get_profiles",
           {
             method: "GET",
+            credentials: "include",
             headers: {
-              
               "Content-Type": "application/json",
-              credentials: "include",
             },
           }
         );
@@ -141,14 +138,6 @@ export default function PorfilesList() {
         console.log(data);
         setProfiles([
           ...data,
-          ...data,
-          ...data,
-          ...data,
-          ...data,
-          ...data,
-          ...data,
-          ...data,
-          ...data,
         ]);
         setProfilesLoading(false);
       } catch (err) {
@@ -160,9 +149,9 @@ export default function PorfilesList() {
   }, []);
 
   return (
-    <div className="flex items-center  justify-center opacity-95  min-w-full">
-      <section className="flex-grow z-30 m-4 min-h-screen">
-        <div className="rounded-[0.5rem] p-4 border bg-neutral-100/[0.3] dark:bg-zinc-700/[0.3] shadow-md min-w-full md:shadow-xl">
+    <div className="flex flex-col items-center  justify-center opacity-95  min-w-full">
+      <section className="flex-grow z-30 m-4 min-h-[70vh] w-full">
+        <div className="rounded-[0.5rem] p-4 border bg-neutral-100/[0.3] dark:bg-zinc-700/[0.3] shadow-md md:shadow-xl">
           <div className="flex flex-col gap-2">
             <div className="flex flex-row justify-end m-2">
               <Input
@@ -205,7 +194,16 @@ export default function PorfilesList() {
                 </div>
               </section>
               <section className="flex flex-col sm:col-span-2 md:col-span-3 w-full items-center gap-2">
-                <ScrollArea className="rounded-md max-h-[70vh] sm:max-h-[70vh]  w-full overflow-scroll">
+                {currentRecords.length < 1 && !profilesLoading && (
+                  <Card className="w-full m-4 p-4">
+                    <span className="text-center text-3xl">
+                      No profiles found{" "}
+                      <FaSadTear className="text-center text-9xl text-primary inline" />{" "}
+                      !!
+                    </span>
+                  </Card>
+                )}
+                <ScrollArea className="rounded-md h-[70vh] sm:h-[70vh]  w-full overflow-scroll">
                   <div className="grid grid-cols-1 xl:grid-cols-2 m-2 ">
                     {profilesLoading && (
                       <div className="flex flex-col fle-grow m-2 sm:max-w-2xl  rounded-lg shadow-xl">
@@ -220,15 +218,7 @@ export default function PorfilesList() {
                       ))}
                   </div>
                 </ScrollArea>
-                {currentRecords.length < 1 && !profilesLoading && (
-                  <Card className="w-full m-4 p-4">
-                    <span className="text-center text-3xl">
-                      No profiles found{" "}
-                      <FaSadTear className="text-center text-9xl text-primary inline" />{" "}
-                      !!
-                    </span>
-                  </Card>
-                )}
+
                 {profiles.length > 0 && (
                   <section className="w-full flex felx-row justify-end">
                     <MyPagination
@@ -244,7 +234,13 @@ export default function PorfilesList() {
           </div>
         </div>
       </section>
-      <section>{error && <p>Error loading profiles : {error}</p>}</section>
+      <section>
+        {error && (
+          <p className="text-lg text-destructive">
+            Error loading profiles : {error}
+          </p>
+        )}
+      </section>
     </div>
   );
 }

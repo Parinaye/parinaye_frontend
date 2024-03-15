@@ -186,25 +186,32 @@ export default function CreateEditProfile({
             });
         }
 
-        res = await fetch("https://parinaye-backend.vercel.app/" +`api/profile/update/${profile._id}`, {
-          method: "PUT",
-          headers: {
-                    "Content-Type": "application/json",
-          credentials: "include",
-          },
-          body: JSON.stringify(formData),
-        });
+        res = await fetch(
+          "https://parinaye-backend.vercel.app/" +
+            `api/profile/update/${profile._id}`,
+          {
+            method: "PUT",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
 
         setEnableEdit(false);
       } else {
-        res = await fetch("https://parinaye-backend.vercel.app/" +`api/profile/create`, {
-          method: "POST",
-          headers: {
-                      "Content-Type": "application/json",
+        res = await fetch(
+          "https://parinaye-backend.vercel.app/" + `api/profile/create`,
+          {
+            method: "POST",
             credentials: "include",
-          },
-          body: JSON.stringify(formData),
-        });
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
       }
       const data = await res.json();
 
@@ -264,9 +271,8 @@ export default function CreateEditProfile({
     if (e.target.id === "dob") {
       const dob = moment(e.target.value).format("YYYY-MM-DD");
       setFormData({ ...formData, dob });
-      
-    }else{
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    } else {
+      setFormData({ ...formData, [e.target.id]: e.target.value });
     }
   };
 
@@ -488,12 +494,12 @@ export default function CreateEditProfile({
                       <input
                         type="date"
                         id="dob"
-                        defaultValue={ moment(new Date(formData.dob)).format("YYYY-MM-DD")}
+                        defaultValue={moment(new Date(formData.dob)).format(
+                          "YYYY-MM-DD"
+                        )}
                         onChange={handleChange}
                         className="w-full bg-secondary rounded-md p-1"
                       />
-                  
-
                     </FormControl>
                   </FormItem>
                 )}

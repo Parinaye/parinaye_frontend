@@ -35,13 +35,17 @@ export default function Header() {
     // sign out logic
     dispatch(signOutAtStart());
     try {
-      const res = await fetch("https://parinaye-backend.vercel.app/" +`api/auth/signout/${currentUser._id}`, {
-        method: "GET",
-        headers: {
-                    "Content-Type": "application/json",
+      const res = await fetch(
+        "https://parinaye-backend.vercel.app/" +
+          `api/auth/signout/${currentUser._id}`,
+        {
+          method: "GET",
           credentials: "include",
-        },
-      });
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await res.json();
       if (data.success === false) {
         dispatch(signOutFailure(data.message));
