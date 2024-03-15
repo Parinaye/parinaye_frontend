@@ -22,8 +22,8 @@ export default function PrivateRoute() {
 
       <div className="flex mx-auto flex-col justify-center  w-full">
 
-      <Skeleton className="h-[10vh] w-full rounded-xl m-10 p-10" />
-      <Skeleton className="h-[10vh] w-full rounded-xl m-10 p-10" />
+      <Skeleton className="h-[10vh] w-full rounded-xl m-2 p-2 sm:p-10 sm:m-10 " />
+      <Skeleton className="h-[10vh] w-full rounded-xl m-2 p-2 sm:p-10 sm:m-10 " />
       
       </div>
       </section>
