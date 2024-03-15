@@ -18,14 +18,12 @@ export default function PrivateRoute() {
 
   if (isSubmitting)
     return (
-      <section className="flex-grow z-30 m-4 min-h-screen w-full">
-
-      <div className="flex mx-auto flex-col justify-center  w-full">
-
-      <Skeleton className="h-[10vh] w-full rounded-xl m-2 p-2 sm:p-10 sm:m-10 " />
-      <Skeleton className="h-[10vh] w-full rounded-xl m-2 p-2 sm:p-10 sm:m-10 " />
-      
-      </div>
+      <section className="flex-grow z-30 min-h-screen my-20 w-full">
+        <div className="flex mx-auto flex-col justify-center gap-6 w-full">
+          <Skeleton className="h-[10vh] w-full rounded-xl m-2 p-2 sm:p-10 sm:m-10 " />
+          <Skeleton className="h-[10vh] w-full rounded-xl m-2 p-2 sm:p-10 sm:m-10 " />
+          <Skeleton className="h-[10vh] w-full rounded-xl m-2 p-2 sm:p-10 sm:m-10 " />
+        </div>
       </section>
     );
 
