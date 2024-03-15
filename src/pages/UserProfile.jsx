@@ -82,7 +82,7 @@ export default function UserProfile() {
     try {
       dispatch(updateUserAtStart());
       const res = await fetch(
-        "https://parinaye-backend.onrender.com/" +
+        "https://parinaye-backend.vercel.app/" +
           `api/user/update/${currentUser._id}`,
         {
           method: "PUT",
@@ -114,7 +114,7 @@ export default function UserProfile() {
     dispatch(deleteUserAtStart());
     try {
       const res = await fetch(
-        "https://parinaye-backend.onrender.com/" +
+        "https://parinaye-backend.vercel.app/" +
           `api/user/delete/${currentUser._id}`,
         {
           method: "DELETE",

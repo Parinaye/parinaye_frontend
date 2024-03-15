@@ -50,7 +50,7 @@ export default function EditViewProfile({ props }) {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await fetch("https://parinaye-backend.onrender.com/" +`api/profile/get/${id}`, {
+        const res = await fetch("https://parinaye-backend.vercel.app/" +`api/profile/get/${id}`, {
           method: "GET",
           headers: {
                       "Content-Type": "application/json",

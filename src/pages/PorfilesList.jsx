@@ -61,7 +61,7 @@ export default function PorfilesList() {
 
       console.log(queryString);
       const res = await fetch(
-        "https://parinaye-backend.onrender.com/" +
+        "https://parinaye-backend.vercel.app/" +
           `api/profile/get_profiles?${queryString}`,
         {
           method: "GET",
@@ -89,7 +89,7 @@ export default function PorfilesList() {
   const handleSearch = async (e) => {
     try {
       const res = await fetch(
-        "https://parinaye-backend.onrender.com/" +
+        "https://parinaye-backend.vercel.app/" +
           `api/profile/search/?searchParam=${e.target.value}`,
         {
           method: "GET",
@@ -119,7 +119,7 @@ export default function PorfilesList() {
       setProfilesLoading(true);
       try {
         const res = await fetch(
-          "https://parinaye-backend.onrender.com/" + "api/profile/get_profiles",
+          "https://parinaye-backend.vercel.app/" + "api/profile/get_profiles",
           {
             method: "GET",
             headers: {
