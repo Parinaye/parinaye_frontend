@@ -41,7 +41,7 @@ export default function Signin() {
       }
 
       const res = await fetch(
-        "https://parinaye-backend.onrender.com/" + "api/auth/signin",
+        "https://parinaye-backend.vercel.app/" + "api/auth/signin",
         {
           method: "POST",
           "credentials": "include",

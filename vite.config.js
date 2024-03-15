@@ -14,7 +14,7 @@ export default ({mode}) =>{
     server: {
       proxy: {
         '/api': {
-          target: "https://parinaye-backend.onrender.com/",
+          target: "https://parinaye-backend.vercel.app/",
           secure: false,
         },
     }},
