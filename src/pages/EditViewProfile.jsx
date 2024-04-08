@@ -97,6 +97,7 @@ export default function EditViewProfile({ props }) {
               <div className="flex flex-row justify-end items-center m-4 gap-2">
                 <Switch
                   onCheckedChange={() => setEnableEdit(!enableEdit)}
+                  checked={enableEdit}
                   className="border-primary m-2"
                 />
                 <Label className="text-lg font-bold"> Edit Profile </Label>
