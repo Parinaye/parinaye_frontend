@@ -78,7 +78,7 @@ export default function PorfilesList() {
       } else if (data.success === false) {
         setError(data.message);
       } 
-      setProfiles([...data,...data,...data,...data,...data]);
+      setProfiles(data);
     } catch (err) {
       console.log(err);
     }

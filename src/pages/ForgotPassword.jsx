@@ -6,7 +6,8 @@ import { useState, useEffect } from "react";
 
 import { FaSpinner } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setResetPasswordToken } from "../redux/profile/profileSlice";
 
 export default function ForgotPassword() {
   const [otpRequested, setOtpRequested] = useState(false);
@@ -18,6 +19,8 @@ export default function ForgotPassword() {
   const [minutes, setMinutes] = useState(2);
   const [seconds, setSeconds] = useState(30);
   const { currentUser, isAuthenticated } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const { resetPasswordToken} = useSelector((state) => state.profile);
   
 
   const navigate = useNavigate();
@@ -63,7 +66,6 @@ export default function ForgotPassword() {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + currentUser.token,
           },
           body: JSON.stringify({ username: formData.username }),
         }
@@ -76,6 +78,7 @@ export default function ForgotPassword() {
       }
       setIsSubmitting(false);
       setOtpRequested(true);
+      dispatch(setResetPasswordToken(data.reset_password_token));
     } catch (err) {
       setError(err.message);
       setIsSubmitting(false);
@@ -101,7 +104,7 @@ export default function ForgotPassword() {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + currentUser.token,
+            "Authorization": "Bearer " + resetPasswordToken,
           },
           body: JSON.stringify({ otp: formData.otp }),
         }
@@ -114,6 +117,7 @@ export default function ForgotPassword() {
       }
       setIsSubmitting(false);
       setOtpVerified(true);
+      dispatch(setResetPasswordToken(data.reset_password_token));
     } catch (err) {
       setError(err.message);
       setIsSubmitting(false);
@@ -146,7 +150,7 @@ export default function ForgotPassword() {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + currentUser.token,
+            "Authorization": "Bearer " + resetPasswordToken,
           },
           body: JSON.stringify({ password: formData.password }),
         }
