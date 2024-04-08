@@ -56,7 +56,8 @@ import {
 import { Textarea } from "../shadcn/components/ui/textarea";
 import Stepper from "../../pages/Stepper";
 import { isValidImageURL } from "../../utils/helpers.jsx";
-import { Calendar } from "../shadcn/components/ui/calendar";
+import { useSelector } from "react-redux";
+
 
 const formSchema = z.object({
   firstName: z.string().min(1),
@@ -93,6 +94,8 @@ export default function CreateEditProfile({
   const [imagesUploading, setImagesUploading] = useState(false);
   const [profileUploading, setProfileUploading] = useState(false);
   const [profileUploadError, setProfileUploadError] = useState("");
+  const { currentUser, isAuthenticated } = useSelector((state) => state.user);
+  
   const navigate = useNavigate();
 
   console.log(formData);
@@ -187,13 +190,14 @@ export default function CreateEditProfile({
         }
 
         res = await fetch(
-          "https://parinaye-backend.vercel.app/" +
+          import.meta.env.VITE_MY_BACKEND_URL +
             `api/profile/update/${profile._id}`,
           {
             method: "PUT",
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
+              "Authorization": "Bearer " + currentUser.token,
             },
             body: JSON.stringify(formData),
           }
@@ -202,12 +206,13 @@ export default function CreateEditProfile({
         setEnableEdit(false);
       } else {
         res = await fetch(
-          "https://parinaye-backend.vercel.app/" + `api/profile/create`,
+          import.meta.env.VITE_MY_BACKEND_URL + `api/profile/create`,
           {
             method: "POST",
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
+              "Authorization": "Bearer " + currentUser.token,
             },
             body: JSON.stringify(formData),
           }

@@ -56,7 +56,7 @@ export default function SignUp() {
       }
 
       const res = await fetch(
-        "https://parinaye-backend.vercel.app/" + "api/auth/signup",
+        import.meta.env.VITE_MY_BACKEND_URL + "api/auth/signup",
         {
           method: "POST",
           credentials: "include",

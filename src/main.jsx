@@ -9,11 +9,11 @@ import App from "./App.jsx";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-    <Provider store={store}>
+  <Provider store={store}>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <PersistGate loading={null} persistor={persistor}>
         <App />
-      </PersistGate>  
-    </Provider>
-  </ThemeProvider>
+      </PersistGate>
+    </ThemeProvider>
+  </Provider>
 );

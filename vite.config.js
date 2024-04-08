@@ -12,13 +12,7 @@ export default ({mode}) =>{
   process.env = Object.assign(process.env, loadEnv(mode, process.cwd(), ''));
   return defineConfig({
     server: {
-      port: 3000,
-      proxy: {
-        '/api': {
-          target: "https://parinaye-backend.vercel.app/",
-          secure: false,
-        },
-    }},
+      port: 3000},
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),

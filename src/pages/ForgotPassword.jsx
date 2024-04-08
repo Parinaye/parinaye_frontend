@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 
 import { FaSpinner } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function ForgotPassword() {
   const [otpRequested, setOtpRequested] = useState(false);
@@ -16,6 +17,8 @@ export default function ForgotPassword() {
 
   const [minutes, setMinutes] = useState(2);
   const [seconds, setSeconds] = useState(30);
+  const { currentUser, isAuthenticated } = useSelector((state) => state.user);
+  
 
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -54,12 +57,13 @@ export default function ForgotPassword() {
         return;
       }
       const res = await fetch(
-        "https://parinaye-backend.vercel.app/" + "api/auth/sendOtp",
+        import.meta.env.VITE_MY_BACKEND_URL + "api/auth/sendOtp",
         {
           method: "post",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": "Bearer " + currentUser.token,
           },
           body: JSON.stringify({ username: formData.username }),
         }
@@ -91,12 +95,13 @@ export default function ForgotPassword() {
         return;
       }
       const res = await fetch(
-        "https://parinaye-backend.vercel.app/" + "api/auth/verifyOtp",
+        import.meta.env.VITE_MY_BACKEND_URL + "api/auth/verifyOtp",
         {
           method: "post",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": "Bearer " + currentUser.token,
           },
           body: JSON.stringify({ otp: formData.otp }),
         }
@@ -135,12 +140,13 @@ export default function ForgotPassword() {
         return;
       }
       const res = await fetch(
-        "https://parinaye-backend.vercel.app/" + "api/auth/resetPassword",
+        import.meta.env.VITE_MY_BACKEND_URL + "api/auth/resetPassword",
         {
           method: "post",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": "Bearer " + currentUser.token,
           },
           body: JSON.stringify({ password: formData.password }),
         }

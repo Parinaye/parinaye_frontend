@@ -33,11 +33,11 @@ export default function Home() {
           autoPlay
           loop
           muted
-          className="w-full h-screen object-cover -z-1 col-start-1 row-start-1"
+          className="w-full h-screen object-cover z-0 col-start-1 row-start-1"
         >
           <source src={video} type="video/mp4" />
         </video>
-        <div className="flex flex-col h-screen items-center py-60 text-white bg-zinc-900/[0.8] col-start-1 row-start-1 ">
+        <div className="flex flex-col z-10 h-screen items-center py-60 text-white bg-zinc-900/[0.8] col-start-1 row-start-1">
           <Label className="text-sm sm:text-base">
             The road to "US" starts from here
           </Label>

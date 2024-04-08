@@ -13,7 +13,7 @@ export default function PrivateRoute() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(validateToken());
+    dispatch(validateToken(currentUser));
   }, [dispatch]);
 
   if (isSubmitting)

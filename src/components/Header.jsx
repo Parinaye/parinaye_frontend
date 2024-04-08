@@ -36,13 +36,14 @@ export default function Header() {
     dispatch(signOutAtStart());
     try {
       const res = await fetch(
-        "https://parinaye-backend.vercel.app/" +
+        import.meta.env.VITE_MY_BACKEND_URL +
           `api/auth/signout/${currentUser._id}`,
         {
           method: "GET",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": "Bearer " + currentUser.token,
           },
         }
       );

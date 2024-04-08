@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "../shadcn/components/ui/data-table";
 import { UserTableColumns } from "./components/UserTableColumns";
+import { useSelector } from "react-redux";
 
 export default function UsersSettings() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
   const [usertableData, setUsertableData] = useState([]);
+  const { currentUser, isAuthenticated } = useSelector((state) => state.user);
+  
 
   const handleEdit = async (formData) => {
     try {
       const res = await fetch(
-        "https://parinaye-backend.vercel.app/" +
+        import.meta.env.VITE_MY_BACKEND_URL +
           `api/user/update_user/${formData.id}`,
         {
           method: "PUT",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": "Bearer " + currentUser.token,
           },
           body: JSON.stringify(formData),
         }
@@ -33,12 +37,13 @@ export default function UsersSettings() {
   const handleDelete = async (id) => {
     try {
       const res = await fetch(
-        "https://parinaye-backend.vercel.app/" + `api/user/delete_user/${id}`,
+        import.meta.env.VITE_MY_BACKEND_URL + `api/user/delete_user/${id}`,
         {
           method: "DELETE",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": "Bearer " + currentUser.token,
           },
         }
       );
@@ -55,12 +60,13 @@ export default function UsersSettings() {
     const fetchUsers = async () => {
       try {
         const res = await fetch(
-          "https://parinaye-backend.vercel.app/" + "api/user/all_users",
+          import.meta.env.VITE_MY_BACKEND_URL + "api/user/all_users",
           {
             method: "GET",
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
+              "Authorization": "Bearer " + currentUser.token,
             },
           }
         );

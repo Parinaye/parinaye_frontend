@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import React from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { setProfileTheme} from "../../redux/profile/profileSlice.js"
 
 type Theme = "dark" | "light" | "system"
  
@@ -27,10 +29,14 @@ export function ThemeProvider({
   storageKey = "vite-ui-theme",
   ...props
 }: ThemeProviderProps) {
+  
+
+  const dispatch = useDispatch();
+  const { profileTheme } = useSelector((state: any) => state.profile);
+  
   const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
+    profileTheme
   )
- 
   useEffect(() => {
     const root = window.document.documentElement
  
@@ -52,8 +58,9 @@ export function ThemeProvider({
   const value = {
     theme,
     setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme)
+      // localStorage.setItem(storageKey, theme)
       setTheme(theme)
+      dispatch(setProfileTheme(theme))
     },
   }
  

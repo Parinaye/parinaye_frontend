@@ -84,16 +84,18 @@ export const {
   signOutFailure,
 } = userSlice.actions;
 
-export const validateToken = () => async (dispatch) => {
+export const validateToken = (currentUser) => async (dispatch) => {
+
   dispatch(signInStart());
   try {
     const res = await fetch(
-      "https://parinaye-backend.vercel.app/" + "api/auth/check_token",
+      import.meta.env.VITE_MY_BACKEND_URL + "api/auth/check_token",
       {
         method: "GET",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": "Bearer " + currentUser.token,
         },
       }
     );
@@ -102,7 +104,7 @@ export const validateToken = () => async (dispatch) => {
       dispatch(signInFailure(data.message));
       return;
     }
-    dispatch(signInSuccess(data));
+    dispatch(signInSuccess(currentUser));
   } catch (err) {
     dispatch(signInFailure(err.message));
   }

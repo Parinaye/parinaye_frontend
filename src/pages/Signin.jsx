@@ -28,6 +28,7 @@ export default function Signin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
+    console.log(import.meta.env.VITE_MY_BACKEND_URL);
     dispatch(signInStart());
 
     try {
@@ -41,10 +42,10 @@ export default function Signin() {
       }
 
       const res = await fetch(
-        "https://parinaye-backend.vercel.app/" + "api/auth/signin",
+        import.meta.env.VITE_MY_BACKEND_URL + "api/auth/signin",
         {
           method: "POST",
-          "credentials": "include",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },

@@ -55,12 +55,13 @@ export default function EditViewProfile({ props }) {
       try {
         setIsLoading(true);
         const res = await fetch(
-          "https://parinaye-backend.vercel.app/" + `api/profile/get/${id}`,
+          import.meta.env.VITE_MY_BACKEND_URL + `api/profile/get/${id}`,
           {
             method: "GET",
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
+              "Authorization": "Bearer " + currentUser.token,
             },
           }
         );

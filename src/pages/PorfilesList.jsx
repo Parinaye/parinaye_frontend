@@ -58,16 +58,15 @@ export default function PorfilesList() {
             queryString + "&" + `${key}=${JSON.stringify(filters[key])}`;
         }
       });
-
-      console.log(queryString);
       const res = await fetch(
-        "https://parinaye-backend.vercel.app/" +
+        import.meta.env.VITE_MY_BACKEND_URL +
           `api/profile/get_profiles?${queryString}`,
         {
           method: "GET",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": "Bearer " + currentUser.token,
           },
         }
       );
@@ -78,8 +77,8 @@ export default function PorfilesList() {
         return;
       } else if (data.success === false) {
         setError(data.message);
-      }
-      setProfiles(data);
+      } 
+      setProfiles([...data,...data,...data,...data,...data]);
     } catch (err) {
       console.log(err);
     }
@@ -88,13 +87,14 @@ export default function PorfilesList() {
   const handleSearch = async (e) => {
     try {
       const res = await fetch(
-        "https://parinaye-backend.vercel.app/" +
+        import.meta.env.VITE_MY_BACKEND_URL +
           `api/profile/search/?searchParam=${e.target.value}`,
         {
           method: "GET",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": "Bearer " + currentUser.token,
           },
         }
       );
@@ -117,12 +117,13 @@ export default function PorfilesList() {
       setProfilesLoading(true);
       try {
         const res = await fetch(
-          "https://parinaye-backend.vercel.app/" + "api/profile/get_profiles",
+          import.meta.env.VITE_MY_BACKEND_URL + "api/profile/get_profiles",
           {
             method: "GET",
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
+              "Authorization": "Bearer " + currentUser.token,
             },
           }
         );
@@ -161,7 +162,7 @@ export default function PorfilesList() {
                 onChange={handleSearch}
               />
               {currentUser.role == "admin" && (
-                <Dialog>
+                <Dialog className="shadow-lg shadow-secondary">
                   <DialogTrigger asChild>
                     <Button variant="default">Create Profile</Button>
                   </DialogTrigger>
@@ -173,7 +174,7 @@ export default function PorfilesList() {
                       </DialogDescription>
                     </DialogHeader>
 
-                    <ScrollArea className="rounded-md border max-h-lvh overflow-scroll">
+                    <ScrollArea className="rounded-md max-h-lvh shadow-md dark:shadow-secondary">
                       <CreateProfile />
                       <ScrollBar orientation="horizontal" />
                     </ScrollArea>
@@ -184,7 +185,7 @@ export default function PorfilesList() {
             <Separator />
 
             <div className="grid grid-cols-1  md:grid-cols-4 gap-2">
-              <section className="sm:border-2 sm:border-r-primary p-4">
+              <div className="sm:border-2 sm:border-r-primary p-4">
                 <div className="flex flex-col m-1 p-2 col-span-1 w-full bg-background  rounded-lg shadow-xl">
                   <ProfileListFilters
                     filters={filters}
@@ -192,8 +193,8 @@ export default function PorfilesList() {
                     handleFilterApply={handleFilterApply}
                   />
                 </div>
-              </section>
-              <section className="flex flex-col sm:col-span-2 md:col-span-3 w-full items-center gap-2">
+              </div>
+              <div className="flex flex-col sm:col-span-2 md:col-span-3 w-full items-center gap-2">
                 {currentRecords.length < 1 && !profilesLoading && (
                   <Card className="w-full m-4 p-4">
                     <span className="text-center text-3xl">
@@ -203,7 +204,7 @@ export default function PorfilesList() {
                     </span>
                   </Card>
                 )}
-                <ScrollArea className="rounded-md h-[70vh] sm:h-[70vh]  w-full overflow-scroll">
+                <ScrollArea className="rounded-md h-[70vh] sm:h-[70vh]  w-full ">
                   <div className="grid grid-cols-1 xl:grid-cols-2 m-2 ">
                     {profilesLoading && (
                       <div className="flex flex-col fle-grow m-2 sm:max-w-2xl  rounded-lg shadow-xl">
@@ -229,7 +230,7 @@ export default function PorfilesList() {
                     />
                   </section>
                 )}
-              </section>
+              </div>
             </div>
           </div>
         </div>

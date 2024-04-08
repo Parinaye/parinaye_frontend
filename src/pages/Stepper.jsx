@@ -52,7 +52,7 @@ export default function Stepper({
       <h1 className="text-md font-semibold text-center m-4">
         {stepsConfig[activeStep].title}
       </h1>
-      <ScrollArea className="rounded-md h-[50vh] w-full overflow-scroll">
+      <ScrollArea className="rounded-md h-[50vh] w-full">
       {stepsConfig[activeStep].component()}
       <ScrollBar orientation="horizontal" />
       </ScrollArea>
