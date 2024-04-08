@@ -21,12 +21,13 @@ export default function OAuth({ className }) {
 
       
       const res = await fetch(
-        process.env.VITE_MY_BACKEND_URL + "api/auth/signin_google",
+        import.meta.env.VITE_MY_BACKEND_URL + "api/auth/signin_google",
         {
           method: "POST",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+
           },
           body: JSON.stringify({
             username: googleRes.user.displayName,
