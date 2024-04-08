@@ -34,6 +34,7 @@ import CreateEditProfile from "../components/profile/CreateEditProfile";
 import { useSelector } from "react-redux";
 import { set } from "date-fns";
 import CardPlaceHolder from "../components/core/placeholders/card.placeholder";
+import { capitalizeWord } from "../utils/helpers";
 
 export default function EditViewProfile({ props }) {
   const { id } = useParams();
@@ -176,9 +177,9 @@ export default function EditViewProfile({ props }) {
                         <p className="text-2sm sm:text-sm text-muted-foreground">
                           {"Email"}
                         </p>
-                        <p className="text-sm sm:text-lg font-medium leading-none">
+                        <p className="text-sm sm:text-lg font-medium leading-none italic">
                           {formData.email
-                            ? formData.email.toUpperCase()
+                            ? formData.email.toLowerCase()
                             : nullString}
                         </p>
                       </div>
@@ -186,7 +187,7 @@ export default function EditViewProfile({ props }) {
                         <p className="text-2sm sm:text-sm text-muted-foreground">
                           {"Phone Number"}
                         </p>
-                        <p className="text-sm sm:text-lg font-medium leading-none">
+                        <p className="text-sm sm:text-lg font-medium leading-none italic">
                           {formData.phoneNumber
                             ? formData.phoneNumber.toUpperCase()
                             : nullString}
@@ -199,9 +200,9 @@ export default function EditViewProfile({ props }) {
                         <p className="text-2sm sm:text-sm text-muted-foreground">
                           {"Gender"}
                         </p>
-                        <p className="text-sm sm:text-lg font-medium leading-none">
+                        <p className="text-sm sm:text-lg font-medium leading-none italic">
                           {formData.gender
-                            ? formData.gender.toUpperCase()
+                            ? capitalizeWord(formData.gender)
                             : nullString}
                         </p>
                       </div>
@@ -209,7 +210,7 @@ export default function EditViewProfile({ props }) {
                         <p className="text-2sm sm:text-sm text-muted-foreground">
                           {"Height"}
                         </p>
-                        <p className="text-sm sm:text-lg font-medium leading-none">
+                        <p className="text-sm sm:text-lg font-medium leading-none italic">
                           {formData.height.feet && formData.height.inches
                             ? formData.height.feet +
                               "ft " +
@@ -222,7 +223,7 @@ export default function EditViewProfile({ props }) {
                         <p className="text-2sm sm:text-sm text-muted-foreground">
                           {"Date of Birth"}
                         </p>
-                        <p className="text-sm sm:text-lg font-medium leading-none">
+                        <p className="text-sm sm:text-lg font-medium leading-none italic">
                           {formData.dob
                             ? moment(formData.dob).format("YYYY/MM/DD") +
                               " ( Age : " +
@@ -242,9 +243,9 @@ export default function EditViewProfile({ props }) {
                         <p className="text-2sm sm:text-sm text-muted-foreground">
                           {"Religion"}
                         </p>
-                        <p className="text-sm sm:text-lg font-medium leading-none">
+                        <p className="text-sm sm:text-lg font-medium leading-none italic">
                           {formData.religion
-                            ? formData.religion.toUpperCase()
+                            ? capitalizeWord(formData.religion)
                             : nullString}
                         </p>
                       </div>
@@ -252,9 +253,29 @@ export default function EditViewProfile({ props }) {
                         <p className="text-2sm sm:text-sm text-muted-foreground">
                           {"Caste"}
                         </p>
-                        <p className="text-sm sm:text-lg font-medium leading-none">
+                        <p className="text-sm sm:text-lg font-medium leading-none italic">
                           {formData.caste
-                            ? formData.caste.toUpperCase()
+                            ? capitalizeWord(formData.caste)
+                            : nullString}
+                        </p>
+                      </div>
+                      <div className="w-full flex flex-row justify-between items-end gap-2  sm:flex-col sm:gap-0 sm:space-y-1  sm:items-start ">
+                        <p className="text-2sm sm:text-sm text-muted-foreground">
+                          {"Swagotram"}
+                        </p>
+                        <p className="text-sm sm:text-lg font-medium leading-none italic italic italic italicitalic">
+                          {formData.swagotram
+                            ? capitalizeWord(formData.swagotram)
+                            : nullString}
+                        </p>
+                      </div>
+                      <div className="w-full flex flex-row justify-between items-end gap-2  sm:flex-col sm:gap-0 sm:space-y-1  sm:items-start ">
+                        <p className="text-2sm sm:text-sm text-muted-foreground">
+                          {"Maternal Gotram"}
+                        </p>
+                        <p className="text-sm sm:text-lg font-medium leading-none italic italic italic italicitalic">
+                          {formData.maternalGotram
+                            ? capitalizeWord(formData.maternalGotram)
                             : nullString}
                         </p>
                       </div>
@@ -262,9 +283,9 @@ export default function EditViewProfile({ props }) {
                         <p className="text-2sm sm:text-sm text-muted-foreground">
                           {"Marital Status"}
                         </p>
-                        <p className="text-sm sm:text-lg font-medium leading-none">
+                        <p className="text-sm sm:text-lg font-medium leading-none italic">
                           {formData.maritalStatus
-                            ? formData.maritalStatus.toUpperCase()
+                            ? capitalizeWord(formData.maritalStatus)
                             : nullString}
                         </p>
                       </div>
@@ -275,9 +296,9 @@ export default function EditViewProfile({ props }) {
                         <p className="text-2sm sm:text-sm text-muted-foreground">
                           {"Profession"}
                         </p>
-                        <p className="text-sm sm:text-lg font-medium leading-none">
+                        <p className="text-sm sm:text-lg font-medium leading-none italic">
                           {formData.profession
-                            ? formData.profession.toUpperCase()
+                            ? capitalizeWord(formData.profession)
                             : nullString}
                         </p>
                       </div>
@@ -286,9 +307,9 @@ export default function EditViewProfile({ props }) {
                           {"Education"}
                         </p>
 
-                        <p className="text-sm sm:text-lg font-medium leading-none">
+                        <p className="text-sm sm:text-lg font-medium leading-none italic">
                           {formData.education
-                            ? formData.education.toUpperCase()
+                            ? capitalizeWord(formData.education)
                             : nullString}
                         </p>
                       </div>
@@ -299,7 +320,7 @@ export default function EditViewProfile({ props }) {
                         <p className="text-2sm sm:text-sm text-muted-foreground">
                           {"Income"}
                         </p>
-                        <p className="text-sm sm:text-lg font-medium leading-none">
+                        <p className="text-sm sm:text-lg font-medium leading-none italic">
                           {formData.income
                             ? formData.income.toUpperCase()
                             : nullString}
@@ -311,11 +332,11 @@ export default function EditViewProfile({ props }) {
                           <p className="text-2sm sm:text-sm text-muted-foreground">
                             {"Assets"}
                           </p>
-                          <p className="text-sm sm:text-lg font-medium leading-none">
+                          <p className="text-sm sm:text-lg font-medium leading-none italic">
                             {formData.assets.map((asset, index) => {
                               return (
                                 <span key={`asset_${index}`} className="mx-1">
-                                  {asset.toUpperCase() + ","}
+                                  {capitalizeWord(asset) + ","}
                                 </span>
                               );
                             })}
@@ -328,8 +349,18 @@ export default function EditViewProfile({ props }) {
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full my-4">
                       <div className="w-full flex flex-row justify-between items-end gap-2  sm:flex-col sm:gap-0 sm:space-y-1  sm:items-start ">
                         <p className="text-sm text-muted-foreground">About</p>
-                        <p className="text-sm font-medium leading-none">
+                        <p className="text-sm font-medium leading-none italic">
                           {formData.bio}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col sm:w-1/3 p-2">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full my-4">
+                      <div className="w-full flex flex-row justify-between items-end gap-2  sm:flex-col sm:gap-0 sm:space-y-1  sm:items-start ">
+                        <p className="text-sm text-muted-foreground">Seeking</p>
+                        <p className="text-sm font-medium leading-none italic">
+                          {formData.seekingBio}
                         </p>
                       </div>
                     </div>

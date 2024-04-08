@@ -21,6 +21,7 @@ import {
   GENDER_ENUM,
   RELIGION_ENUM,
   CASTE_ENUM,
+  GOTRAM_ENUM,
 } from "../../../config/enums.config";
 import {
   Form,
@@ -71,9 +72,12 @@ export default function CreateEditProfile({
     phoneNumber: "",
     email: "",
     dob: "",
-    religion: "",
-    caste: "",
+    religion: "hindu",
+    caste: "komati:vysya",
+    swagotram: "",
+    maternalGotram: "",
     bio: "",
+    seekingBio: "",
     profilePictures: [],
     profession: "",
     assets: [],
@@ -299,6 +303,14 @@ export default function CreateEditProfile({
     setFormData({ ...formData, religion });
   };
 
+  const handleSwagotramChange = (swagotram) => {
+    setFormData({ ...formData, swagotram });
+  };
+
+  const handleMaternalGotramChange = (maternalGotram) => {
+    setFormData({ ...formData, maternalGotram });
+  };
+
   const handleCasteChange = (caste) => {
     setFormData({ ...formData, caste });
   };
@@ -411,7 +423,7 @@ export default function CreateEditProfile({
       ),
     },
     {
-      title: "Personal and Caste Information",
+      title: "Personal Information",
       component: () => (
         <>
           <div className="flex flex-col gap-2 sm:gap-0 sm:flex-row justify-between m-2">
@@ -512,8 +524,8 @@ export default function CreateEditProfile({
             </div>
             <div className="grid grid-cols-1 gap-2 ">
               <FormField
-                name="education"
-                id="education"
+                name="religion"
+                id="religion"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Religion</FormLabel>
@@ -545,8 +557,8 @@ export default function CreateEditProfile({
             <div className="grid grid-cols-1 gap-2 ">
               <FormField
                 onChange={handleChange}
-                name="education"
-                id="education"
+                name="caste"
+                id="caste"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Caste</FormLabel>
@@ -577,6 +589,72 @@ export default function CreateEditProfile({
                               </SelectGroup>
                             );
                           })}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+          <div className="grid grid-col-1 sm:grid-cols-3 m-2 gap-4">
+            <div className="grid grid-cols-1 gap-2 ">
+              <FormField
+                name="swagotram"
+                id="swagotram"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Swagotram</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={handleSwagotramChange}
+                        defaultValue={formData.swagotram}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Religion" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {GOTRAM_ENUM.map((swagotram) => {
+                              return (
+                                <SelectItem value={swagotram}>
+                                  {swagotram}
+                                </SelectItem>
+                              );
+                            })}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="grid grid-cols-1 gap-2 ">
+              <FormField
+                name="swagotram"
+                id="swagotram"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Maternal Gotram</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={handleMaternalGotramChange}
+                        defaultValue={formData.maternalGotram}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select maternalGotram" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {GOTRAM_ENUM.map((maternalGotram) => {
+                              return (
+                                <SelectItem value={maternalGotram}>
+                                  {maternalGotram}
+                                </SelectItem>
+                              );
+                            })}
+                          </SelectGroup>
                         </SelectContent>
                       </Select>
                     </FormControl>
@@ -715,7 +793,7 @@ export default function CreateEditProfile({
       ),
     },
     {
-      title: "Bio and Profile Pictures",
+      title: "Bio and Seeking Information",
       component: () => (
         <>
           <div className="flex flex-col justify-start p-2">
@@ -730,7 +808,7 @@ export default function CreateEditProfile({
                         placeholder="Tell us more..."
                         id="bio"
                         onChange={handleChange}
-                        className="resize-y"
+                        className="resize-y min-h-[20vh]"
                         defaultValue={formData.bio}
                       />
                     </FormControl>
@@ -740,6 +818,36 @@ export default function CreateEditProfile({
                 )}
               />
             </div>
+            <div className="flex flex-col flex-grow">
+              <FormField
+                name="seekingBio"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Seeking</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Tell us more whom you are looking for..."
+                        id="seekingBio"
+                        onChange={handleChange}
+                        className="resize-y min-h-[20vh]"
+                        defaultValue={formData.seekingBio}
+                      />
+                    </FormControl>
+                    <FormDescription>{}</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+        </>
+      ),
+    },
+    {
+      title: "Profile pics",
+      component: () => (
+        <>
+          <div className="flex flex-col justify-start p-2">
             <div className="flex flex-col grow">
               <Label className="my-4">
                 <b>Add Images : </b>
