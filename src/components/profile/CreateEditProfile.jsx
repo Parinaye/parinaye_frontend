@@ -58,7 +58,8 @@ import { Textarea } from "../shadcn/components/ui/textarea";
 import Stepper from "../../pages/Stepper";
 import { isValidImageURL } from "../../utils/helpers.jsx";
 import { useSelector } from "react-redux";
-
+import { Country, State, City } from "country-state-city";
+import { set } from "date-fns";
 
 const formSchema = z.object({
   firstName: z.string().min(1),
@@ -70,6 +71,8 @@ export default function CreateEditProfile({
     lastName: "",
     gender: "",
     phoneNumber: "",
+    fatherName: "",
+    motherName: "",
     email: "",
     dob: "",
     religion: "hindu",
@@ -85,8 +88,16 @@ export default function CreateEditProfile({
     education: "",
     income: "",
     height: {
-      feet: "",
-      inches: "",
+      feet: "5",
+      inches: "1",
+    },
+    address: {
+      addressLine1: "",
+      addressLine2: "",
+      city: "",
+      state: "Andhra Pradesh",
+      country: "India",
+      pincode: "",
     },
   },
   enableEdit,
@@ -99,7 +110,76 @@ export default function CreateEditProfile({
   const [profileUploading, setProfileUploading] = useState(false);
   const [profileUploadError, setProfileUploadError] = useState("");
   const { currentUser, isAuthenticated } = useSelector((state) => state.user);
-  
+  const countryData = Country.getAllCountries().map((country) => country.name);
+  const countryCodeData = Country.getAllCountries().reduce((acc, country) => {
+    acc[country.name] = country.isoCode;
+    return acc;
+  }, {});
+
+  // const stateData = State.getStatesOfCountry(countryCodeData[formData.address.country]).map((state) => state.name);
+
+  // const stateCodeData = State.getStatesOfCountry(countryCodeData[formData.address.state]).reduce((acc, state) => {
+  //   acc[state.name] = state.isoCode;
+  //   return acc;
+  // }, {});
+
+  const [stateCodeData, setStateCodeData] = useState(
+    formData.address && formData.address.country
+      ? State.getStatesOfCountry(
+          countryCodeData[formData.address.country]
+        ).reduce((acc, state) => {
+          acc[state.name] = state.isoCode;
+          return acc;
+        }, {})
+      : {}
+  );
+
+  const [stateData, setStateData] = useState(
+    formData.address && formData.address.country
+      ? State.getStatesOfCountry(countryCodeData[formData.address.country]).map(
+          (state) => state.name
+        )
+      : []
+  );
+  const [cityData, setCityData] = useState(
+    formData.address && formData.address.country && formData.address.state
+      ? City.getCitiesOfState(
+          countryCodeData[formData.address.country],
+          stateCodeData[formData.address.state]
+        ).map((city) => city.name)
+      : []
+  );
+
+  // const cityData = City.getCitiesOfState(stateCodeData[formData.address.state]).map((city) => city.name);
+  if (formData.address) {
+    useEffect(() => {
+      setStateData(
+        formData.address && formData.address.country
+          ? State.getStatesOfCountry(
+              countryCodeData[formData.address.country]
+            ).map((state) => state.name)
+          : []
+      );
+      setStateCodeData(
+        formData.address && formData.address.country
+          ? State.getStatesOfCountry(
+              countryCodeData[formData.address.country]
+            ).reduce((acc, state) => {
+              acc[state.name] = state.isoCode;
+              return acc;
+            }, {})
+          : {}
+      );
+      setCityData(
+        formData.address && formData.address.country && formData.address.state
+          ? City.getCitiesOfState(
+              countryCodeData[formData.address.country],
+              stateCodeData[formData.address.state]
+            ).map((city) => city.name)
+          : []
+      );
+    }, [formData.address.country, formData.address.state]);
+  }
   const navigate = useNavigate();
 
   console.log(formData);
@@ -201,7 +281,7 @@ export default function CreateEditProfile({
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
-              "Authorization": "Bearer " + currentUser.token,
+              Authorization: "Bearer " + currentUser.token,
             },
             body: JSON.stringify(formData),
           }
@@ -216,7 +296,7 @@ export default function CreateEditProfile({
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
-              "Authorization": "Bearer " + currentUser.token,
+              Authorization: "Bearer " + currentUser.token,
             },
             body: JSON.stringify(formData),
           }
@@ -230,7 +310,8 @@ export default function CreateEditProfile({
         return;
       }
       setProfileUploadError("");
-      navigate(`/profile/${data._id}`);
+      // navigate(`/profile/${data._id}`);
+      setEnableEdit(false);
       return;
     } catch (error) {
       setProfileUploadError(error);
@@ -285,6 +366,13 @@ export default function CreateEditProfile({
     }
   };
 
+  const handleAddressChange = (e) => {
+    setFormData({
+      ...formData,
+      address: { ...formData.address, [e.target.id]: e.target.value },
+    });
+  };
+
   const handleAssetsChnage = (e) => {
     let assets = formData.assets;
     if (!assets.includes(e.target.value)) {
@@ -297,6 +385,27 @@ export default function CreateEditProfile({
 
   const handleEducationChange = (education) => {
     setFormData({ ...formData, education });
+  };
+
+  const handleAddressCountryChange = (country) => {
+    setFormData({
+      ...formData,
+      address: { ...formData.address, country },
+    });
+  };
+
+  const handleAddressStateChange = (state) => {
+    setFormData({
+      ...formData,
+      address: { ...formData.address, state },
+    });
+  };
+
+  const handleAddressCityChange = (city) => {
+    setFormData({
+      ...formData,
+      address: { ...formData.address, city },
+    });
   };
 
   const handleReligionChange = (religion) => {
@@ -419,6 +528,43 @@ export default function CreateEditProfile({
               />
             </div>
           </div>
+
+          <div className="flex flex-col justify-center sm:flex-row sm:justify-between my-2">
+            <div className="flex flex-col sm:w-1/2 flex-grow mx-2">
+              <FormField
+                name="fatherName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Father Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        defaultValue={formData.fatherName}
+                        id="fatherName"
+                        onChange={handleChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="flex flex-col sm:w-1/2 flex-grow mx-2">
+              <FormField
+                name="motherName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Mother Name</FormLabel>
+                    <FormControl>
+                      <Input
+                        defaultValue={formData.motherName}
+                        id="motherName"
+                        onChange={handleChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
         </>
       ),
     },
@@ -462,6 +608,7 @@ export default function CreateEditProfile({
                           max={7}
                           step={1}
                           min={4}
+                          showSteps={true}
                           className="mt-1 w-full rounded-md"
                         />
                       </FormControl>
@@ -484,9 +631,10 @@ export default function CreateEditProfile({
                           id="heightInches"
                           onValueChange={handleInchesChange}
                           defaultValue={[formData.height.inches]}
-                          max={12}
+                          max={11}
                           step={1}
-                          min={1}
+                          min={0}
+                          showSteps={true}
                           className="mt-1 w-full rounded-md"
                         />
                       </FormControl>
@@ -611,7 +759,7 @@ export default function CreateEditProfile({
                         defaultValue={formData.swagotram}
                       >
                         <SelectTrigger>
-                          <SelectValue placeholder="Select Religion" />
+                          <SelectValue placeholder="Select Swagotram" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
@@ -643,7 +791,7 @@ export default function CreateEditProfile({
                         defaultValue={formData.maternalGotram}
                       >
                         <SelectTrigger>
-                          <SelectValue placeholder="Select maternalGotram" />
+                          <SelectValue placeholder="Select Maternal Gotram" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
@@ -657,6 +805,126 @@ export default function CreateEditProfile({
                           </SelectGroup>
                         </SelectContent>
                       </Select>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+        </>
+      ),
+    },
+    {
+      title: "Address Details",
+      component: () => (
+        <>
+          <div className="flex flex-col justify-center sm:flex-row sm:justify-between my-2">
+            <div className="flex flex-col sm:w-1/2 flex-grow mx-2">
+              <FormField
+                name="addressLine1"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Address Line1</FormLabel>
+                    <FormControl>
+                      <Input
+                        defaultValue={formData.address.addressLine1}
+                        id="addressLine1"
+                        onChange={handleAddressChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+          <div className="flex flex-col justify-center sm:flex-row sm:justify-between my-2">
+            <div className="flex flex-col sm:w-1/2 flex-grow mx-2">
+              <FormField
+                name="addressLine2"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Address Line2</FormLabel>
+                    <FormControl>
+                      <Input
+                        defaultValue={formData.address.addressLine2}
+                        id="addressLine2"
+                        onChange={handleAddressChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+          <div className="grid grid-col-1 sm:grid-cols-2 my-5 gap-4">
+            <div className="grid grid-cols-1 gap-2 mx-2">
+              <Label>Country</Label>
+              <Select
+                onValueChange={handleAddressCountryChange}
+                defaultValue={formData.address.country}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Country" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {countryData.map((country) => {
+                      return <SelectItem value={country}>{country}</SelectItem>;
+                    })}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid grid-cols-1 gap-2 mx-2">
+              <Label>State</Label>
+              <Select
+                onValueChange={handleAddressStateChange}
+                defaultValue={formData.address.state}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select State" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {stateData.map((state) => {
+                      return <SelectItem value={state}>{state}</SelectItem>;
+                    })}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <div className="grid grid-col-1 sm:grid-cols-2 my-5 gap-4">
+            <div className="grid grid-cols-1 gap-2 mx-2">
+              <Label>City</Label>
+              <Select
+                onValueChange={handleAddressCityChange}
+                defaultValue={formData.address.city}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select City" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {cityData.map((city) => {
+                      return <SelectItem value={city}>{city}</SelectItem>;
+                    })}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid grid-cols-1 gap-2 mx-2">
+              <Label>Pincode</Label>
+              <FormField
+                name="pincode"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        defaultValue={formData.address.pincode}
+                        id="pincode"
+                        onChange={handleAddressChange}
+                      />
                     </FormControl>
                   </FormItem>
                 )}
