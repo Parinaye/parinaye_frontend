@@ -94,8 +94,8 @@ export default function EditViewProfile(props) {
   }, [enableEdit]);
 
   return (
-    <div className="flex justify-center border-3 border-red-600">
-      <Card className="flex w-[80vw] bg-background opacity-95 shadow-xl min-h-screen dark:shadow-inner">
+    <div className="flex justify-center">
+      <Card className="flex w-[80vw] border-0 bg-background opacity-95 shadow-xl min-h-screen dark:shadow-inner">
         {isLoading ? (
           <div className="flex flex-col justify-center  m-2 w-full rounded-lg shadow-xl">
             <CardPlaceHolder className="flex-grow" />
