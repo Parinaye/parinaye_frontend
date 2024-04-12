@@ -63,11 +63,9 @@ export default function ProfileListCard({ profile }) {
                     </p>
                   </div>
                   <div className="flex flex-row items-center gap-1 ">
-                    <p className="text-2sm text-muted-foreground">
-                      {"Religion"}
-                    </p>
-                    <p className="text-sm font-medium leading-none">
-                      {profile.religion ? profile.religion : "N/A"}
+                    
+                    <p className="text-2sm font-medium leading-none">
+                      {profile.address && profile.address.city ? profile.address.city : "N/A"}
                     </p>
                   </div>
                 </div>
