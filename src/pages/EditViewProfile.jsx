@@ -246,7 +246,7 @@ export default function EditViewProfile(props) {
                           {"Height"}
                         </p>
                         <p className="text-sm sm:text-lg font-medium leading-none italic">
-                          {formData.height.feet && formData.height.inches
+                          {formData.height.feet
                             ? formData.height.feet +
                               "ft " +
                               formData.height.inches +
