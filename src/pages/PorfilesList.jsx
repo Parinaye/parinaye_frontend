@@ -43,6 +43,7 @@ export default function PorfilesList() {
     assets: [],
     education: [],
     maritalStatus: [],
+    verificationStatus:[],
     income: [],
     caste: [],
     religion: [],

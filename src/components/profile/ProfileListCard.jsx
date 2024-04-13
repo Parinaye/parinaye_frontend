@@ -50,7 +50,16 @@ export default function ProfileListCard({ profile }) {
                   <p className="text-lg font-bold dark:text-primary">
                     {profile.firstName + " " + profile.lastName}
                   </p>
+                 
                 </div>
+                <div className="flex flex-row flex-wrap items-center justify-between w-full">
+                  
+                <p className="text-sm font-medium leading-none">
+                    ( {profile.verificationStatus} )
+                  </p>
+
+                </div>
+                <Separator />
                 <div className="flex flex-row items-center flex-wrap justify-between w-full">
                   <div className="flex flex-row items-center gap-1 ">
                     <p className="text-2sm text-muted-foreground">{"Age"}</p>

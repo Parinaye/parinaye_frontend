@@ -35,11 +35,17 @@ import { useSelector } from "react-redux";
 import { set } from "date-fns";
 import CardPlaceHolder from "../components/core/placeholders/card.placeholder";
 import { capitalizeWord } from "../utils/helpers";
-
 import {
-  ScrollArea,
-  ScrollBar,
-} from "../components/shadcn/components/ui/scroll-area";
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuLabel,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenuSeparator,
+  DropdownMenuGroup,
+} from "../components/shadcn/components/ui/dropdown-menu";
+import { Button } from "../components/shadcn/components/ui/button";
+import { VERIFICATION_STATUS_ENUM } from "../../config/enums.config";
 
 export default function EditViewProfile(props) {
   const id = useParams().id || props.id;
@@ -52,11 +58,7 @@ export default function EditViewProfile(props) {
   const { currentUser } = useSelector((state) => state.user);
   const formSchema = z.object({});
 
-  const [isMaximized, setIsMaximized] = useState(false);
-
-  const toggleMaximize = () => {
-    setIsMaximized(!isMaximized);
-  };
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -93,6 +95,43 @@ export default function EditViewProfile(props) {
     fetchProfile();
   }, [enableEdit]);
 
+
+  const handleImageClick = (imageUrl) => {
+    setSelectedImage(imageUrl);
+  };
+
+  const handleCloseFullScreen = () => {
+    setSelectedImage(null);
+  };
+
+  const handleVerify = async (e) => {
+    try {
+      const res = await fetch(
+        import.meta.env.VITE_MY_BACKEND_URL +
+          `api/profile/update/${id}`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + currentUser.token,
+          },
+          body: JSON.stringify({
+            verificationStatus: e.target.id,
+          }),
+        }
+      );
+      const data = await res.json();
+      if (data.success === false) {
+        setProfileUploadError(data.message);
+        return;
+      }
+      setFormData(data);
+    } catch (error) {
+      setProfileUploadError(error);
+    }
+  }
+
   return (
     <div className="flex justify-center">
       <Card className="flex w-[80vw] border-0 bg-background opacity-95 shadow-xl min-h-screen dark:shadow-inner">
@@ -107,13 +146,39 @@ export default function EditViewProfile(props) {
           >
             {currentUser.role == "admin" &&
               Object.keys(formData).length > 0 && (
-                <div className="flex flex-row justify-end items-center my-4 gap-2">
-                  <Switch
-                    onCheckedChange={() => setEnableEdit(!enableEdit)}
-                    checked={enableEdit}
-                    className="border-primary"
-                  />
-                  <Label className="text-lg font-bold"> Edit Profile </Label>
+                <div className="flex flex-col sm:flex-row sm:justify-between items-end my-4 gap-4">
+                  
+                  <div>
+                    <Switch
+                      onCheckedChange={() => setEnableEdit(!enableEdit)}
+                      checked={enableEdit}
+                      className="border-primary"
+                    />
+                    <Label className="text-lg font-bold"> Edit Profile </Label>
+                  </div>
+                  <div hidden={enableEdit}>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild type="text">
+                        <Button variant="default">Verify Profile</Button>
+                      </DropdownMenuTrigger>
+
+                      <DropdownMenuContent className="w-56">
+                        <DropdownMenuGroup>
+                          {
+                            VERIFICATION_STATUS_ENUM.map((status, index) => {
+                              return (
+                                <DropdownMenuItem key={`status_${index}`}>
+                                  <span id={status} onClick={handleVerify} className="w-full">
+                                    {status}
+                                  </span>
+                                </DropdownMenuItem>
+                              );
+                            })
+                          }
+                        </DropdownMenuGroup>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
                 </div>
               )}
 
@@ -142,35 +207,48 @@ export default function EditViewProfile(props) {
                     ]}
                     spaceBetween={20}
                     slidesPerView={1}
-                    effect="fade"
+                    effect="slide"
                     autoplay={{
                       delay: 9500,
                     }}
-                    navigation
+                    loop={true}
                     pagination={{ clickable: true }}
                     scrollbar={{ draggable: true }}
-                    className="h-[60vh] rounded-lg shadow-xl"
+                    className="h-[50vh] sm:h-[60vh] rounded-lg shadow-xl"
                   >
                     {formData.profilePictures.map((picture, index) => {
                       return (
                         <SwiperSlide
                           key={`profile_pic_${index}`}
-                          className="flex flex-row justify-center items-center w-full h-[60vh] rounded-lg shadow-xl bg-background bg-none"
+                          className="flex flex-row justify-center items-center w-full sm:h-[60vh] h-[50vh] rounded-lg shadow-xl bg-background bg-none"
                         >
                           <img
                             src={picture}
-                            className="w-[50vw] h-[55vh] rounded-lg object-scale-down m-2 p-2 hover:scale-125 transition-transform duration-500 ease-in-out"
+                            className="w-[50vw] sm:h-[55vh] h-[45vh] rounded-lg sm:object-scale-down object-cover m-2 p-2 hover:scale-125 transition-transform duration-500 ease-in-out"
                             onError={(e) =>
                               (e.target.onerror = null)(
                                 (e.target.src =
                                   "/src/assets/images/no_image.png")
                               )
                             }
+                            onClick={() => handleImageClick(picture)}
                           />
                         </SwiperSlide>
                       );
                     })}
                   </Swiper>
+                  {selectedImage && (
+        <div
+          className="fixed top-0 left-0 z-50 w-screen h-screen bg-black bg-opacity-90 flex justify-center items-center"
+          onClick={handleCloseFullScreen}
+        >
+          <img
+            src={selectedImage}
+            alt="Full Screen Image"
+            className="max-w-full max-h-full"
+          />
+        </div>
+      )}
                 </div>
                 <form className="flex flex-col p-5 sm:flex-row my-5 rounded justify-between shadow-xl">
                   <div className="flex flex-col sm:w-2/3 sm:border-r-2 p-2 ">
@@ -179,6 +257,15 @@ export default function EditViewProfile(props) {
                         <p className="text-xl font-bold text-primary">
                           {formData.firstName && formData.lastName
                             ? formData.firstName + " " + formData.lastName
+                            : nullString}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex flex-col justify-center sm:flex-row sm:justify-between my-2">
+                      <div className="flex flex-col sm:w-1/2 flex-grow ">
+                        <p className="text-sm sm:text-lg font-medium leading-none italic text-wrap ">
+                          {formData.verificationStatus 
+                            ? capitalizeWord( formData.verificationStatus)
                             : nullString}
                         </p>
                       </div>
@@ -393,46 +480,49 @@ export default function EditViewProfile(props) {
                           {"Address"}
                         </p>
                         <div className="col-span-4 w-full flex justify-between items-start gap-2  flex-col  ">
- 
-                        <p className="text-sm sm:text-lg font-medium leading-none italic">
-                          {(formData.address.addressLine1
-                            ? formData.address.addressLine1
-                            : nullString)  + ", " + (formData.address.addressLine1
-                            ? formData.address.addressLine2
-                            : nullString) }
-                           </p>
-                      </div>
+                          <p className="text-sm sm:text-lg font-medium leading-none italic">
+                            {(formData.address.addressLine1
+                              ? formData.address.addressLine1
+                              : nullString) +
+                              ", " +
+                              (formData.address.addressLine1
+                                ? formData.address.addressLine2
+                                : nullString)}
+                          </p>
+                        </div>
                       </div>
                       <div className="col-span-4 sm:col-span-1 w-full flex justify-between items-start gap-2  flex-col  ">
                         <p className="text-2sm sm:text-sm text-muted-foreground">
                           {"City:"}
                         </p>
-                        <p className="text-sm sm:text-lg font-medium leading-none italic"> 
-                           {  (formData.address.city
+                        <p className="text-sm sm:text-lg font-medium leading-none italic">
+                          {formData.address.city
                             ? capitalizeWord(formData.address.city)
-                            : nullString) }
-                            </p>
-                       </div>
-                       <div className="col-span-4 sm:col-span-1   w-full flex justify-between items-start gap-2  flex-col  ">
-                         <p className="text-2sm sm:text-sm text-muted-foreground">
-                           {"State:"}
-                         </p>
-                         <p className="text-sm sm:text-lg font-medium leading-none italic"> 
-                            { ( formData.address.state
+                            : nullString}
+                        </p>
+                      </div>
+                      <div className="col-span-4 sm:col-span-1   w-full flex justify-between items-start gap-2  flex-col  ">
+                        <p className="text-2sm sm:text-sm text-muted-foreground">
+                          {"State:"}
+                        </p>
+                        <p className="text-sm sm:text-lg font-medium leading-none italic">
+                          {formData.address.state
                             ? capitalizeWord(formData.address.state)
-                            : nullString) }
-                            </p>
-                       </div>
-                       <div className="col-span-4 sm:col-span-1 w-full flex justify-between items-start gap-2  flex-col  ">
-                         <p className="text-2sm sm:text-sm text-muted-foreground">
-                           {"Country:"}
-                         </p>
-                         <p className="text-sm sm:text-lg font-medium leading-none italic"> 
-                            {  (formData.address.country
+                            : nullString}
+                        </p>
+                      </div>
+                      <div className="col-span-4 sm:col-span-1 w-full flex justify-between items-start gap-2  flex-col  ">
+                        <p className="text-2sm sm:text-sm text-muted-foreground">
+                          {"Country:"}
+                        </p>
+                        <p className="text-sm sm:text-lg font-medium leading-none italic">
+                          {(formData.address.country
                             ? capitalizeWord(formData.address.country)
-                            : nullString) + ", " + (formData.address.pincode
-                            ? formData.address.pincode
-                            : nullString)}
+                            : nullString) +
+                            ", " +
+                            (formData.address.pincode
+                              ? formData.address.pincode
+                              : nullString)}
                         </p>
                       </div>
                     </div>

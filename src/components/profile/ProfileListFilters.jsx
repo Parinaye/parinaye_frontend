@@ -13,6 +13,7 @@ import {
   MARITAL_STATUS_ENUM,
   PROFESSION_ENUM,
   RELIGION_ENUM,
+  VERIFICATION_STATUS_ENUM,
 } from "../../../config/enums.config";
 import { Button } from "../shadcn/components/ui/button";
 import moment from "moment";
@@ -28,6 +29,7 @@ export default function ProfileListFilters({
       case "profession":
       case "education":
       case "maritalStatus":
+      case "verificationStatus":
       case "income":
       case "religion":
       case "caste":
@@ -171,6 +173,34 @@ export default function ProfileListFilters({
                           className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed p-2 peer-disabled:opacity-70"
                         >
                           {maritalStatus}
+                        </label>
+                      </div>
+                    );
+                  })}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="verificationStatus">
+              <AccordionTrigger>Verification Status</AccordionTrigger>
+              <AccordionContent>
+                <div className="flex flex-row flex-wrap justify-start m-2">
+                  {VERIFICATION_STATUS_ENUM.map((verificationStatus) => {
+                    return (
+                      <div className="flex items-center mx-4 ">
+                        <Checkbox
+                          id={"verificationStatus"}
+                          value={verificationStatus}
+                          onClick={handleChange}
+                          checked={
+                            filters.verificationStatus &&
+                            filters.verificationStatus.includes(verificationStatus)
+                          }
+                        />
+                        <label
+                          htmlFor={verificationStatus}
+                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed p-2 peer-disabled:opacity-70"
+                        >
+                          {verificationStatus}
                         </label>
                       </div>
                     );

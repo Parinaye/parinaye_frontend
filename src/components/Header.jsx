@@ -93,13 +93,12 @@ export default function Header() {
                   className="rounded-full h-7 w-7 object-cover"
                 ></img> */}
 
-              <DropdownMenu className="bg-black border-red-300 border-3">
+              <DropdownMenu>
                 <DropdownMenuTrigger
                   asChild
-                  className="bg-black border-red-300 border-3"
                   type="text"
                 >
-                  <Avatar className="bg-black border-red-300 border-3">
+                  <Avatar>
                     <AvatarImage src={currentUser.avatar} />
                     <AvatarFallback>
                       {String(currentUser.username[0]).toUpperCase()}
