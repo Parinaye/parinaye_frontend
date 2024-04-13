@@ -95,7 +95,6 @@ export default function EditViewProfile(props) {
     fetchProfile();
   }, [enableEdit]);
 
-
   const handleImageClick = (imageUrl) => {
     setSelectedImage(imageUrl);
   };
@@ -107,8 +106,7 @@ export default function EditViewProfile(props) {
   const handleVerify = async (e) => {
     try {
       const res = await fetch(
-        import.meta.env.VITE_MY_BACKEND_URL +
-          `api/profile/update/${id}`,
+        import.meta.env.VITE_MY_BACKEND_URL + `api/profile/update/${id}`,
         {
           method: "PUT",
           credentials: "include",
@@ -130,11 +128,11 @@ export default function EditViewProfile(props) {
     } catch (error) {
       setProfileUploadError(error);
     }
-  }
+  };
 
   return (
     <div className="flex justify-center">
-      <Card className="flex w-[80vw] border-0 bg-background opacity-95 shadow-xl min-h-screen dark:shadow-inner">
+      <Card className="flex w-[80vw] border-0 opacity-95 shadow-xl min-h-screen dark:shadow-inner">
         {isLoading ? (
           <div className="flex flex-col justify-center  m-2 w-full rounded-lg shadow-xl">
             <CardPlaceHolder className="flex-grow" />
@@ -147,7 +145,6 @@ export default function EditViewProfile(props) {
             {currentUser.role == "admin" &&
               Object.keys(formData).length > 0 && (
                 <div className="flex flex-col sm:flex-row sm:justify-between items-end my-4 gap-4">
-                  
                   <div>
                     <Switch
                       onCheckedChange={() => setEnableEdit(!enableEdit)}
@@ -164,17 +161,19 @@ export default function EditViewProfile(props) {
 
                       <DropdownMenuContent className="w-56">
                         <DropdownMenuGroup>
-                          {
-                            VERIFICATION_STATUS_ENUM.map((status, index) => {
-                              return (
-                                <DropdownMenuItem key={`status_${index}`}>
-                                  <span id={status} onClick={handleVerify} className="w-full">
-                                    {status}
-                                  </span>
-                                </DropdownMenuItem>
-                              );
-                            })
-                          }
+                          {VERIFICATION_STATUS_ENUM.map((status, index) => {
+                            return (
+                              <DropdownMenuItem key={`status_${index}`}>
+                                <span
+                                  id={status}
+                                  onClick={handleVerify}
+                                  className="w-full"
+                                >
+                                  {status}
+                                </span>
+                              </DropdownMenuItem>
+                            );
+                          })}
                         </DropdownMenuGroup>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -238,17 +237,17 @@ export default function EditViewProfile(props) {
                     })}
                   </Swiper>
                   {selectedImage && (
-        <div
-          className="fixed top-0 left-0 z-50 w-screen h-screen bg-black bg-opacity-90 flex justify-center items-center"
-          onClick={handleCloseFullScreen}
-        >
-          <img
-            src={selectedImage}
-            alt="Full Screen Image"
-            className="max-w-full max-h-full"
-          />
-        </div>
-      )}
+                    <div
+                      className="fixed top-0 left-0 z-50 w-screen h-screen bg-black bg-opacity-90 flex justify-center items-center"
+                      onClick={handleCloseFullScreen}
+                    >
+                      <img
+                        src={selectedImage}
+                        alt="Full Screen Image"
+                        className="max-w-full max-h-full"
+                      />
+                    </div>
+                  )}
                 </div>
                 <form className="flex flex-col p-5 sm:flex-row my-5 rounded justify-between shadow-xl">
                   <div className="flex flex-col sm:w-2/3 sm:border-r-2 p-2 ">
@@ -264,8 +263,8 @@ export default function EditViewProfile(props) {
                     <div className="flex flex-col justify-center sm:flex-row sm:justify-between my-2">
                       <div className="flex flex-col sm:w-1/2 flex-grow ">
                         <p className="text-sm sm:text-lg font-medium leading-none italic text-wrap ">
-                          {formData.verificationStatus 
-                            ? capitalizeWord( formData.verificationStatus)
+                          {formData.verificationStatus
+                            ? capitalizeWord(formData.verificationStatus)
                             : nullString}
                         </p>
                       </div>

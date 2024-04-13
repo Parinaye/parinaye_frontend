@@ -121,7 +121,7 @@ export default function ProfileListCard({ profile }) {
           </ScrollArea>
         </Card>
       </DialogTrigger>
-      <DialogContent className="min-w-[90vw] sm:max-h-screen max-h-[80vh]">
+      <DialogContent className="min-w-[90vw] min-h-[80vh] mt-20">
         <ScrollArea className="max-h-lvh min-w-[90vw]">
           <EditViewProfile id={profile._id} />
           <ScrollBar orientation="horizontal" />
