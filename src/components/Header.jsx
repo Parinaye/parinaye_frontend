@@ -43,7 +43,7 @@ export default function Header() {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + currentUser.token,
+            Authorization: "Bearer " + currentUser.token,
           },
         }
       );
@@ -92,15 +92,21 @@ export default function Header() {
                   alt="profile"
                   className="rounded-full h-7 w-7 object-cover"
                 ></img> */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Avatar>
+
+              <DropdownMenu className="bg-black border-red-300 border-3">
+                <DropdownMenuTrigger
+                  asChild
+                  className="bg-black border-red-300 border-3"
+                  type="text"
+                >
+                  <Avatar className="bg-black border-red-300 border-3">
                     <AvatarImage src={currentUser.avatar} />
                     <AvatarFallback>
                       {String(currentUser.username[0]).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
+
                 <DropdownMenuContent className="w-56">
                   <DropdownMenuLabel>User Actions</DropdownMenuLabel>
                   <DropdownMenuSeparator />

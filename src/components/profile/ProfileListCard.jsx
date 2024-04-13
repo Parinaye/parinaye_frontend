@@ -24,12 +24,13 @@ export default function ProfileListCard({ profile }) {
   console.log(profile);
   return (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild type="text">
         <Card
-          className="col-span-1 rounded-lg p-1 m-1 sm:m-4 sm:p-4 hover:scale-105 hover:shadow-xl hover:shadow-default opacity-100"
+          className="col-span-1 rounded-lg bg-none p-1 m-1 sm:m-4 sm:p-4 hover:scale-105 hover:shadow-xl hover:shadow-default opacity-100"
           // onClick={() => {
           //   navigate(`/profile/${profile._id}`);
           // }}
+          variant="outline"
         >
           <ScrollArea>
             <div
@@ -63,9 +64,10 @@ export default function ProfileListCard({ profile }) {
                     </p>
                   </div>
                   <div className="flex flex-row items-center gap-1 ">
-                    
                     <p className="text-2sm font-medium leading-none">
-                      {profile.address && profile.address.city ? profile.address.city : "N/A"}
+                      {profile.address && profile.address.city
+                        ? profile.address.city
+                        : "N/A"}
                     </p>
                   </div>
                 </div>
@@ -111,12 +113,10 @@ export default function ProfileListCard({ profile }) {
         </Card>
       </DialogTrigger>
       <DialogContent className="min-w-[90vw] sm:max-h-screen max-h-[80vh]">
-        
-          <ScrollArea className="max-h-lvh min-w-[90vw]">
-            <EditViewProfile id={profile._id} />
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
-       
+        <ScrollArea className="max-h-lvh min-w-[90vw]">
+          <EditViewProfile id={profile._id} />
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );
