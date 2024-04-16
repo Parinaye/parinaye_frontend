@@ -14,6 +14,11 @@ export default function Stepper({
   error,
 }) {
   const [activeStep, setActiveStep] = useState(0);
+  const [stepState, setStepState] = useState(
+    [...Array(stepsConfig.length).keys()].reduce((arr, index) => {
+      arr[index] = "incomplete";
+    return arr }, {})
+  );
 
   const stepRef = useRef([]);
 
@@ -27,20 +32,21 @@ export default function Stepper({
     <Card className="w-full border-0 p-4 shadow-inner">
       <div className="grid p-4 m-4 ">
         <div className="z-20 row-start-1 ">
-            <div className="flex flex-row items-center justify-between gap-1/2 flex-wrap">
+          <div className="flex flex-row items-center justify-between gap-1/2 flex-wrap">
             {stepsConfig.map((step, index) => {
               return (
                 <div
                   key={index}
                   ref={(el) => (stepRef.current[index] = el)}
-                  className="flex flex-col items-center gap-5"
+                  className={`flex flex-col items-center gap-5`}
+                  onClick={(e) => setActiveStep(index)}
                 >
                   <div
-                    className={`flex items-center justify-center w-8 h-8 rounded-full ${
-                      activeStep >= index
+                    className={`flex items-center justify-center w-8 h-8 ${
+                      stepState[index] === "completed"
                         ? "bg-primary dark:text-primary-foreground"
                         : "bg-secondary dark:text-primary"
-                    }`}
+                    } ${activeStep === index ? "rounded-md border-4 border-primary-foreground" : "rounded-full"}`}
                   >
                     {index + 1}
                   </div>
@@ -48,7 +54,7 @@ export default function Stepper({
                 </div>
               );
             })}
-            </div>
+          </div>
         </div>
       </div>
       <div>
@@ -73,6 +79,10 @@ export default function Stepper({
           onClick={(e) => {
             if (activeStep < stepsConfig.length - 1) {
               setActiveStep(activeStep + 1);
+              setStepState({
+                ...stepState,
+                [activeStep]: "completed"
+              })
             } else {
               handleFinish(e);
             }

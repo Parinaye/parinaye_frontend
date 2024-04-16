@@ -46,6 +46,10 @@ import {
 } from "../components/shadcn/components/ui/dropdown-menu";
 import { Button } from "../components/shadcn/components/ui/button";
 import { VERIFICATION_STATUS_ENUM } from "../../config/enums.config";
+import {
+  ScrollArea,
+  ScrollBar,
+} from "../components/shadcn/components/ui/scroll-area";
 
 export default function EditViewProfile(props) {
   const id = useParams().id || props.id;
@@ -244,7 +248,7 @@ export default function EditViewProfile(props) {
                       <img
                         src={selectedImage}
                         alt="Full Screen Image"
-                        className="max-w-full max-h-full"
+                        className=" max-w-6xl max-h-lvh"
                       />
                     </div>
                   )}

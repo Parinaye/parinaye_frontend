@@ -245,7 +245,10 @@ export default function CreateEditProfile({
             document.getElementById("image_upload").value = "";
           })
           .catch((error) => {
-            setProfileUploadError(error.message);
+            setProfileUploadError(
+              "Error uploading images: Ensure to upload images of size less than 2MB, message: " +
+                error.message
+            );
             setImagesUploading(false);
           });
       }
@@ -310,7 +313,9 @@ export default function CreateEditProfile({
         return;
       }
       setProfileUploadError("");
-      // navigate(`/profile/${data._id}`);
+      if (!enableEdit) {
+        window.location.reload();
+      }
       setEnableEdit(false);
       return;
     } catch (error) {
