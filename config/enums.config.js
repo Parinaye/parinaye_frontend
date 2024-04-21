@@ -135,7 +135,7 @@ export const GOTRAM_ENUM = [
   "visvamithrasa",
   "vyasasa",
   "yaaskasa",
-  "yagna valkyasa",
+  "MOORKULA",
   "other" /* for other gotrams */,
 ];
 export const CASTE_ENUM = {
