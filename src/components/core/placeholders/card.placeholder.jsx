@@ -4,7 +4,7 @@ import { Skeleton } from "../../shadcn/components/ui/skeleton";
 export default function CardPlaceHolder() {
   return (
     <div
-      class="flex felx-row p-4 m-4 border border-gray-200 rounded shadow-lg animate-pulse dark:border-gray-400"
+      class=" lg:col-span-2 sm:col-span-3 col-span-1 flex felx-row p-4 m-4 border border-gray-200 rounded shadow-lg animate-pulse dark:border-gray-400"
     >
       <div class="flex items-center justify-center bg-gray-300 rounded dark:bg-gray-400 w-1/4">
         <Skeleton class="h-24 w-24 rounded-xl"/>
