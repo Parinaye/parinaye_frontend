@@ -126,13 +126,8 @@ export default function MyProfilesList() {
                 )}
                 <ScrollArea className="rounded-md h-[70vh] sm:h-[80vh]  w-full overflow-y-scroll ">
                   <div className="grid grid-cols-1 sm:grid-cols-6 m-2 ">
-                    {profilesLoading && (
-                      <div className="flex flex-col fle-grow m-2 sm:max-w-2xl  rounded-lg shadow-xl">
-                        {[...Array(6).keys()].map((_, i) => (
-                          <CardPlaceHolder />
-                        ))}
-                      </div>
-                    )}
+                    {profilesLoading &&
+                      [...Array(6).keys()].map((_, i) => <CardPlaceHolder />)}
                     {currentRecords.length > 0 &&
                       currentRecords.map((profile) => (
                         <ProfileListCard profile={profile} />
