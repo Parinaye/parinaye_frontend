@@ -146,7 +146,8 @@ export default function EditViewProfile(props) {
             className="flex flex-col  max-w-6xl items-center gap-2"
             {...form}
           >
-            {currentUser.role == "admin" &&
+            {(currentUser.role === "admin" ||
+              currentUser._id === formData.userRef ) &&
               Object.keys(formData).length > 0 && (
                 <div className="flex flex-col sm:flex-row sm:justify-between items-end my-4 gap-4">
                   <div>
@@ -157,34 +158,35 @@ export default function EditViewProfile(props) {
                     />
                     <Label className="text-lg font-bold"> Edit Profile </Label>
                   </div>
-                  <div hidden={enableEdit}>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild type="text">
-                        <Button variant="default">Verify Profile</Button>
-                      </DropdownMenuTrigger>
+                  {currentUser.role === "admin" && (
+                    <div hidden={enableEdit}>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild type="text">
+                          <Button variant="default">Verify Profile</Button>
+                        </DropdownMenuTrigger>
 
-                      <DropdownMenuContent className="w-56">
-                        <DropdownMenuGroup>
-                          {VERIFICATION_STATUS_ENUM.map((status, index) => {
-                            return (
-                              <DropdownMenuItem key={`status_${index}`}>
-                                <span
-                                  id={status}
-                                  onClick={handleVerify}
-                                  className="w-full"
-                                >
-                                  {status}
-                                </span>
-                              </DropdownMenuItem>
-                            );
-                          })}
-                        </DropdownMenuGroup>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </div>
+                        <DropdownMenuContent className="w-56">
+                          <DropdownMenuGroup>
+                            {VERIFICATION_STATUS_ENUM.map((status, index) => {
+                              return (
+                                <DropdownMenuItem key={`status_${index}`}>
+                                  <span
+                                    id={status}
+                                    onClick={handleVerify}
+                                    className="w-full"
+                                  >
+                                    {status}
+                                  </span>
+                                </DropdownMenuItem>
+                              );
+                            })}
+                          </DropdownMenuGroup>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
+                  )}
                 </div>
               )}
-
             {enableEdit ? (
               <div className="flex flex-row justify-center m-4 gap-2 border-2">
                 <CreateEditProfile
@@ -318,6 +320,14 @@ export default function EditViewProfile(props) {
                             : nullString}
                         </p>
                       </div>
+                      <div className="w-full flex flex-row justify-between items-end gap-2  sm:flex-col sm:gap-0 sm:space-y-1  sm:items-start ">
+                        <p className="text-2sm sm:text-sm text-muted-foreground">
+                          {"Siblings"}
+                        </p>
+                        <p className="text-sm sm:text-lg font-medium leading-none italic">
+                          {formData.sibblings ? formData.sibblings : nullString}
+                        </p>
+                      </div>
                     </div>
                     <Separator />
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full my-4">
@@ -356,6 +366,15 @@ export default function EditViewProfile(props) {
                       </div>
                       <div className="w-full flex flex-row justify-between items-end gap-2  sm:flex-col sm:gap-0 sm:space-y-1  sm:items-start ">
                         <p className="text-2sm sm:text-sm text-muted-foreground">
+                          {"Time of Birth"}
+                        </p>
+                        <p className="text-sm sm:text-lg font-medium leading-none italic">
+                          {formData.tob.hour ? ("0" + formData.tob.hour).slice(-2) : nullString}:
+                          {formData.tob.min ? ("0" + formData.tob.min).slice(-2) : nullString} {" "} {formData.tob.ampm ? formData.tob.ampm : nullString}
+                        </p>
+                      </div>
+                      <div className="w-full flex flex-row justify-between items-end gap-2  sm:flex-col sm:gap-0 sm:space-y-1  sm:items-start ">
+                        <p className="text-2sm sm:text-sm text-muted-foreground">
                           {"Age"}
                         </p>
                         <p className="text-sm sm:text-lg font-medium leading-none italic">
@@ -371,7 +390,7 @@ export default function EditViewProfile(props) {
                     </div>
                     <Separator />
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full my-4">
-                      <div className="w-full flex flex-row justify-between items-end gap-2  sm:flex-col sm:gap-0 sm:space-y-1  sm:items-start ">
+                      {/* <div className="w-full flex flex-row justify-between items-end gap-2  sm:flex-col sm:gap-0 sm:space-y-1  sm:items-start ">
                         <p className="text-2sm sm:text-sm text-muted-foreground">
                           {"Religion"}
                         </p>
@@ -389,6 +408,27 @@ export default function EditViewProfile(props) {
                           {formData.caste
                             ? capitalizeWord(formData.caste)
                             : nullString}
+                        </p>
+                      </div> */}
+                      <div className="w-full flex flex-row justify-between items-end gap-2  sm:flex-col sm:gap-0 sm:space-y-1  sm:items-start ">
+                        <p className="text-2sm sm:text-sm text-muted-foreground">
+                          {"Raasi"}
+                        </p>
+                        <p className="text-sm sm:text-lg font-medium leading-none italic">
+                          {formData.raasi
+                            ? capitalizeWord(formData.raasi)
+                            : nullString}
+                        </p>
+                      </div>
+                      <div className="w-full flex flex-row justify-between items-end gap-2  sm:flex-col sm:gap-0 sm:space-y-1  sm:items-start ">
+                        <p className="text-2sm sm:text-sm text-muted-foreground">
+                          {"Nakshatram"}
+                        </p>
+                        <p className="text-sm sm:text-lg font-medium leading-none italic">
+                          {formData.nakshatram
+                            ? capitalizeWord(formData.nakshatram)
+                            : nullString}{" "}
+                          ( paadam-{formData.paadam ? formData.paadam : nullString} )
                         </p>
                       </div>
                       <div className="w-full flex flex-row justify-between items-end gap-2  sm:flex-col sm:gap-0 sm:space-y-1  sm:items-start ">

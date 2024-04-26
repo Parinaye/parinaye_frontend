@@ -30,7 +30,7 @@ export default function MyPagination({
           <PaginationItem disabled={currentPage === 1}>
             <PaginationPrevious onClick={goToPrevPage} />
           </PaginationItem>
-          {currentPage != 1 && (
+          {currentPage - 1 != 0 && (
             <PaginationItem>
               <PaginationEllipsis />
             </PaginationItem>
@@ -49,7 +49,7 @@ export default function MyPagination({
                 </PaginationLink>
               </PaginationItem>
             ))}
-          {currentPage != nPages && (
+          {currentPage != nPages && currentPage + 1 != nPages && (
             <PaginationItem>
               <PaginationEllipsis />
             </PaginationItem>

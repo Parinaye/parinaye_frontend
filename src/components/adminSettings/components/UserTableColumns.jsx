@@ -1,13 +1,26 @@
 import React from "react";
 import { Button } from "../../shadcn/components/ui/button";
 
-export const UserTableColumns = [
+import CreateEditProfile from "../../profile/CreateEditProfile";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+} from "../../shadcn/components/ui/form";
+import { Label } from "../../shadcn/components/ui/label";
+import { Input } from "../../shadcn/components/ui/input";
+import EditUserDetails from "./EditUserDetails";
+
+export const UserTableColumns = () => [
   {
     accessorKey: "username",
     header: () => <div className="text-center">UserName</div>,
     cell: ({ row }) => {
       return (
-        <div className="text-center font-medium">{row.getValue("username")}</div>
+        <div className="text-center font-medium">
+          {row.getValue("username")}
+        </div>
       );
     },
   },
@@ -32,13 +45,10 @@ export const UserTableColumns = [
   {
     header: () => <div className="text-center">Actions</div>,
     accessorKey: "actions",
-    cell: ({ row }) => {
+    cell:  ({ row }) => {
+      console.log(row)
       return (
-        <div className="flex justify-center gap-2">
-          <Button variant="outline">Edit</Button>
-          <Button variant={"destructive"}>Delete</Button>
-        </div>
-      );
-    },
-  }
+         <EditUserDetails userData={row.original} />
+      )}
+  },
 ];

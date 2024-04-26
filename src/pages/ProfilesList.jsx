@@ -27,12 +27,12 @@ import { Card } from "../components/shadcn/components/ui/card.jsx";
 import { FaSadTear } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
-export default function PorfilesList() {
+export default function ProfilesList() {
   const [profiles, setProfiles] = useState([]);
   const [profilesLoading, setProfilesLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [recordsPerPage] = useState(6);
+  const [recordsPerPage] = useState(9);
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const currentRecords = profiles.slice(indexOfFirstRecord, indexOfLastRecord);
@@ -47,6 +47,7 @@ export default function PorfilesList() {
     income: [],
     caste: [],
     religion: [],
+    gender:[],
   });
   const navigate = useNavigate();
 
@@ -136,8 +137,6 @@ export default function PorfilesList() {
         } else if (data.success === false) {
           setError(data.message);
         }
-
-        console.log(data);
         setProfiles([
           ...data,
         ]);
@@ -185,7 +184,7 @@ export default function PorfilesList() {
             </div>
             <Separator />
 
-            <div className="grid grid-cols-1  md:grid-cols-4 gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-7 gap-2">
               <div className="sm:border-2 sm:border-r-primary p-4">
                 <div className="flex flex-col m-1 p-2 col-span-1 w-full bg-background  rounded-lg shadow-xl">
                   <ProfileListFilters
@@ -195,7 +194,7 @@ export default function PorfilesList() {
                   />
                 </div>
               </div>
-              <div className="flex flex-col sm:col-span-2 md:col-span-3 w-full items-center gap-2">
+              <div className="flex flex-col sm:col-span-6 w-full items-center gap-2">
                 {currentRecords.length < 1 && !profilesLoading && (
                   <Card className="w-full m-4 p-4">
                     <span className="text-center text-3xl">
@@ -205,8 +204,8 @@ export default function PorfilesList() {
                     </span>
                   </Card>
                 )}
-                <ScrollArea className="rounded-md h-[70vh] sm:h-[70vh]  w-full ">
-                  <div className="grid grid-cols-1 xl:grid-cols-2 m-2 ">
+                <ScrollArea className="rounded-md h-[70vh] sm:h-[80vh]  w-full overflow-y-scroll ">
+                  <div className="grid grid-cols-1 sm:grid-cols-6 m-2 ">
                     {profilesLoading && (
                       <div className="flex flex-col fle-grow m-2 sm:max-w-2xl  rounded-lg shadow-xl">
                         {[...Array(6).keys()].map((_, i) => (

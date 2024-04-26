@@ -1,0 +1,33 @@
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Navigate, Outlet } from "react-router-dom";
+import { validateToken } from "../redux/user/userSlice";
+import { Skeleton } from "./shadcn/components/ui/skeleton";
+
+export default function AdminRoute() {
+  const { currentUser, isSubmitting, isAuthenticated } = useSelector(
+    (state) => state.user
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(validateToken(currentUser));
+  }, [dispatch]);
+
+  if (isSubmitting)
+    return (
+      <section className="flex-grow z-30 min-h-screen my-20 w-full">
+        <div className="flex mx-auto flex-col justify-center gap-6 w-full">
+          <Skeleton className="h-[10vh] w-full rounded-xl m-2 p-2 sm:p-10 sm:m-10 " />
+          <Skeleton className="h-[10vh] w-full rounded-xl m-2 p-2 sm:p-10 sm:m-10 " />
+          <Skeleton className="h-[10vh] w-full rounded-xl m-2 p-2 sm:p-10 sm:m-10 " />
+        </div>
+      </section>
+    );
+
+  return currentUser && isAuthenticated && (currentUser.role === 'admin') ? (
+    <Outlet />
+  ) : (
+    <Navigate to={"/"} />
+  );
+}

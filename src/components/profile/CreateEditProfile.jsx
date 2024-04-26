@@ -22,6 +22,8 @@ import {
   RELIGION_ENUM,
   CASTE_ENUM,
   GOTRAM_ENUM,
+  RAASI_ENUM,
+  NAKSHATRAM_ENUM,
 } from "../../../config/enums.config";
 import {
   Form,
@@ -60,6 +62,7 @@ import { isValidImageURL } from "../../utils/helpers.jsx";
 import { useSelector } from "react-redux";
 import { Country, State, City } from "country-state-city";
 import { set } from "date-fns";
+import { Separator } from "../shadcn/components/ui/separator";
 
 const formSchema = z.object({
   firstName: z.string().min(1),
@@ -77,6 +80,14 @@ export default function CreateEditProfile({
     dob: "",
     religion: "hindu",
     caste: "komati:vysya",
+    raasi: "",
+    nakshatram: "",
+    paadam: "",
+    tob: {
+      hour: "",
+      min: "",
+      ampm: "",
+    },
     swagotram: "",
     maternalGotram: "",
     bio: "",
@@ -429,6 +440,48 @@ export default function CreateEditProfile({
     setFormData({ ...formData, caste });
   };
 
+  const handleRaasiChange = (raasi) => {
+    setFormData({ ...formData, raasi });
+  };
+  const handleNakshatramChange = (nakshatram) => {
+    setFormData({ ...formData, nakshatram });
+  };
+  const handlePaadamChange = (paadam) => {
+    setFormData({ ...formData, paadam });
+  };
+  const handleSibblingsChange = (sibblings) => {
+    setFormData({ ...formData, sibblings });
+  };
+  const handleTimeHourChnage = (tobHour) => {
+    setFormData({
+      ...formData,
+      tob: {
+        ...formData.tob,
+        hour: tobHour,
+      },
+    });
+  };
+
+  const handleTimeMinChnage = (tobMin) => {
+    setFormData({
+      ...formData,
+      tob: {
+        ...formData.tob,
+        min: tobMin,
+      },
+    });
+  };
+
+  const handleTimeAmPmChnage = (tobAmPm) => {
+    setFormData({
+      ...formData,
+      tob: {
+        ...formData.tob,
+        ampm: tobAmPm,
+      },
+    });
+  };
+
   const handleProfessionChange = (profession) => {
     setFormData({ ...formData, profession });
   };
@@ -578,25 +631,24 @@ export default function CreateEditProfile({
       component: () => (
         <>
           <div className="flex flex-col gap-2 sm:gap-0 sm:flex-row justify-between m-2">
-            <RadioGroup
-              defaultValue={formData.gender === "male"}
-              className="flex flex-row m-2 gap-2 justify-start w-1/3"
-            >
-              {GENDER_ENUM.map((gender) => {
-                return (
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem
-                      value={gender}
-                      id={"gender"}
-                      checked={formData.gender === gender}
-                      onClick={handleChange}
-                    />
-                    <Label htmlFor={gender}>{gender}</Label>
-                  </div>
-                );
-              })}
-            </RadioGroup>
-
+            <div className="flex flex-col m-2 gap-2 justify-start w-1/3">
+              <Label>Gender</Label>
+              <RadioGroup defaultValue={formData.gender === "male"} className="flex flex-row m-2">
+                {GENDER_ENUM.map((gender) => {
+                  return (
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem
+                        value={gender}
+                        id={"gender"}
+                        checked={formData.gender === gender}
+                        onClick={handleChange}
+                      />
+                      <Label htmlFor={gender}>{gender}</Label>
+                    </div>
+                  );
+                })}
+              </RadioGroup>
+            </div>
             <div className="flex flex-row justify-end w-full sm:w-2/3 m-2">
               <div className="flex flex-col gap-2 flex-grow">
                 <FormField
@@ -653,8 +705,9 @@ export default function CreateEditProfile({
               </div>
             </div>
           </div>
+          <Separator className="my-3"/>
           <div className="grid grid-col-1 sm:grid-cols-3 m-2 gap-4">
-            <div className="grid grid-cols-1 gap-2 ">
+            <div className="col-span-1 gap-2 ">
               <FormField
                 name="dob"
                 render={({ field }) => (
@@ -675,7 +728,81 @@ export default function CreateEditProfile({
                 )}
               />
             </div>
-            <div className="grid grid-cols-1 gap-2 ">
+            <div className="col-span-1 sm:col-span-2 gap-2">
+              <FormField
+                name="tob"
+                id="tob"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Time of Birth</FormLabel>
+                    <div className="flex flex-row gap-2 items-center flex-wrap sm:flex-nowrap">
+                      <Label>Hr</Label>
+                      <FormControl>
+                        <Select
+                          onValueChange={handleTimeHourChnage}
+                          defaultValue={formData.tob.hour}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select hr" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              {[...Array(13).keys()].slice(1).map((hour) => {
+                                return <SelectItem value={hour}>{hour}</SelectItem>;
+                              })}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormLabel>Min</FormLabel>
+                      <FormControl>
+                        <Select
+                          onValueChange={handleTimeMinChnage}
+                          defaultValue={formData.tob.min}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select min" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              {[...Array(60).keys()].map((min) => {
+                                return (
+                                  <SelectItem value={min}>{min}</SelectItem>
+                                );
+                              })}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormLabel>am/pm</FormLabel>
+                      <FormControl>
+                        <Select
+                          onValueChange={handleTimeAmPmChnage}
+                          defaultValue={formData.tob.ampm}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select am/pm" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              {["am", "pm"].map((ampm) => {
+                                return (
+                                  <SelectItem value={ampm}>{ampm}</SelectItem>
+                                );
+                              })}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                    </div>
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+          <Separator className="my-5"/>
+          <div className="grid grid-col-1 sm:grid-cols-3 m-2 gap-4">
+            {/* <div className="grid grid-cols-1 gap-2 ">
               <FormField
                 name="religion"
                 id="religion"
@@ -748,10 +875,107 @@ export default function CreateEditProfile({
                   </FormItem>
                 )}
               />
+            </div> */}
+            <div className="col-span-1 gap-2 ">
+              <FormField
+                name="raasi"
+                id="raasi"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Raasi</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={handleRaasiChange}
+                        defaultValue={formData.raasi}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Raasi" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {RAASI_ENUM.map((raasi) => {
+                              return (
+                                <SelectItem value={raasi}>{raasi}</SelectItem>
+                              );
+                            })}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
             </div>
+            <div className="col-span-1 gap-2 ">
+              <FormField
+                name="nakshatram"
+                id="nakshatram"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nakshatram</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={handleNakshatramChange}
+                        defaultValue={formData.nakshatram}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select nakshatram" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {NAKSHATRAM_ENUM.map((nakshatram) => {
+                              return (
+                                <SelectItem value={nakshatram}>
+                                  {nakshatram}
+                                </SelectItem>
+                              );
+                            })}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="col-span-1 gap-2 ">
+              <FormField
+                name="paadam"
+                id="paadam"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Paadam</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={handlePaadamChange}
+                        defaultValue={formData.paadam}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select paadam" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {[...Array(5).keys()].slice(1,).map((nakshatram) => {
+                              return (
+                                <SelectItem value={nakshatram}>
+                                  {nakshatram}
+                                </SelectItem>
+                              );
+                            })}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+
+           
           </div>
           <div className="grid grid-col-1 sm:grid-cols-3 m-2 gap-4">
-            <div className="grid grid-cols-1 gap-2 ">
+         
+            <div className="col-span-1 gap-2 ">
               <FormField
                 name="swagotram"
                 id="swagotram"
@@ -783,7 +1007,7 @@ export default function CreateEditProfile({
                 )}
               />
             </div>
-            <div className="grid grid-cols-1 gap-2 ">
+            <div className="col-span-1 gap-2 ">
               <FormField
                 name="swagotram"
                 id="swagotram"
@@ -804,6 +1028,38 @@ export default function CreateEditProfile({
                               return (
                                 <SelectItem value={maternalGotram}>
                                   {maternalGotram}
+                                </SelectItem>
+                              );
+                            })}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="col-span-1 gap-2 ">
+              <FormField
+                name="sibblings"
+                id="sibblings"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Sibblings</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={handleSibblingsChange}
+                        defaultValue={formData.sibblings}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select sibblings count" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {[...Array(5).keys()].map((sibblings) => {
+                              return (
+                                <SelectItem value={sibblings}>
+                                  {sibblings}
                                 </SelectItem>
                               );
                             })}

@@ -26,10 +26,7 @@ export default function ProfileListCard({ profile }) {
     <Dialog>
       <DialogTrigger asChild type="text">
         <Card
-          className="col-span-1 rounded-lg bg-none p-1 m-1 sm:m-4 sm:p-4 hover:scale-105 hover:shadow-xl hover:shadow-default opacity-100"
-          // onClick={() => {
-          //   navigate(`/profile/${profile._id}`);
-          // }}
+          className="lg:col-span-2 sm:col-span-3 col-span-1 rounded-lg bg-none p-1 m-1 sm:m-2 sm:p-2 hover:scale-105 hover:shadow-xl hover:shadow-default opacity-100"
           variant="outline"
         >
           <ScrollArea>
@@ -37,27 +34,22 @@ export default function ProfileListCard({ profile }) {
               key={profile._id}
               className="flex flex-row rounded-lg justify-between items-center"
             >
-              {/* <Card className=""> */}
               <img
                 src={profile.profilePictures[0]}
                 loading="lazy"
                 alt="profile"
-                className="w-[100px] h-[100px] sm:w-[150px] sm:h-[150px] rounded-lg object-cover border-1 border-primary-foreground bg-[url('../../assets/default_img.png')] "
+                className="w-[100px] h-[150px] sm:w-[150px] sm:h-[150px] rounded-lg object-cover object-top border-1 border-primary-foreground bg-[url('../../assets/default_img.png')] "
               />
-              {/* </Card> */}
               <div className="flex flex-col items-center justify-between p-2 m-2 w-2/3 gap-2">
                 <div className="flex flex-row flex-wrap items-center justify-between w-full">
                   <p className="text-lg font-bold dark:text-primary">
                     {profile.firstName + " " + profile.lastName}
                   </p>
-                 
                 </div>
                 <div className="flex flex-row flex-wrap items-center justify-between w-full">
-                  
-                <p className="text-sm font-medium leading-none">
+                  <p className="text-sm font-medium leading-none">
                     ( {profile.verificationStatus} )
                   </p>
-
                 </div>
                 <Separator />
                 <div className="flex flex-row items-center flex-wrap justify-between w-full">

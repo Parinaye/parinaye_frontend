@@ -7,54 +7,7 @@ export default function UsersSettings() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
   const [usertableData, setUsertableData] = useState([]);
-  const { currentUser, isAuthenticated } = useSelector((state) => state.user);
-  
-
-  const handleEdit = async (formData) => {
-    try {
-      const res = await fetch(
-        import.meta.env.VITE_MY_BACKEND_URL +
-          `api/user/update_user/${formData.id}`,
-        {
-          method: "PUT",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + currentUser.token,
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-      const data = await res.json();
-      if (data.success === false) {
-        setError(data.message);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleDelete = async (id) => {
-    try {
-      const res = await fetch(
-        import.meta.env.VITE_MY_BACKEND_URL + `api/user/delete_user/${id}`,
-        {
-          method: "DELETE",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + currentUser.token,
-          },
-        }
-      );
-      const data = await res.json();
-      if (data.success === false) {
-        setError(data.message);
-      }
-    } catch (err) {
-      setError(data.message);
-    }
-  };
+  const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -97,5 +50,5 @@ export default function UsersSettings() {
     });
   }, []);
 
-  return <DataTable data={users} columns={UserTableColumns} />;
+  return <DataTable data={users} columns={UserTableColumns()} />;
 }

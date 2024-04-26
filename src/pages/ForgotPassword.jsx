@@ -170,6 +170,7 @@ export default function ForgotPassword() {
   };
 
   return (
+    <div className="w-fullscreen h-[80vh]">
     <Card className="flex flex-col justify-center max-w-xl  m-4 p-4  mx-auto items-center opacity-85 shadow-inner shadow-inherit">
       {!otpRequested ? (
         <Card className="flex flex-col items-center m-4 p-4 border-0 gap-6 flex-grow ">
@@ -250,5 +251,6 @@ export default function ForgotPassword() {
       ) : null}
       {error && <span className="text-destructive">{error}</span>}
     </Card>
+    </div>
   );
 }

@@ -82,11 +82,19 @@ export default function Header() {
                   Home
                 </li>
               </Link>
-              <Link to="/viewProfiles">
-                <li className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
-                  Profiles
-                </li>
-              </Link>
+              {currentUser.role === "admin" ? (
+                <Link to="/viewProfiles">
+                  <li className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+                    Profiles
+                  </li>
+                </Link>
+              ) : (
+                <Link to="/viewMyProfiles">
+                  <li className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+                    My Profiles
+                  </li>
+                </Link>
+              )}
               {/* <img
                   src={currentUser.avatar}
                   alt="profile"
@@ -94,10 +102,7 @@ export default function Header() {
                 ></img> */}
 
               <DropdownMenu>
-                <DropdownMenuTrigger
-                  asChild
-                  type="text"
-                >
+                <DropdownMenuTrigger asChild type="text">
                   <Avatar>
                     <AvatarImage src={currentUser.avatar} />
                     <AvatarFallback>

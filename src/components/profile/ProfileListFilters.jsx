@@ -10,6 +10,7 @@ import {
   ASSETS_ENUM,
   CASTE_ENUM,
   EDUCATION_ENUM,
+  GENDER_ENUM,
   MARITAL_STATUS_ENUM,
   PROFESSION_ENUM,
   RELIGION_ENUM,
@@ -32,6 +33,7 @@ export default function ProfileListFilters({
       case "verificationStatus":
       case "income":
       case "religion":
+      case "gender":
       case "caste":
         let values = filters[e.target.id] || [];
         if (!values.includes(e.target.value)) {
@@ -180,6 +182,34 @@ export default function ProfileListFilters({
                 </div>
               </AccordionContent>
             </AccordionItem>
+            <AccordionItem value="gender">
+              <AccordionTrigger>Gender</AccordionTrigger>
+              <AccordionContent>
+                <div className="flex flex-row flex-wrap justify-start m-2">
+                  {GENDER_ENUM.map((gender) => {
+                    return (
+                      <div className="flex items-center mx-4 ">
+                        <Checkbox
+                          id={"gender"}
+                          value={gender}
+                          onClick={handleChange}
+                          checked={
+                            filters.gender &&
+                            filters.gender.includes(gender)
+                          }
+                        />
+                        <label
+                          htmlFor={gender}
+                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed p-2 peer-disabled:opacity-70"
+                        >
+                          {gender}
+                        </label>
+                      </div>
+                    );
+                  })}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
             <AccordionItem value="verificationStatus">
               <AccordionTrigger>Verification Status</AccordionTrigger>
               <AccordionContent>
@@ -208,7 +238,7 @@ export default function ProfileListFilters({
                 </div>
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="religion">
+            {/* <AccordionItem value="religion">
               <AccordionTrigger>Religion</AccordionTrigger>
               <AccordionContent>
                 <div className="flex flex-row flex-wrap justify-start m-2">
@@ -281,7 +311,7 @@ export default function ProfileListFilters({
                   </AccordionContent>
                 </Accordion>
               </AccordionContent>
-            </AccordionItem>
+            </AccordionItem> */}
             <AccordionItem value="createdAt">
               <AccordionTrigger>Created At</AccordionTrigger>
               <AccordionContent>
