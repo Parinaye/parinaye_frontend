@@ -89,6 +89,7 @@ export default function UserProfile() {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": "Bearer " + currentUser.token,
           },
           body: JSON.stringify(formData),
         }
