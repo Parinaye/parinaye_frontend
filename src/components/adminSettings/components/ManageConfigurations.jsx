@@ -156,7 +156,7 @@ export default function ManageConfigurations() {
                 <ScrollArea className="rounded-md max-h-lvh shadow-md dark:shadow-secondary">
                   <form className="flex flex-row ">
                     <textarea
-                      className="w-full min-h-[30vh] whitespace-pre-line p-4"
+                      className="w-full min-h-[30vh] whitespace-pre-line p-4 bg-inherit"
                       onChange={handleNoticesConfigChange}
                       id="notices"
                       defaultValue={JSON.stringify(configData.notices)}
