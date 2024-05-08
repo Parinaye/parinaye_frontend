@@ -514,7 +514,7 @@ export default function CreateEditProfile({
       title: "Basic Information",
       component: () => (
         <>
-          <div className="flex flex-col justify-center sm:flex-row sm:justify-between my-2">
+          <div className="flex flex-col justify-center sm:flex-row sm:justify-between my-2 gap-4">
             <div className="flex flex-col sm:w-1/2 flex-grow mx-2">
               <FormField
                 name="firstName"
@@ -526,6 +526,7 @@ export default function CreateEditProfile({
                         defaultValue={formData.firstName}
                         id="firstName"
                         onChange={handleChange}
+                        required
                       />
                     </FormControl>
                   </FormItem>
@@ -543,6 +544,7 @@ export default function CreateEditProfile({
                         defaultValue={formData.lastName}
                         id="lastName"
                         onChange={handleChange}
+                        required
                       />
                     </FormControl>
                   </FormItem>
@@ -550,7 +552,7 @@ export default function CreateEditProfile({
               />
             </div>
           </div>
-          <div className="flex flex-col justify-center sm:flex-row sm:justify-betwen my-2">
+          <div className="flex flex-col justify-center sm:flex-row sm:justify-betwen my-2 gap-4">
             <div className="flex flex-col sm:w-1/2 flex-grow mx-2">
               <FormField
                 name="email"
@@ -579,6 +581,7 @@ export default function CreateEditProfile({
                         defaultValue={formData.phoneNumber}
                         id="phoneNumber"
                         onChange={handleChange}
+                        required
                       />
                     </FormControl>
                   </FormItem>
@@ -587,7 +590,7 @@ export default function CreateEditProfile({
             </div>
           </div>
 
-          <div className="flex flex-col justify-center sm:flex-row sm:justify-between my-2">
+          <div className="flex flex-col justify-center sm:flex-row sm:justify-between my-2 gap-4">
             <div className="flex flex-col sm:w-1/2 flex-grow mx-2">
               <FormField
                 name="fatherName"
@@ -599,13 +602,14 @@ export default function CreateEditProfile({
                         defaultValue={formData.fatherName}
                         id="fatherName"
                         onChange={handleChange}
+                        required
                       />
                     </FormControl>
                   </FormItem>
                 )}
               />
             </div>
-            <div className="flex flex-col sm:w-1/2 flex-grow mx-2">
+            <div className="flex flex-col sm:w-1/2 flex-grow mx-2 mb-6">
               <FormField
                 name="motherName"
                 render={({ field }) => (
@@ -616,6 +620,7 @@ export default function CreateEditProfile({
                         defaultValue={formData.motherName}
                         id="motherName"
                         onChange={handleChange}
+                        required
                       />
                     </FormControl>
                   </FormItem>
@@ -706,8 +711,8 @@ export default function CreateEditProfile({
             </div>
           </div>
           <Separator className="my-3"/>
-          <div className="grid grid-col-1 sm:grid-cols-3 m-2 gap-4">
-            <div className="col-span-1 gap-2 ">
+          <div className="grid grid-col-1 sm:grid-cols-3 m-2 gap-6">
+            <div className="col-span-1 gap-4 ">
               <FormField
                 name="dob"
                 render={({ field }) => (
@@ -728,14 +733,14 @@ export default function CreateEditProfile({
                 )}
               />
             </div>
-            <div className="col-span-1 sm:col-span-2 gap-2">
+            <div className="col-span-1 sm:col-span-2 gap-6">
               <FormField
                 name="tob"
                 id="tob"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Time of Birth</FormLabel>
-                    <div className="flex flex-row gap-2 items-center flex-wrap sm:flex-nowrap">
+                    <div className="flex flex-row items-center flex-wrap sm:flex-nowrap gap-6">
                       <Label>Hr</Label>
                       <FormControl>
                         <Select
@@ -801,7 +806,7 @@ export default function CreateEditProfile({
             </div>
           </div>
           <Separator className="my-5"/>
-          <div className="grid grid-col-1 sm:grid-cols-3 m-2 gap-4">
+          <div className="grid grid-col-1 sm:grid-cols-3 m-2 gap-6">
             {/* <div className="grid grid-cols-1 gap-2 ">
               <FormField
                 name="religion"
@@ -973,9 +978,9 @@ export default function CreateEditProfile({
 
            
           </div>
-          <div className="grid grid-col-1 sm:grid-cols-3 m-2 gap-4">
-         
-            <div className="col-span-1 gap-2 ">
+          <Separator className="my-5"/>
+          <div className="grid grid-col-1 sm:grid-cols-3 m-2 gap-6">
+            <div className="col-span-1 gap-4 ">
               <FormField
                 name="swagotram"
                 id="swagotram"
@@ -1007,7 +1012,7 @@ export default function CreateEditProfile({
                 )}
               />
             </div>
-            <div className="col-span-1 gap-2 ">
+            <div className="col-span-1 gap-4 ">
               <FormField
                 name="swagotram"
                 id="swagotram"
@@ -1039,7 +1044,7 @@ export default function CreateEditProfile({
                 )}
               />
             </div>
-            <div className="col-span-1 gap-2 ">
+            <div className="col-span-1 gap-4 mb-6">
               <FormField
                 name="sibblings"
                 id="sibblings"
@@ -1079,8 +1084,8 @@ export default function CreateEditProfile({
       title: "Address Details",
       component: () => (
         <>
-          <div className="flex flex-col justify-center sm:flex-row sm:justify-between my-2">
-            <div className="flex flex-col sm:w-1/2 flex-grow mx-2">
+          <div className="flex flex-col justify-center sm:flex-row sm:justify-between my-2 gap-6">
+            <div className="flex flex-col sm:w-1/2 flex-grow mx-2 gap-4">
               <FormField
                 name="addressLine1"
                 render={({ field }) => (
@@ -1098,8 +1103,8 @@ export default function CreateEditProfile({
               />
             </div>
           </div>
-          <div className="flex flex-col justify-center sm:flex-row sm:justify-between my-2">
-            <div className="flex flex-col sm:w-1/2 flex-grow mx-2">
+          <div className="flex flex-col justify-center sm:flex-row sm:justify-between my-2 gap-6">
+            <div className="flex flex-col sm:w-1/2 flex-grow mx-2 gap-4">
               <FormField
                 name="addressLine2"
                 render={({ field }) => (
@@ -1117,8 +1122,8 @@ export default function CreateEditProfile({
               />
             </div>
           </div>
-          <div className="grid grid-col-1 sm:grid-cols-2 my-5 gap-4">
-            <div className="grid grid-cols-1 gap-2 mx-2">
+          <div className="grid grid-col-1 sm:grid-cols-2 my-5 gap-6">
+            <div className="grid grid-cols-1 gap-4 mx-2">
               <Label>Country</Label>
               <Select
                 onValueChange={handleAddressCountryChange}
@@ -1136,7 +1141,7 @@ export default function CreateEditProfile({
                 </SelectContent>
               </Select>
             </div>
-            <div className="grid grid-cols-1 gap-2 mx-2">
+            <div className="grid grid-cols-1 gap-4 mx-2">
               <Label>State</Label>
               <Select
                 onValueChange={handleAddressStateChange}
@@ -1155,8 +1160,8 @@ export default function CreateEditProfile({
               </Select>
             </div>
           </div>
-          <div className="grid grid-col-1 sm:grid-cols-2 my-5 gap-4">
-            <div className="grid grid-cols-1 gap-2 mx-2">
+          <div className="grid grid-col-1 sm:grid-cols-2 my-5 gap-6">
+            <div className="grid grid-cols-1 gap-4 mx-2">
               <Label>City</Label>
               <Select
                 onValueChange={handleAddressCityChange}
@@ -1174,7 +1179,7 @@ export default function CreateEditProfile({
                 </SelectContent>
               </Select>
             </div>
-            <div className="grid grid-cols-1 gap-2 mx-2">
+            <div className="grid grid-cols-1 gap-4 mx-2">
               <Label>Pincode</Label>
               <FormField
                 name="pincode"
@@ -1199,8 +1204,8 @@ export default function CreateEditProfile({
       title: "Professional and Wealth Information",
       component: () => (
         <>
-          <div className="grid grid-col-1 sm:grid-cols-2 m-5 gap-4">
-            <div className="grid grid-cols-1 gap-2 ">
+          <div className="grid grid-col-1 sm:grid-cols-2 m-5 gap-6">
+            <div className="grid grid-cols-1 gap-4 ">
               <Label htmlFor="area">Education</Label>
               <Select
                 onValueChange={handleEducationChange}
@@ -1224,7 +1229,7 @@ export default function CreateEditProfile({
                 </SelectContent>
               </Select>
             </div>
-            <div className="grid grid-cols-1 gap-2 ">
+            <div className="grid grid-cols-1 gap-4 ">
               <Label htmlFor="area">Profession</Label>
               <Select
                 onValueChange={handleProfessionChange}
@@ -1249,8 +1254,8 @@ export default function CreateEditProfile({
               </Select>
             </div>
           </div>
-          <div className="grid grid-col-1 sm:grid-cols-2 m-5 gap-4">
-            <div className="grid grid-cols-1 gap-2">
+          <div className="grid grid-col-1 sm:grid-cols-2 m-5 gap-6">
+            <div className="grid grid-cols-1 gap-4">
               <Label>Income</Label>
               <Select
                 onValueChange={handleIncomeChange}
@@ -1271,7 +1276,7 @@ export default function CreateEditProfile({
                 </SelectContent>
               </Select>
             </div>
-            <div className="grid grid-cols-1 gap-2">
+            <div className="grid grid-cols-1 gap-4">
               <Label>Marital Status</Label>
               <Select
                 onValueChange={handleMaritalStatusChange}
@@ -1294,8 +1299,8 @@ export default function CreateEditProfile({
               </Select>
             </div>
           </div>
-          <div className="grid col-span-1 sm:col-span-3 m-5 gap-4">
-            <div className="grid grid-cols-1 gap-2  ">
+          <div className="grid col-span-1 sm:col-span-3 m-5 gap-6">
+            <div className="grid grid-cols-1 gap-4  ">
               <Label class="text-sm font-medium">Assets</Label>
               <div className="border-2 rounded">
                 <div className="flex flex-row flex-wrap justify-start m-1">
