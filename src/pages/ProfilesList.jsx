@@ -43,11 +43,11 @@ export default function ProfilesList() {
     assets: [],
     education: [],
     maritalStatus: [],
-    verificationStatus:[],
+    verificationStatus: [],
     income: [],
     caste: [],
     religion: [],
-    gender:[],
+    gender: [],
   });
   const navigate = useNavigate();
 
@@ -68,7 +68,7 @@ export default function ProfilesList() {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + currentUser.token,
+            Authorization: "Bearer " + currentUser.token,
           },
         }
       );
@@ -79,7 +79,7 @@ export default function ProfilesList() {
         return;
       } else if (data.success === false) {
         setError(data.message);
-      } 
+      }
       setProfiles(data);
     } catch (err) {
       console.log(err);
@@ -96,7 +96,7 @@ export default function ProfilesList() {
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": "Bearer " + currentUser.token,
+            Authorization: "Bearer " + currentUser.token,
           },
         }
       );
@@ -125,7 +125,7 @@ export default function ProfilesList() {
             credentials: "include",
             headers: {
               "Content-Type": "application/json",
-              "Authorization": "Bearer " + currentUser.token,
+              Authorization: "Bearer " + currentUser.token,
             },
           }
         );
@@ -137,9 +137,7 @@ export default function ProfilesList() {
         } else if (data.success === false) {
           setError(data.message);
         }
-        setProfiles([
-          ...data,
-        ]);
+        setProfiles([...data]);
         setProfilesLoading(false);
       } catch (err) {
         console.log(err);
@@ -167,14 +165,13 @@ export default function ProfilesList() {
                     <Button variant="default">Create Profile</Button>
                   </DialogTrigger>
                   <DialogContent className="sm:max-w-4xl max-h-screen">
-                    <DialogHeader>
-                      <DialogTitle>Create profile</DialogTitle>
-                      <DialogDescription>
-                        Create your profile here. Click save when you're done.
-                      </DialogDescription>
-                    </DialogHeader>
-
                     <ScrollArea className="rounded-md max-h-lvh shadow-md dark:shadow-secondary">
+                      <DialogHeader>
+                        <DialogTitle>Create profile</DialogTitle>
+                        <DialogDescription>
+                          Create your profile here. Click save when you're done.
+                        </DialogDescription>
+                      </DialogHeader>
                       <CreateProfile />
                       <ScrollBar orientation="horizontal" />
                     </ScrollArea>
@@ -206,11 +203,8 @@ export default function ProfilesList() {
                 )}
                 <ScrollArea className="rounded-md h-[70vh] sm:h-[80vh]  w-full overflow-y-scroll ">
                   <div className="grid grid-cols-1 sm:grid-cols-6 m-2 ">
-                    {profilesLoading && 
-                        [...Array(6).keys()].map((_, i) => (
-                          <CardPlaceHolder />
-                        ))
-                    }
+                    {profilesLoading &&
+                      [...Array(6).keys()].map((_, i) => <CardPlaceHolder />)}
                     {currentRecords.length > 0 &&
                       currentRecords.map((profile) => (
                         <ProfileListCard profile={profile} />
