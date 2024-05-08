@@ -40,7 +40,9 @@ export default function Signin() {
         dispatch(signInFailure("Password is required"));
         return;
       }
-
+      
+      formData.username=formData.username.toLowerCase()
+    
       const res = await fetch(
         import.meta.env.VITE_MY_BACKEND_URL + "api/auth/signin",
         {
