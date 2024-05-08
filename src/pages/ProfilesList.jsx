@@ -164,8 +164,8 @@ export default function ProfilesList() {
                   <DialogTrigger asChild>
                     <Button variant="default">Create Profile</Button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-4xl max-h-screen">
-                    <ScrollArea className="rounded-md max-h-lvh shadow-md dark:shadow-secondary">
+                  <DialogContent className="sm:max-w-4xl">
+                    <ScrollArea className="rounded-md max-h-[80vh] shadow-md dark:shadow-secondary ">
                       <DialogHeader>
                         <DialogTitle>Create profile</DialogTitle>
                         <DialogDescription>
