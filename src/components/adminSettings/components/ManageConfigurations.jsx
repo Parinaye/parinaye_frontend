@@ -126,7 +126,8 @@ export default function ManageConfigurations() {
               configData.notices.map((notice, idx) => {
                 return (
                   <span className="font-normal border-b-2 text-secondary-foreground whitespace-pre-wrap">
-                    {idx + 1}{". "}
+                    {idx + 1}
+                    {". "}
                     {notice}
                   </span>
                 );
@@ -141,15 +142,21 @@ export default function ManageConfigurations() {
                 <DialogHeader>
                   <DialogTitle>Update Notices</DialogTitle>
                   <DialogDescription>
-                    Update your Notices Config here. Click update when you're
-                    done.
+                    <p>
+                      Update your Notices Config here. Click update when you're
+                      done.
+                    </p>
+                    <span className=" text-orange-600">
+                      Note: the format of data should be
+                      <code>["message1","message2"]</code>
+                    </span>
                   </DialogDescription>
                 </DialogHeader>
 
                 <ScrollArea className="rounded-md max-h-lvh shadow-md dark:shadow-secondary">
                   <form className="flex flex-row ">
                     <textarea
-                      className="w-full min-h-[30vh] whitespace-pre-line"
+                      className="w-full min-h-[30vh] whitespace-pre-line p-4"
                       onChange={handleNoticesConfigChange}
                       id="notices"
                       defaultValue={JSON.stringify(configData.notices)}
