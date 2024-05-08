@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { TypewriterEffectSmooth } from "../components/animations/components/ui/typewriter-effect.tsx";
 import { Label } from "flowbite-react";
-import video from "../assets/videos/wedding_background.mp4";
+import video from "../../public/assets/videos/wedding_background.mp4";
 import {
   Alert,
   AlertDescription,
   AlertTitle,
 } from "../components/shadcn/components/ui/alert.jsx";
-import { Terminal } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -104,7 +103,7 @@ export default function Home() {
                   return (
                     <CarouselItem className="">
                       <Alert className="flex flex-col  items-center justify-center sm:h-[300px] h-[150px] shadow-slate-400
-                     bg-[url('./src/assets/images/notice_bg.png')]  bg-cover bg-center">
+                     bg-[url('/assets/images/notice_bg.png')]  bg-cover bg-center">
                         <AlertDescription className="flex font-ntr font-medium sm:text-3xl text-xl text-primary-foreground min-h-full whitespace-pre-wrap sm:mx-5 mx-2 md:pt-10 md:px-5 md:pb-5  pt-5 px-2 pb-2">
                         <ScrollArea className="sm:mx-5 sm:mb-5 mx-2 mb-2">
                         {notice}
