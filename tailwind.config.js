@@ -84,6 +84,14 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      fontFamily: {
+        ntr: ["NTR"],
+        mallanna:["Mallanna"],
+        gurajada:["Gurajada"]
+      },
+      backgroundImage:{
+        'notice-pattern': "url('src/assets/images/notice_bg.png')"
+      }
     },
   },
   plugins: [require("tailwindcss-animate")],

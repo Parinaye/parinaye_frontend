@@ -1,33 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "../components/shadcn/components/ui/card";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "../components/shadcn/components/ui/tabs";
 import { Separator } from "../components/shadcn/components/ui/separator";
 import SidebarNav from "../components/core/SidebarNav";
-import UsersSettings from "../components/adminSettings/UsersSettings";
+import ManageConfigurations from "../components/adminSettings/components/ManageConfigurations";
+import ManageUsers from "../components/adminSettings/components/ManageUsers";
+import { cn } from "../components/shadcn/lib/utils";
 
 export default function AdminDashBoard() {
-  const [activeTab, setActiveTab] = React.useState("manageUsers");
+  const [activeTab, setActiveTab] = useState("manageUsers");
   const sidebarNavItems = {
     manageUsers: {
       title: "Manage Users",
       component: (
         <div className="border-2 rounded w-full">
-          <UsersSettings />
+          <ManageUsers />
         </div>
       ),
     },
     manageConfigurations: {
       title: "Manage Configurations",
-      component: (
-        <div className="border-2 rounded w-full">
-          <h1>Manage Configurations</h1>
-        </div>
-      ),
+      component: <ManageConfigurations />,
     },
   };
   return (

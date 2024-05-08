@@ -10,7 +10,7 @@ const pathname = window.location.pathname;
   return (
     <nav
       className={cn(
-        "flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1",
+        "flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1 overflow-auto p-2",
         className
       )}
     >
@@ -25,7 +25,8 @@ const pathname = window.location.pathname;
               activeTab === itemKey
                 ? "bg-muted hover:bg-muted"
                 : "hover:bg-transparent hover:underline",
-              "justify-start"
+              "justify-start",
+              activeTab === itemKey? "shadow-md dark:shadow-primary" :""
             )}
 
           >

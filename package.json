@@ -38,6 +38,7 @@
     "date-fns": "^3.3.1",
     "dotenv": "^16.4.5",
     "dotenv-flow": "^4.1.0",
+    "embla-carousel-react": "^8.0.2",
     "firebase": "^10.8.0",
     "flowbite": "^2.3.0",
     "flowbite-react": "^0.7.2",

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import DataTable from "../shadcn/components/ui/data-table";
-import { UserTableColumns } from "./components/UserTableColumns";
+import DataTable from "../../shadcn/components/ui/data-table";
+import { UserTableColumns } from "./UserTableColumns";
 import { useSelector } from "react-redux";
 
-export default function UsersSettings() {
+export default function ManageUsers() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
   const [usertableData, setUsertableData] = useState([]);

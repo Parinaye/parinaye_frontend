@@ -26,7 +26,7 @@ import {
 import { ModeToggle } from "./shadcn/mode-toggle";
 
 export default function Header() {
-  const { currentUser, isAuthenticated } = useSelector((state) => state.user);
+  const { currentUser, isAuthenticated, isSubmitting } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -136,13 +136,13 @@ export default function Header() {
                 </DropdownMenuContent>
               </DropdownMenu>
             </>
-          ) : (
+          ) : !isSubmitting ? (
             <Link to="/sign-up">
               <li className="transition-colors hover:text-primary">
                 <p className="text-sm font-medium ">Sign Up</p>
               </li>
             </Link>
-          )}
+          ): <></>}
           <ModeToggle />
         </ul>
       </div>
