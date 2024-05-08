@@ -90,7 +90,7 @@ module.exports = {
         gurajada:["Gurajada"]
       },
       backgroundImage:{
-        'notice-pattern': "url('src/assets/images/notice_bg.png')"
+        'notice-pattern': "url('./src/assets/images/notice_bg.png')"
       }
     },
   },
