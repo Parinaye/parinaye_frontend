@@ -2,7 +2,7 @@ import React from "react";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "@firebase/auth";
 import { app } from "../firebase.js";
 import { useDispatch, useSelector } from "react-redux";
-import { signInSuccess, signInFailure } from "../redux/user/userSlice.js";
+import { signInSuccess, signInFailure, signInStart } from "../redux/user/userSlice.js";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./shadcn/components/ui/button.jsx";
 import { FaGoogle, FaSpinner } from "react-icons/fa";
@@ -14,12 +14,13 @@ export default function OAuth({ className }) {
 
   const handleGoogleClick = async () => {
     try {
+
+      dispatch(signInStart())
       const provider = new GoogleAuthProvider();
       const auth = getAuth(app);
       const googleRes = await signInWithPopup(auth, provider);
       console.log(googleRes);
 
-      
       const res = await fetch(
         import.meta.env.VITE_MY_BACKEND_URL + "api/auth/signin_google",
         {
