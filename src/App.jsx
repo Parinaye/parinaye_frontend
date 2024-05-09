@@ -44,13 +44,14 @@ export default function App() {
           <Route path="/contactUs" element={<ContactUs />} />
           <Route path="/stepper" element={<Stepper />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route element={<AdminRoute />}>
             <Route path="/viewProfiles" element={<ProfilesList />} />
           </Route>
           <Route element={<PrivateRoute />}>
             <Route path="/about" element={<About />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/adminDashboard" element={<AdminDashBoard />} />
             <Route path="/viewMyProfiles" element={<MyProfilesList />} />
