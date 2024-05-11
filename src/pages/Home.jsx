@@ -82,7 +82,7 @@ export default function Home() {
   return (
     <div className="mx-auto shadow-lg h-screen">
       <div className="grid">
-        <video
+        {/* <video
            autoPlay
            loop
            muted
@@ -90,7 +90,7 @@ export default function Home() {
            className="w-full h-screen object-cover z-0 col-start-1 row-start-1"
         >
           <source src={"/assets/videos/wedding_background.mp4"} type="video/mp4" />
-        </video>
+        </video> */}
         <div className="flex flex-col z-10 h-screen items-center sm:py-10 py-5 text-white bg-zinc-900/[0.8] col-start-1 row-start-1">
           <Label className="text-sm mt-10 sm:text-base">
             The road to "US" starts from here
