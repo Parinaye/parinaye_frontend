@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { TypewriterEffectSmooth } from "../components/animations/components/ui/typewriter-effect.tsx";
 import { Label } from "flowbite-react";
-import video from "../../public/assets/videos/wedding_background.mp4";
+// import video from "../../public/assets/videos/wedding_background.mp4";
 import {
   Alert,
   AlertDescription,
@@ -83,12 +83,13 @@ export default function Home() {
     <div className="mx-auto shadow-lg h-screen">
       <div className="grid">
         <video
-          autoPlay
-          loop
-          muted
-          className="w-full h-screen object-cover z-0 col-start-1 row-start-1"
+           autoPlay
+           loop
+           muted
+           playsInline  // Ensure video plays inline on iPhone
+           className="w-full h-screen object-cover z-0 col-start-1 row-start-1"
         >
-          <source src={video} type="video/mp4" />
+          <source src={"/assets/videos/wedding_background.mp4"} type="video/mp4" />
         </video>
         <div className="flex flex-col z-10 h-screen items-center sm:py-10 py-5 text-white bg-zinc-900/[0.8] col-start-1 row-start-1">
           <Label className="text-sm mt-10 sm:text-base">
