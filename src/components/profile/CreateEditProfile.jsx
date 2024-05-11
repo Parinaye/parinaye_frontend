@@ -1301,21 +1301,21 @@ export default function CreateEditProfile({
           </div>
           <div className="grid col-span-1 sm:col-span-3 m-5 gap-6">
             <div className="grid grid-cols-1 gap-4  ">
-              <Label class="text-sm font-medium">Assets</Label>
+              <Label className="text-sm font-medium">Assets</Label>
               <div className="border-2 rounded">
                 <div className="flex flex-row flex-wrap justify-start m-1">
                   {ASSETS_ENUM.map((asset) => {
                     return (
-                      <div class="flex items-center mx-4">
+                      <div className="flex items-center mx-4">
                         <Input
                           id={asset}
                           type="checkbox"
-                          class="w-4 h-4 rounded border-2 border-primary my-2"
+                          className="w-4 h-4 rounded border-2 border-primary my-2"
                           onClick={handleAssetsChnage}
                           value={asset}
                           checked={formData.assets.includes(asset)}
                         />
-                        <Label class="mx-2 text-sm">{asset}</Label>
+                        <Label className="mx-2 text-sm">{asset}</Label>
                       </div>
                     );
                   })}
