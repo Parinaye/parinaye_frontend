@@ -1,0 +1,18 @@
+version: '3'
+services:
+  parinaye-fe:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - .env:/app/.env
+    networks:
+      - fe_app_net
+      
+networks:
+  fe_app_net:
+    driver: bridge
+
