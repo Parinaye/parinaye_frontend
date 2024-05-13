@@ -106,16 +106,16 @@ export default function Home() {
             </Card>
           )}
           {!noticesLoading && notices && notices.length > 0 && (
-            <Carousel className="flex flex-row m-0 p-0 rounded-lg shadow-lg shadow-slate-100">
-              <CarouselContent className="sm:w-[600px] w-[300px] ">
+            <Carousel className="flex flex-row m-0 p-0 rounded-lg bg-opacity-0 sm:w-[600px] w-[300px] h-[150px] sm:h-[300px] ">
+              <CarouselContent className="flex border-0 rounded-lg shadow-lg pb-5 bg-opacity-0 ">
                 {notices.map((notice) => {
                   return (
-                    <CarouselItem className="">
+                    <CarouselItem className="rounded-lg bg-opacity-0 ">
                       <Alert
-                        className="flex flex-col  sm:h-[300px] h-[150px] shadow-slate-400
-                     bg-[url('/assets/images/notice_bg.png')]  bg-cover bg-center"
+                        className="flex flex-col sm:w-[580px] w-[290px] h-[135px] sm:h-[280px]
+                     bg-[url('/assets/images/notice_bg.png')]  bg-cover bg-center border-0 bg-opacity-0  rounded-lg shadow-md shadow-slate-100 m-2 mb-5 "
                       >
-                        <AlertDescription className="flex font-ntr font-medium sm:text-3xl text-xl h-full text-primary-foreground whitespace-pre-wrap sm:mx-5 mx-2 md:pt-10 md:px-5 md:pb-5  pt-5 px-2 pb-2">
+                        <AlertDescription className="flex font-ntr font-medium sm:text-3xl text-xl h-full text-primary-foreground whitespace-pre-wrap sm:mx-5 mx-2 md:pt-10 md:px-5 md:pb-5  pt-5 px-2 pb-1">
                           <ScrollArea className="sm:mx-5 sm:mb-5 mx-2 mb-2 overflow-auto">
                             {notice}
                           </ScrollArea>

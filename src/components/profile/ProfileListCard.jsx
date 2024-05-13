@@ -26,7 +26,7 @@ export default function ProfileListCard({ profile }) {
     <Dialog>
       <DialogTrigger asChild type="text">
         <Card
-          className="lg:col-span-2 sm:col-span-3 col-span-1 rounded-lg bg-none p-1 m-1 sm:m-2 sm:p-2 hover:scale-105 hover:shadow-xl hover:shadow-default opacity-100"
+          className="lg:col-span-2 sm:col-span-3 col-span-1 rounded-lg bg-none p-1 m-1 sm:m-2 sm:p-2 hover:scale-105 hover:shadow-xl hover:shadow-default opacity-100 shadow-inner dark:shadow-slate-600 shadow-slate-400"
           variant="outline"
         >
           <ScrollArea>
