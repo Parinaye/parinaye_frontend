@@ -16,6 +16,8 @@ import {
 } from "../components/shadcn/components/ui/carousel.jsx";
 import { useSelector } from "react-redux";
 import { ScrollArea } from "../components/shadcn/components/ui/scroll-area.jsx";
+import { Skeleton } from "antd";
+import { Card } from "../components/shadcn/components/ui/card.jsx";
 
 export default function Home() {
   const [notices, setNotices] = useState([]);
@@ -96,19 +98,27 @@ export default function Home() {
             The road to "US" starts from here
           </Label>
           <TypewriterEffectSmooth words={words} className="flex items-center" />
-          {notices && notices.length > 0 && (
-            <Carousel className="flex flex-row m-0 p-0">
+          {noticesLoading && (
+            <Card className="grid grid-cols-1 gap-2 sm:w-[600px] w-[300px] h-[150px] sm:h-[300px] shadow-slate-400 opacity-85 p-10 dark:bg-slate-100">
+              <Skeleton className="col-span-1 h-20 w-full" />
+              <Skeleton className="col-span-1 h-20 w-[80%]" />
+              <Skeleton className="col-span-1 h-20 w-[60%]" />
+            </Card>
+          )}
+          {!noticesLoading && notices && notices.length > 0 && (
+            <Carousel className="flex flex-row m-0 p-0 rounded-lg shadow-lg shadow-slate-100">
               <CarouselContent className="sm:w-[600px] w-[300px] ">
                 {notices.map((notice) => {
                   return (
                     <CarouselItem className="">
-                      <Alert className="flex flex-col  items-center justify-center sm:h-[300px] h-[150px] shadow-slate-400
-                     bg-[url('/assets/images/notice_bg.png')]  bg-cover bg-center">
-                        <AlertDescription className="flex font-ntr font-medium sm:text-3xl text-xl text-primary-foreground min-h-full whitespace-pre-wrap sm:mx-5 mx-2 md:pt-10 md:px-5 md:pb-5  pt-5 px-2 pb-2">
-                        <ScrollArea className="sm:mx-5 sm:mb-5 mx-2 mb-2">
-                        {notice}
-                        </ScrollArea>
-                         
+                      <Alert
+                        className="flex flex-col  sm:h-[300px] h-[150px] shadow-slate-400
+                     bg-[url('/assets/images/notice_bg.png')]  bg-cover bg-center"
+                      >
+                        <AlertDescription className="flex font-ntr font-medium sm:text-3xl text-xl h-full text-primary-foregroun whitespace-pre-wrap sm:mx-5 mx-2 md:pt-10 md:px-5 md:pb-5  pt-5 px-2 pb-2">
+                          <ScrollArea className="sm:mx-5 sm:mb-5 mx-2 mb-2 overflow-auto">
+                            {notice}
+                          </ScrollArea>
                         </AlertDescription>
                       </Alert>
                     </CarouselItem>
