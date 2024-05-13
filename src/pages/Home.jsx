@@ -115,7 +115,7 @@ export default function Home() {
                         className="flex flex-col  sm:h-[300px] h-[150px] shadow-slate-400
                      bg-[url('/assets/images/notice_bg.png')]  bg-cover bg-center"
                       >
-                        <AlertDescription className="flex font-ntr font-medium sm:text-3xl text-xl h-full text-primary-foregroun whitespace-pre-wrap sm:mx-5 mx-2 md:pt-10 md:px-5 md:pb-5  pt-5 px-2 pb-2">
+                        <AlertDescription className="flex font-ntr font-medium sm:text-3xl text-xl h-full text-primary-foreground whitespace-pre-wrap sm:mx-5 mx-2 md:pt-10 md:px-5 md:pb-5  pt-5 px-2 pb-2">
                           <ScrollArea className="sm:mx-5 sm:mb-5 mx-2 mb-2 overflow-auto">
                             {notice}
                           </ScrollArea>
