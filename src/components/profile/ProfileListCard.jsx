@@ -1,6 +1,5 @@
 import React from "react";
 
-import { FaEdit, FaEye } from "react-icons/fa";
 import { Card } from "../shadcn/components/ui/card";
 import { ScrollArea, ScrollBar } from "../shadcn/components/ui/scroll-area";
 import { Separator } from "../shadcn/components/ui/separator";
@@ -10,17 +9,10 @@ import {
   Dialog,
   DialogTrigger,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
 } from "../shadcn/components/ui/dialog";
-import { Button } from "../shadcn/components/ui/button";
-import CreateEditProfile from "./CreateEditProfile";
 import EditViewProfile from "../../pages/EditViewProfile";
 
 export default function ProfileListCard({ profile }) {
-  const navigate = useNavigate();
   console.log(profile);
   return (
     <Dialog>
