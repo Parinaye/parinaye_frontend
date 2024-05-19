@@ -14,6 +14,7 @@ import {
 import { ScrollArea } from "../../shadcn/components/ui/scroll-area";
 import { FaSpinner } from "react-icons/fa";
 import { Card } from "../../shadcn/components/ui/card";
+import { Skeleton } from "../../shadcn/components/ui/skeleton";
 
 export default function ManageConfigurations() {
   const [configData, setConfigData] = useState({ notices: [] });
@@ -122,7 +123,14 @@ export default function ManageConfigurations() {
             <span className="font-bold">Notices</span>
           </div>
           <div className="sm:col-span-5 col-span-1 flex flex-col gap-2 p-2 border">
-            {configData.notices &&
+            {configDataLoading && (
+              <>
+                <Skeleton className={"h-4 w-full bg-primary-foreground/10"} />
+                <Skeleton className={"h-4 w-[80%] dark:bg-primary/10 bg-primary-foreground/10"} />
+              </>
+            )}
+            {!configDataLoading &&
+              configData.notices &&
               configData.notices.map((notice, idx) => {
                 return (
                   <span className="font-normal border-b-2 text-secondary-foreground whitespace-pre-wrap">

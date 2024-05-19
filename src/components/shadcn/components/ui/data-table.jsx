@@ -11,8 +11,9 @@ import {
   TableHeader,
   TableRow,
 } from "./table";
+import { FaSpinner } from "react-icons/fa";
 
-export default function DataTable({ data, columns }) {
+export default function DataTable({ data, columns, fetchingData }) {
   const table = useReactTable({
     columns,
     data,
@@ -56,7 +57,9 @@ export default function DataTable({ data, columns }) {
           ) : (
             <TableRow>
               <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
+                <div  className="flex flex-row  w-full items-center justify-center">
+                {fetchingData ? <FaSpinner className="h-7 w-7 animate-spin flex-grow-0"/> :  "No results."}
+                </div>
               </TableCell>
             </TableRow>
           )}
