@@ -898,7 +898,7 @@ export default function CreateEditProfile({
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            {RAASI_ENUM.map((raasi) => {
+                            {RAASI_ENUM.sort().map((raasi) => {
                               return (
                                 <SelectItem value={raasi}>{raasi}</SelectItem>
                               );
@@ -928,7 +928,7 @@ export default function CreateEditProfile({
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            {NAKSHATRAM_ENUM.map((nakshatram) => {
+                            {NAKSHATRAM_ENUM.sort().map((nakshatram) => {
                               return (
                                 <SelectItem value={nakshatram}>
                                   {nakshatram}
@@ -997,7 +997,7 @@ export default function CreateEditProfile({
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            {GOTRAM_ENUM.map((swagotram) => {
+                            {GOTRAM_ENUM.sort().map((swagotram) => {
                               return (
                                 <SelectItem value={swagotram}>
                                   {swagotram}
@@ -1029,7 +1029,7 @@ export default function CreateEditProfile({
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
-                            {GOTRAM_ENUM.map((maternalGotram) => {
+                            {GOTRAM_ENUM.sort().map((maternalGotram) => {
                               return (
                                 <SelectItem value={maternalGotram}>
                                   {maternalGotram}
@@ -1134,7 +1134,7 @@ export default function CreateEditProfile({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    {countryData.map((country) => {
+                    {countryData.sort().map((country) => {
                       return <SelectItem value={country}>{country}</SelectItem>;
                     })}
                   </SelectGroup>
@@ -1152,7 +1152,7 @@ export default function CreateEditProfile({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    {stateData.map((state) => {
+                    {stateData.sort().map((state) => {
                       return <SelectItem value={state}>{state}</SelectItem>;
                     })}
                   </SelectGroup>
@@ -1172,7 +1172,7 @@ export default function CreateEditProfile({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    {cityData.map((city) => {
+                    {cityData.sort().map((city) => {
                       return <SelectItem value={city}>{city}</SelectItem>;
                     })}
                   </SelectGroup>
