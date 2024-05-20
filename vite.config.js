@@ -18,6 +18,14 @@ export default ({mode}) =>{
         "@": path.resolve(__dirname, "./src"),
       },
     },
-    plugins: [react()],
+    plugins: [react({
+      babel: {
+        presets: ['@babel/preset-env', '@babel/preset-react'],
+        plugins: [
+          '@babel/plugin-transform-runtime',
+    '@babel/plugin-proposal-optional-chaining',
+        ],
+      },
+    })],
 });
 }

@@ -54,7 +54,7 @@ export default function SignUp() {
         setIsSubmitting(false);
         return;
       }
-
+      formData.username=formData.username.toLowerCase();
       const res = await fetch(
         import.meta.env.VITE_MY_BACKEND_URL + "api/auth/signup",
         {

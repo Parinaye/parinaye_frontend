@@ -28,9 +28,9 @@ export default function ProfileListCard({ profile }) {
             >
               <img
                 src={profile.profilePictures[0]}
-                loading="lazy"
+                // loading="lazy"
                 alt="profile"
-                className="w-[100px] h-[150px] sm:w-[150px] sm:h-[150px] rounded-lg object-cover object-top border-1 border-primary-foreground bg-[url('../../assets/default_img.png')] "
+                className="w-[100px] h-[150px] sm:w-[150px] sm:h-[150px] rounded-lg object-cover object-top border-1 border-primary-foreground bg-[url('/assets/images/default_img.png')] "
               />
               <div className="flex flex-col items-center justify-between p-2 m-2 w-2/3 gap-2">
                 <div className="flex flex-row flex-wrap items-center justify-between w-full">
