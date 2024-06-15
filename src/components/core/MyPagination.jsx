@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Pagination,
   PaginationContent,
@@ -11,20 +11,28 @@ import {
 import { Card } from "../shadcn/components/ui/card";
 
 export default function MyPagination({
-  setCurrentPage,
   currentPage,
-  profiles,
   recordsPerPage,
+  totalProfiles,
+  handleProfilesPagination,
 }) {
-  const nPages = Math.ceil(profiles.length / recordsPerPage);
+
+
+  
+  const nPages = Math.ceil(totalProfiles / recordsPerPage);
   const goToNextPage = () => {
-    if (currentPage !== nPages) setCurrentPage(currentPage + 1);
+    if (currentPage !== nPages) {
+      handleProfilesPagination(currentPage + 1);
+    }
   };
   const goToPrevPage = () => {
-    if (currentPage !== 1) setCurrentPage(currentPage - 1);
+    if (currentPage !== 1) {
+      handleProfilesPagination(currentPage - 1);
+    }
   };
   return (
-    <Card>
+    <Card className="flex flex-col items-center">
+      <p className="text-2sm text-muted-foreground">Showing ({recordsPerPage * (currentPage - 1) + 1} - {recordsPerPage * (currentPage - 1) + (nPages == currentPage ? totalProfiles%recordsPerPage : 9)}) out of {totalProfiles}</p>
       <Pagination>
         <PaginationContent>
           <PaginationItem disabled={currentPage === 1}>
@@ -42,7 +50,9 @@ export default function MyPagination({
                 <PaginationLink
                   key={"key_" + (i + 1)}
                   id={i + 1}
-                  onClick={() => setCurrentPage(i + 1)}
+                  onClick={() => {
+                    handleProfilesPagination(i + 1);
+                  }}
                   isActive={currentPage == i + 1}
                 >
                   {i + 1}
@@ -54,7 +64,7 @@ export default function MyPagination({
               <PaginationEllipsis />
             </PaginationItem>
           )}
-          <PaginationItem disabled={currentPage === 1}>
+          <PaginationItem disabled={currentPage === (nPages) }>
             <PaginationNext onClick={goToNextPage} />
           </PaginationItem>
         </PaginationContent>

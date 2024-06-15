@@ -1,31 +1,33 @@
-import { defineConfig, loadEnv } from 'vite'
-import react from '@vitejs/plugin-react-swc'
-import path from 'path';
+import { defineConfig, loadEnv } from "vite";
+import react from "@vitejs/plugin-react-swc";
+import path from "path";
 
 // https://vitejs.dev/config/
 // export default defineConfig({
-  
 
 //   plugins: [react()],
 // })
-export default ({mode}) =>{
-  process.env = Object.assign(process.env, loadEnv(mode, process.cwd(), ''));
+export default ({ mode }) => {
+  process.env = Object.assign(process.env, loadEnv(mode, process.cwd(), ""));
   return defineConfig({
     server: {
-      port: 3000},
+      port: 3000,
+    },
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),
       },
     },
-    plugins: [react({
-      babel: {
-        presets: ['@babel/preset-env', '@babel/preset-react'],
-        plugins: [
-          '@babel/plugin-transform-runtime',
-    '@babel/plugin-proposal-optional-chaining',
-        ],
-      },
-    })],
-});
-}
+    plugins: [
+      react({
+        babel: {
+          presets: ["@babel/preset-env", "@babel/preset-react"],
+          plugins: [
+            "@babel/plugin-transform-runtime",
+            "@babel/plugin-proposal-optional-chaining",
+          ],
+        },
+      }),
+    ],
+  });
+};

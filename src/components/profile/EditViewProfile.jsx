@@ -9,15 +9,15 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
-import { app } from "../firebase";
+import { app } from "../../firebase";
 import moment from "moment";
-import { Form } from "../components/shadcn/components/ui/form";
+import { Form } from "../shadcn/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Label } from "../components/shadcn/components/ui/label";
-import { Separator } from "../components/shadcn/components/ui/separator";
-import { Switch } from "../components/shadcn/components/ui/switch";
+import { Label } from "../shadcn/components/ui/label";
+import { Separator } from "../shadcn/components/ui/separator";
+import { Switch } from "../shadcn/components/ui/switch";
 import { Card } from "flowbite-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
@@ -30,11 +30,11 @@ import {
 import "swiper/css";
 
 import "swiper/css/bundle";
-import CreateEditProfile from "../components/profile/CreateEditProfile";
+import CreateEditProfile from "./CreateEditProfile";
 import { useSelector } from "react-redux";
 import { set } from "date-fns";
-import CardPlaceHolder from "../components/core/placeholders/card.placeholder";
-import { capitalizeWord } from "../utils/helpers";
+import CardPlaceHolder from "../core/placeholders/card.placeholder";
+import { capitalizeWord } from "../../utils/helpers";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -43,13 +43,13 @@ import {
   DropdownMenuContent,
   DropdownMenuSeparator,
   DropdownMenuGroup,
-} from "../components/shadcn/components/ui/dropdown-menu";
-import { Button } from "../components/shadcn/components/ui/button";
-import { VERIFICATION_STATUS_ENUM } from "../../config/enums.config";
+} from "../shadcn/components/ui/dropdown-menu";
+import { Button } from "../shadcn/components/ui/button";
+import { VERIFICATION_STATUS_ENUM } from "../../../config/enums.config";
 import {
   ScrollArea,
   ScrollBar,
-} from "../components/shadcn/components/ui/scroll-area";
+} from "../shadcn/components/ui/scroll-area";
 
 export default function EditViewProfile(props) {
   const id = useParams().id || props.id;

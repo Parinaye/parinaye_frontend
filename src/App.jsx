@@ -12,7 +12,7 @@ import ProfilesList from "./pages/ProfilesList";
 import MyFooter from "./components/Footer";
 import { CookiesProvider } from "react-cookie";
 import ForgotPassword from "./pages/ForgotPassword";
-import EditViewProfile from "./pages/EditViewProfile";
+import EditViewProfile from "./components/profile/EditViewProfile";
 import Stepper from "./pages/Stepper";
 import ContactUs from "./pages/ContactUs";
 import AdminDashBoard from "./pages/AdminDashBoard";
