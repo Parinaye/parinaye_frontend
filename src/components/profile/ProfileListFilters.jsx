@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Accordion,
   AccordionItem,
@@ -17,13 +17,16 @@ import {
   VERIFICATION_STATUS_ENUM,
 } from "../../../config/enums.config";
 import { Button } from "../shadcn/components/ui/button";
-import moment from "moment";
+import { useMediaQuery } from "react-responsive";
 
 export default function ProfileListFilters({
   filters,
   setFilters,
-  handleFilterApply,
+  handleFiltersApply,
+  handleFiltersClear,
 }) {
+  const isMediumOrSmaller = useMediaQuery({ query: "(max-width: 768px)" });
+  const [accordionValue, setAccordionValue] = useState("");
   const handleChange = (e) => {
     switch (e.target.id) {
       case "assets":
@@ -59,18 +62,68 @@ export default function ProfileListFilters({
       case "male":
         setFilters({ ...filters, gender: e.target.id });
         return;
+      case "ageAtLte":
+        setFilters({ ...filters, ageAtLte: Number(e.target.value) });
+        return;
+      case "ageAtGte":
+        setFilters({ ...filters, ageAtGte: Number(e.target.value) });
+        return;
       default:
         setFilters({ ...filters, [e.target.id]: e.target.value });
     }
   };
 
+  useEffect(() => {
+    if (!isMediumOrSmaller) {
+      setAccordionValue("filters");
+    }
+  }, [isMediumOrSmaller]);
+
   console.log(filters);
   return (
-    <Accordion type="single" collapsible>
+    <Accordion
+      type="single"
+      collapsible
+      value={accordionValue}
+      onValueChange={setAccordionValue}
+    >
       <AccordionItem value="filters">
         <AccordionTrigger>Filters</AccordionTrigger>
         <AccordionContent>
           <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="age">
+              <AccordionTrigger>Age</AccordionTrigger>
+              <AccordionContent>
+                <div className="flex flex-row justify-around items-center m-2">
+                  <label
+                    htmlFor="ageAtLte"
+                    className="text-sm font-medium w-1/2"
+                  >
+                    From :
+                  </label>
+                  <input
+                    id="ageAtLte"
+                    defaultValue={filters.ageAtLte}
+                    onChange={handleChange}
+                    className="p-2 m-2 bg-secondary w-1/2"
+                  />
+                </div>
+                <div className="flex flex-row justify-between items-center m-2">
+                  <label
+                    htmlFor="ageAtGte"
+                    className="text-sm font-medium w-1/2"
+                  >
+                    To :
+                  </label>
+                  <input
+                    id="ageAtGte"
+                    defaultValue={filters.ageAtGte}
+                    onChange={handleChange}
+                    className="p-2 m-2 bg-secondary w-1/2"
+                  />
+                </div>
+              </AccordionContent>
+            </AccordionItem>
             <AccordionItem value="profession">
               <AccordionTrigger>Profession</AccordionTrigger>
               <AccordionContent>
@@ -194,8 +247,7 @@ export default function ProfileListFilters({
                           value={gender}
                           onClick={handleChange}
                           checked={
-                            filters.gender &&
-                            filters.gender.includes(gender)
+                            filters.gender && filters.gender.includes(gender)
                           }
                         />
                         <label
@@ -223,7 +275,9 @@ export default function ProfileListFilters({
                           onClick={handleChange}
                           checked={
                             filters.verificationStatus &&
-                            filters.verificationStatus.includes(verificationStatus)
+                            filters.verificationStatus.includes(
+                              verificationStatus
+                            )
                           }
                         />
                         <label
@@ -235,6 +289,35 @@ export default function ProfileListFilters({
                       </div>
                     );
                   })}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="createdAt">
+              <AccordionTrigger>Created At</AccordionTrigger>
+              <AccordionContent>
+                <div className="flex flex-row flex-wrap justify-between items-center m-2">
+                  <label htmlFor="createdAtGte" className="text-sm font-medium">
+                    From :
+                  </label>
+                  <input
+                    type="date"
+                    id="createdAtGte"
+                    defaultValue={filters.createdAtGte}
+                    onChange={handleChange}
+                    className="p-2 m-2 bg-secondary"
+                  />
+                </div>
+                <div className="flex flex-row flex-wrap justify-between items-center m-2">
+                  <label htmlFor="createdAtLte" className="text-sm font-medium">
+                    To :
+                  </label>
+                  <input
+                    type="date"
+                    id="createdAtLte"
+                    value={filters.createdAtLte}
+                    onChange={handleChange}
+                    className="p-2 m-2 bg-secondary"
+                  />
                 </div>
               </AccordionContent>
             </AccordionItem>
@@ -312,45 +395,16 @@ export default function ProfileListFilters({
                 </Accordion>
               </AccordionContent>
             </AccordionItem> */}
-            <AccordionItem value="createdAt">
-              <AccordionTrigger>Created At</AccordionTrigger>
-              <AccordionContent>
-                <div className="flex flex-row flex-wrap justify-between items-center m-2">
-                  <label htmlFor="createdAtGte" className="text-sm font-medium">
-                    From :
-                  </label>
-                  <input
-                    type="date"
-                    id="createdAtGte"
-                    defaultValue={filters.createdAtGte}
-                    onChange={handleChange}
-                    className="p-2 m-2 bg-secondary"
-                  />
-                </div>
-                <div className="flex flex-row flex-wrap justify-between items-center m-2">
-                  <label htmlFor="createdAtLte" className="text-sm font-medium">
-                    To :
-                  </label>
-                  <input
-                    type="date"
-                    id="createdAtLte"
-                    value={filters.createdAtLte}
-                    onChange={handleChange}
-                    className="p-2 m-2 bg-secondary"
-                  />
-                </div>
-              </AccordionContent>
-            </AccordionItem>
           </Accordion>
           <div className="flex flex-row flex-wrap justify-center gap-2 m-2">
-            <Button className="flex-grow" onClick={handleFilterApply}>
+            <Button className="flex-grow" onClick={handleFiltersApply}>
               Apply
             </Button>
             <Button
               className="flex-grow"
               onClick={() => {
-                setFilters({});
-                handleFilterApply();
+                setAccordionValue("");
+                handleFiltersClear();
               }}
             >
               Clear
