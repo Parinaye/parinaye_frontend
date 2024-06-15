@@ -575,7 +575,7 @@ export default function EditViewProfile(props) {
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full my-4">
                       <div className="w-full flex justify-between items-start gap-2  flex-col  ">
                         <p className="text-sm text-muted-foreground">About</p>
-                        <p className="text-md font-medium leading-5 italic">
+                        <p className="text-md font-medium leading-5 italic whitespace-pre">
                           {formData.bio}
                         </p>
                       </div>
@@ -583,7 +583,7 @@ export default function EditViewProfile(props) {
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full my-4">
                       <div className="w-full flex justify-between items-start gap-2  flex-col  ">
                         <p className="text-sm text-muted-foreground">Seeking</p>
-                        <p className="text-md font-bold italic leading-5 font-mallanna">
+                        <p className="text-md font-bold italic leading-5 font-mallanna whitespace-pre">
                           {formData.seekingBio}
                         </p>
                       </div>
