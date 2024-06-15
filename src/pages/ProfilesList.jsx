@@ -54,6 +54,7 @@ export default function ProfilesList() {
   const handleFilterApply = async (myfilters) => {
     try {
       setProfilesLoading(true);
+      setProfiles([])
       let queryString = "";
       Object.keys(myfilters).forEach((key) => {
         if (
